@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-family: "Montserrat", sans-serif;
+  --font-sans: var(--font-family);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --breakpoint-xl: 87rem;
+  --color-aloj: #006B96;
+  --color-trans: #800077;
+  --color-rest: #A83413;
+  --color-agen: #E9721F;
+  --color-acti: #A73413;
+  --color-mapas: #5A2175;
+  --color-cupones: #C4007A;
+  --color-autos: #006E66;
+}
+
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@layer utilities {
+  :root {
+    --text: #444242;
+    --background: #ededed;
+    --foreground: #171717;
+    --primary: #e9721f;
+    --secondary: #006e66;
+    --tertiary: #85bd77;
+    --aloj: #006B96;
+    --trans: #800077;
+    --rest: #A83413;
+    --agen: #E9721F;
+    --acti: #A73413;
+    --mapas: #5A2175;
+    --cupones: #C4007A;
+    --autos: #006E66;
+  }
+
+  /* @media (prefers-color-scheme: light) {
+    :root {
+      --background: #0a0a0a;
+      --foreground: #ededed;
+    }
+  } */
+
+  body {
+    color: var(--text);
+    background: var(--background);
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+  }
+
+  p {
+    font-size: 1.5em;
+  }
+}
