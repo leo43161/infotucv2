@@ -1,6 +1,7 @@
 // src/pages/index.tsx
 import NavButtons from "@/components/NavButtons";
 import EventCarousel from "@/components/EventCarousel";
+import Itinerario from "@/components/itinerario/Itinerario";
 
 export default function HomePage() {
   return (
@@ -11,10 +12,13 @@ export default function HomePage() {
       <div className="p-4">
         <NavButtons />
       </div>
-      <div className="mt-4 p-4 bg-white rounded-lg shadow">
-        <h2 className="text-xl font-bold">
-          Itinerario Inteligente (Próximamente)
-        </h2>
+      <div className="bg-gray-200">
+        <div className="p-5 text-center">
+          <h1 className="text-3xl font-bold">Planificá tu viaje al Corazón del Norte Argentino</h1>
+        </div>
+        <div className="">
+          <Itinerario />
+        </div>
       </div>
       <div className="p-4">
         <EventCarousel />

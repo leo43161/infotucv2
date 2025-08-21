@@ -1,47 +1,50 @@
 import { BedDouble, Briefcase, BusFront, Map, Utensils, Car, Bike } from 'lucide-react';
-
+import { FaBus, FaBriefcase, FaHiking, FaMapMarkedAlt, FaUtensils } from 'react-icons/fa'
+import { LuBedDouble } from "react-icons/lu";
+import { FaCar } from "react-icons/fa6";
 // Rediseñamos la estructura de datos para incluir el icono y el color de Tailwind
 const navItems = [
     {
         href: "/transportes",
         label: "Transportes",
-        icon: BusFront, // Nombre del icono de Lucide
+        icon: FaBus, // Nombre del icono de Lucide
         color: "trans",     // Clave del color en tailwind.config.mjs
         gridClass: "row-span-2"
     },
     {
-        href: "/agencias",
-        label: "Agencias",
-        icon: Briefcase,
-        color: "agen",
-        gridClass: "row-span-2"
+        href: "/mapas",
+        label: "Mapas",
+        icon: FaMapMarkedAlt,
+        color: "mapas",
+        gridClass: "row-span-2",
     },
     {
         href: "/alojamientos",
         label: "Alojamientos",
-        icon: BedDouble,
+        icon: LuBedDouble,
         color: "aloj",
         gridClass: "row-span-2"
     },
     {
         href: "/actividades",
         label: "Actividades",
-        icon: Bike,
+        icon: FaHiking,
         color: "acti",
         gridClass: "row-span-2 row-start-3"
     },
+
     {
-        href: "/mapas",
-        label: "Mapas",
-        icon: Map,
-        color: "mapas",
+        href: "/agencias",
+        label: "Agencias",
+        icon: FaBriefcase,
         gridClass: "row-start-3",
-        row: true
+        row: true,
+        color: "agen",
     },
     {
         href: "/autos",
         label: "Autos",
-        icon: Car,
+        icon: FaCar,
         color: "autos",
         gridClass: "col-start-2 row-start-4",
         row: true
@@ -49,7 +52,7 @@ const navItems = [
     {
         href: "/restaurantes",
         label: "Restaurantes",
-        icon: Utensils,
+        icon: FaUtensils,
         color: "rest",
         gridClass: "row-span-2 col-start-3 row-start-3",
     },
@@ -63,7 +66,7 @@ export default function NavButtons() {
                     <div className={item.gridClass}>
                         <a
                             href={item.href}
-                            className={`group ${item.row ? "flex-row justify-start gap-5" : "flex-col justify-center"} flex  items-center text-center rounded shadow-lg transition-all duration-300 ease-in-out h-full transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 gap-2 px-4 py-5 focus:ring-${item.color}/50 border-1`}
+                            className={`group ${item.row ? "flex-row justify-start gap-5" : "flex-col justify-center"} flex  items-center text-center rounded shadow-lg transition-all duration-300 ease-in-out h-full transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 gap-2 px-4 py-5 focus:ring-${item.color}/50 border-2`}
                             style={{ borderColor: `var(--${item.color})` }}
                         >
                             <item.icon

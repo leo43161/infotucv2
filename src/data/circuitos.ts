@@ -1,0 +1,143 @@
+export const circuitos = [
+    {
+        id: 5,
+        name: "historica",
+        nombre: "Ciudad Histórica",
+        logo: "historica-logo.svg",
+        img: "casah",
+        color: "#01415C",
+        bg: "#01415C",
+        mb: "historica-logo-mb.svg"
+    },
+    {
+        id: 4,
+        name: "yungas",
+        nombre: "Yungas Tucumanas",
+        logo: "yungas-logo.svg",
+        mb: "yungas-logo-mb.svg",
+        img: "quetipi-inicio",
+        color: "#66ac7c",
+        bg: "#66ac7c",
+    },
+    {
+        id: 2,
+        name: "choromoro",
+        nombre: "Valle De Choromoro",
+        logo: "choromoro-logo.svg",
+        mb: "choromoro-logo-mb.svg",
+        img: "pozoindio-inicio",
+        color: "#FD5901",
+        bg: "#FD5901",
+    },
+    {
+        id: 3,
+        name: "calchaqui",
+        nombre: "Valle Calchaqui",
+        logo: "calchaqui-logo.svg",
+        mb: "calchaqui-logo-mb.svg",
+        img: "menhires-inicio",
+        color: "#9E2D2C",
+        bg: "#9E2D2C",
+    },
+    {
+        id: 1,
+        name: "sur",
+        nombre: "Sur Tucumano",
+        logo: "sur-logo.svg",
+        mb: "sur-logo-mb.svg",
+        img: "sur",
+        color: "#508E6D",
+        bg: "#508E6D",
+    }
+];
+export const circuitosEN = [
+    {
+        id: 10,
+        name: "historica",
+        nombre: "Historic City Experience",
+        logo: "historica-logo.svg",
+        img: "casah",
+        color: "#01415C",
+        bg: "#01415C",
+        mb: "historica-logo-mb.svg"
+    },
+    {
+        id: 9,
+        name: "yungas",
+        nombre: "Yungas Experience",
+        logo: "yungas-logo.svg",
+        mb: "yungas-logo-mb.svg",
+        img: "quetipi-inicio",
+        color: "#66ac7c",
+        bg: "#66ac7c",
+    },
+    {
+        id: 7,
+        name: "choromoro",
+        nombre: "Choromoro Valley Experience",
+        logo: "choromoro-logo.svg",
+        mb: "choromoro-logo-mb.svg",
+        img: "pozoindio-inicio",
+        color: "#FD5901",
+        bg: "#FD5901",
+    },
+    {
+        id: 8,
+        name: "calchaqui",
+        nombre: "Calchaqui Valley Experience",
+        logo: "calchaqui-logo.svg",
+        mb: "calchaqui-logo-mb.svg",
+        img: "menhires-inicio",
+        color: "#9E2D2C",
+        bg: "#9E2D2C",
+    },
+    {
+        id: 6,
+        name: "sur",
+        nombre: "Southern Experience",
+        logo: "sur-logo.svg",
+        mb: "sur-logo-mb.svg",
+        img: "sur",
+        color: "#508E6D",
+        bg: "#508E6D",
+    },
+];
+export const circuitosEN_ES = {
+    10: 5,
+    9: 4,
+    7: 2,
+    8: 3,
+    6: 1
+}
+export const favoritosStart = {
+    historica: {
+        destinos: [],
+        alojamientos: [],
+        prestadores: [],
+        guias: [],
+    },
+    yungas: {
+        destinos: [],
+        alojamientos: [],
+        prestadores: [],
+        guias: [],
+    },
+    choromoro: {
+        destinos: [],
+        alojamientos: [],
+        prestadores: [],
+        guias: [],
+    },
+    calchaqui: {
+        destinos: [],
+        alojamientos: [],
+        prestadores: [],
+        guias: [],
+    },
+    sur: {
+        destinos: [],
+        alojamientos: [],
+        prestadores: [],
+        guias: [],
+    },
+}

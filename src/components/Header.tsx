@@ -11,7 +11,7 @@ const headerImages = [
     "/img/header/menhires-inicio.svg"
 ];
 
-const cycleInterval = 5000; // 3 minutos
+const cycleInterval = 10000; // 3 minutos
 
 export default function Header() {
     const [index, setIndex] = useState(0);
