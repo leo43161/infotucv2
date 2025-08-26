@@ -5,11 +5,12 @@ import Footer from './Footer';
 
 interface Props {
   children: ReactNode;
+  className?: string;
 }
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, className }: Props) => {
   return (
-    <div className="h-full flex flex-col overflow-hidden bg-gray-100">
+    <div className={"h-full flex flex-col overflow-hidden bg-gray-100 " + className}>
       <Header />
       <main className="flex-grow overflow-y-auto">{children}</main>
       <Footer />

@@ -9,7 +9,7 @@ export const itinerarioApi = createApi({
     }),
     endpoints: (builder) => ({
         getDestinos: builder.query<DestinosApiResponse, DestinosQueryArgs>({
-            query: (id) => 'subseccion/' + id,
+            query: ({ id }) => 'subseccion/' + id,
             transformResponse: (response: { result: { articulos: Destino[], subseccion: Subseccion } }) => {
                 return {
                     status: 200,

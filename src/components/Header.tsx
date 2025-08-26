@@ -26,11 +26,11 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="bg-[#D6E9CF] flex-shrink-0 h-[400px] relative overflow-hidden">
+        <header className="bg-[#D6E9CF] flex-shrink-0 h-[350px] relative overflow-hidden">
             <img className='absolute w-full object-cover z-[2] opacity-60' src="/img/header/textura-tucuman.png" alt="" />
             <img className='absolute w-full object-cover z-[3] top-30' src="/img/header/montana.png" alt="" />
-            <div className='z-[30] flex justify-start items-end relative h-full'>
-                <div className='w-7/13 h-full flex items-end justify-center relative'>
+            <div className='z-[30] flex justify-between items-end relative h-full'>
+                <div className='w-6/13 h-full flex items-end justify-center relative'>
                     {/* AnimatePresence gestiona la animación de entrada y salida de los componentes hijos */}
                     <AnimatePresence mode='wait'>
                         <motion.img
@@ -55,8 +55,8 @@ export default function Header() {
                         <img src="/img/header/tuctur-logo.svg" alt="Tucumán Turismo" className="p-2 w-full" />
                     </div>
                     <hr className='border-1 border-white w-10/12' />
-                    <div className='w-12/12'>
-                        <p className='text-4xl font-bold italic text-white text-center'>Aplicación Informativa Tucumán Turismo</p>
+                    <div className='w-10/12'>
+                        <p className='text-5xl font-bold italic text-white text-center'>Aplicación Informativa Tucumán Turismo</p>
                     </div>
                 </div>
             </div>

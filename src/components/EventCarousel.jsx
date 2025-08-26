@@ -74,8 +74,8 @@ const EventCarousel = () => {
 
   // --- JSX con los nuevos controles ---
   return (
-    <section className="mt-4 relative">
-      <div className="flex justify-between items-center px-4 pt-4">
+    <section className="relative">
+      <div className="flex justify-between items-center px-4">
         <h2 className="text-xl font-bold">Eventos Destacados</h2>
         <a href="/eventos" className="text-sm font-semibold text-blue-600 hover:underline">Ver todos</a>
       </div>

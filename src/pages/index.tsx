@@ -7,15 +7,15 @@ export default function HomePage() {
   return (
     <div>
       <div className="bg-secondary p-5 text-center">
-        <h1 className="text-4xl font-bold text-white">¿EN QUÉ TE PODEMOS AYUDAR?</h1>
+        <h1 className="text-5xl font-bold text-white">¿EN QUÉ TE PODEMOS AYUDAR?</h1>
       </div>
       <div className="p-4">
         <NavButtons />
       </div>
       <div className="bg-gray-200">
-        <div className="p-5 text-center">
+        {/* <div className="p-5 text-center">
           <h1 className="text-3xl font-bold">Planificá tu viaje al Corazón del Norte Argentino</h1>
-        </div>
+        </div> */}
         <div className="">
           <Itinerario />
         </div>

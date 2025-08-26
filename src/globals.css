@@ -46,6 +46,10 @@
   text-wrap: balance;
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 @layer utilities {
   :root {
     --text: #444242;
@@ -76,6 +80,15 @@
     background: var(--background);
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   p {
