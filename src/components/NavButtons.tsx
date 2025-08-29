@@ -66,12 +66,12 @@ export default function NavButtons() {
                     <div className={item.gridClass}>
                         <a
                             href={item.href}
-                            className={`group ${item.row ? "flex-row justify-start gap-5" : "flex-col justify-center"} flex  items-center text-center rounded shadow-lg transition-all duration-300 ease-in-out h-full transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 gap-2 px-4 py-4 focus:ring-${item.color}/50 border-2`}
+                            className={`group ${item.row ? "flex-row justify-start gap-5" : "flex-col justify-center"} flex  items-center text-center rounded shadow-lg transition-all duration-300 ease-in-out h-full transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 gap-2 px-4 py-2.5 focus:ring-${item.color}/50 border-2`}
                             style={{ borderColor: `var(--${item.color})` }}
                         >
                             <item.icon
                                 className="group-hover:text-white group-hover:scale-110 transition-transform duration-300"
-                                size={item.row ? 38 : 68}
+                                size={item.row ? 38 : 62}
                                 style={{ color: `var(--${item.color})` }}
                             />
                             <span className="text-white text-[2.1em] font-bold text-left" style={{ color: `var(--${item.color})` }}>

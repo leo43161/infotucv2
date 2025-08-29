@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "src/components/EventCarousel.jsx", "src/components/itinerario/Itinerario.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "src/components/EventCarousel.tsx", "src/components/itinerario/Itinerario.tsx"],
   "exclude": ["node_modules"]
 }

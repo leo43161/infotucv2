@@ -11,6 +11,7 @@
   "dependencies": {
     "@next/third-parties": "^15.5.0",
     "@reduxjs/toolkit": "^2.8.2",
+    "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.539.0",
@@ -27,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "embla-carousel": "^8.6.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "postcss": "^8.5.6",

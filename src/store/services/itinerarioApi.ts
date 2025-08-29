@@ -1,6 +1,17 @@
 // src/store/services/itinerarioApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { DestinosApiResponse, Destino, Subseccion, DestinosQueryArgs, LocalidadesApiResponse, LocalidadesQueryArgs, Localidad } from '@/types/itinerario';
+import type {
+    DestinosApiResponse,
+    LocalidadesApiResponse,
+    DestinoGaleyApiResponse,
+    Destino,
+    ImagenDestino,
+    Subseccion,
+    Localidad,
+    DestinosQueryArgs,
+    LocalidadesQueryArgs,
+    DestinoGaleryQueryArgs
+} from '@/types/itinerario';
 
 export const itinerarioApi = createApi({
     reducerPath: 'itinerarioApi',
@@ -15,6 +26,17 @@ export const itinerarioApi = createApi({
                     status: 200,
                     result: response.result,
                     total: String(response.result.articulos.length)
+                };
+            },
+        }),
+        getGaleryDestino: builder.query<DestinoGaleyApiResponse, DestinoGaleryQueryArgs>({
+            query: ({ id }) => ({
+                url: `galeria_art/${id}`,
+            }),
+            transformResponse: (response: { result: ImagenDestino[] }) => {
+                return {
+                    status: 200,
+                    result: response.result,
                 };
             },
         }),
@@ -34,4 +56,4 @@ export const itinerarioApi = createApi({
     }),
 });
 
-export const { useGetDestinosQuery, useGetLocalidadesQuery } = itinerarioApi;
+export const { useGetDestinosQuery, useGetLocalidadesQuery, useGetGaleryDestinoQuery } = itinerarioApi;

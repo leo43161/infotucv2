@@ -29,9 +29,7 @@ const itinerariosSlice = createSlice({
     setFavorito: (state, action: PayloadAction<{ type: string; item: any; idCircuito?: number }>) => {
 
       const { type, item, idCircuito } = action.payload;
-      const nameCircuito = idCircuito
-        ? [...circuitos, ...circuitosEN].find((c) => c.id === idCircuito)!.name
-        : state.value.circuitoSelected.name;
+      const nameCircuito = [...circuitos, ...circuitosEN].find((c) => c.id === idCircuito)!.name
 
       const favoritosCircuito = state.value.favoritos[nameCircuito] as any;
       const existe = favoritosCircuito[type].find((favorito: any) => favorito.id === item.id);
