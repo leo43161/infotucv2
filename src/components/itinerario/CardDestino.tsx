@@ -161,7 +161,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
                         <div className='bg-gray-200 rounded-lg flex-1'></div>
                       </div>
                     </div>
-                  ) : galery && galery?.result?.length > 0 ? (
+                  ) : errorGalery ? (<></>) : galery && galery?.result?.length > 0 ? (
                     <ImageGallery
                       items={galery?.result?.length > 0 ? galery.result.map(item => ({
                         img: imageBaseUrl + item.archivo,
