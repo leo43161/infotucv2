@@ -1,31 +1,40 @@
+import { Home } from 'lucide-react';
+import { useRouter } from 'next/router';
 import React from 'react'
+import { FaBus, FaUtensils } from 'react-icons/fa'
+import { LuBedDouble } from "react-icons/lu";
 
 export default function Footer() {
+    const router = useRouter();
     const socialLinks = [
-        { href: "#", label: "Facebook" },
-        { href: "#", label: "Instagram" },
-        { href: "#", label: "Twitter" },
+        { href: "transportes", color: "#800077", label: "Transportes", icon: FaBus },
+        { href: "restaurantes", color: "#a83413", label: "Restaurantes", icon: FaUtensils },
+        { href: "alojamientos", color: "#006b96", label: "Alojamientos", icon: LuBedDouble },
     ];
     return (
-        <footer className="bg-gray-800 text-white p-4 flex items-center justify-between flex-shrink-0 mt-auto">
-
-            <a href="/" className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                <div className="w-6 h-6 bg-white rounded"></div>
-                <span className="font-bold">Inicio</span>
-            </a>
-
-            <div className="flex items-center gap-4">
-                <div className="w-24 h-10 bg-gray-500 rounded flex items-center justify-center text-xs">Logo 1</div>
-                <div className="w-24 h-10 bg-gray-500 rounded flex items-center justify-center text-xs">Logo 2</div>
-            </div>
-
-            <div className="flex items-center gap-3">
+        <footer className="bg-secondary text-white px-4 py-1 flex items-center justify-between flex-shrink-0 mt-auto relative">
+            <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+            <div className="flex items-center gap-3 z-[1]">
                 {socialLinks.map(link => (
-                    <a href={link.href} aria-label={link.label} className="w-8 h-8 bg-gray-600 hover:bg-gray-500 rounded-full">
+                    <a href={link.href} aria-label={link.label} className="size-10  rounded-full flex justify-center items-center border border-zinc-300" style={{ backgroundColor: link.color }}>
+                        <link.icon size={18} color={"#fff"} />
                     </a>
                 ))}
             </div>
-
+            <div className="flex items-center gap-3 z-[1] h-full">
+                <div>
+                    <img src="/icons/footer/logo-tuctur-w.svg" className='h-9 w-full' alt="" />
+                </div>
+                <div className='h-10 border'>
+                </div>
+                <div>
+                    <img src="/icons/footer/eatt2024blancohorizontal.svg" className='h-18 w-full' alt="" />
+                </div>
+            </div>
+            {router.pathname !== '/' ? <a href="/" className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary rounded transition-colors z-[1]">
+                <Home></Home>
+                <span className="font-bold">Inicio</span>
+            </a> : <div></div>}
         </footer>
     )
 }

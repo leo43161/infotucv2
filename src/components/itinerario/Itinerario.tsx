@@ -4,7 +4,10 @@ import type { Localidad } from '@/types/itinerario';
 import { useSelector } from 'react-redux';
 import CardDestino from './CardDestino';
 import { FaFileDownload } from "react-icons/fa";
-import { cn } from '@/utils';
+import { cn, getCurrentLanguage } from '@/utils';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 // Se agrega la prop onClick para manejar la interacción del usuario
 const LocalidadPill = ({ destino, active, onClick, isLoading = false }: { destino: Localidad, active: boolean, onClick: () => void, isLoading?: boolean }) => {
@@ -42,8 +45,22 @@ const DestinoSkeleton = () => {
     )
 }
 
+const PDFDownload = dynamic(
+    () => import('./PDFDownload'),
+    {
+        ssr: false,
+        loading: () => (
+            <div className="flex items-center px-4 text-white h-full">
+                <p className="font-700 uppercase text-2xl ml-2">Cargando...</p>
+            </div>
+        )
+    }
+);
+
 export default function Itinerario() {
+    const router = useRouter();
     const Circuitos = useSelector((state: any) => state.itinerarios.value.circuitos);
+    const { progress } = useSelector((state: any) => state.itinerarios.value);
     const { data: localidadesData, isLoading, isError, error } = useGetLocalidadesQuery({ idioma: "1" });
     const [activeLocalidadId, setActiveLocalidadId] = useState<string | null>(null);
     const [localidad, setLocalidad] = useState<Localidad | null | undefined>(null);
@@ -75,6 +92,10 @@ export default function Itinerario() {
     // Obtenemos el array de localidades del objeto de respuesta o un array vacío si no hay datos
     const localidades = localidadesData?.result || [];
     const destinos = destinosData?.result?.articulos || [];
+    const dias = Math.ceil(progress / 100);
+    const progressText = `${dias} día${dias > 1 ? "s" : ""}`;
+    const progressWidth = progress > 100 ? 100 : progress;
+    const lenguaje = getCurrentLanguage(router.query);
     return (
         <div className='h-133'>
             <div className="grid grid-cols-7 grid-rows-10 h-full overflow-hidden">
@@ -117,7 +138,7 @@ export default function Itinerario() {
                 </div>
                 <div className="col-span-5 row-span-10 col-start-3 row-start-2 overflow-auto relative" /* style={{ backgroundAttachment: "fixed", background: "no-repeat url('/img/header/textura-tucuman.png')" }} */>
                     <div>
-                        {(isLoadingDestinos || isLoading)  &&
+                        {(isLoadingDestinos || isLoading) &&
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-3 py-3">
                                 {Array.from({ length: 8 }).map((_, index) => (
                                     <DestinoSkeleton key={index} />
@@ -146,18 +167,30 @@ export default function Itinerario() {
                         )}
                     </div>
                 </div>
-                <div className="col-span-7 col-start-1 row-start-12">
-                    <div className='h-full w-full flex justify-between items-center text-white px-4 py-2 gap-3' style={{ backgroundColor: colorCircuito || "#01415c" }}>
-                        <div className='text-xl font-semibold'>
+                <div className="col-span-7 col-start-1 row-start-12 h-11">
+                    <div className='h-full w-full flex justify-between items-center text-white gap-3' style={{ backgroundColor: colorCircuito || "#01415c" }}>
+                        <div className='text-xl font-semibold ps-4'>
                             Tu itinerario
                         </div>
-                        <div className='flex-1 border-4 rounded-2xl h-full'>
-                        </div>
-                        <div className='font-semibold flex items-center gap-1.5'>
-                            <div>
-                                <FaFileDownload size={20}></FaFileDownload>
+                        <div className='flex-1 h-full py-2'>
+                            <div className='flex-1 border-1 rounded-2xl h-full bg-gray-200'>
+                                {progressWidth > 0 && (
+                                    <div
+                                        style={{
+                                            width: `${progressWidth}%`,
+                                            backgroundColor: `${colorCircuito}`
+                                        }}
+                                        className={`h-full rounded-full bg-[#206C60] border-3 border-neutral-200`}
+                                    ></div>
+                                )}
                             </div>
-                            <p className='text-xl underline'>Descargar</p>
+                        </div>
+                        <p className="font-700 uppercase text-2xl text-white shrink-0 mr-1">
+                            {progressText}
+                        </p>
+                        <div className='h-full bg-primary relative overflow-hidden'>
+                            <img className='absolute w-full h-full object-cover z-[0] opacity-20 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+                            <PDFDownload />
                         </div>
                     </div>
                 </div>

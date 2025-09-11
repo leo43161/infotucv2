@@ -4,26 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { EmblaOptionsType } from 'embla-carousel';
 import { ChevronLeft, ChevronRight } from 'lucide-react'; // Usamos iconos para los botones
 import { useGetEventosDestacadosQuery } from '@/store/services/touchApi';
-import { Evento } from '@/types/api';
-
-// --- Componente de la Tarjeta de Evento (sin cambios) ---
-const EventCard = ({ event }: { event: Evento }) => (
-  <div className="embla__slide flex-shrink-0 flex-grow-0 basis-full md:basis-1/2 lg:basis-1/3 pr-4">
-    <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col border h-full">
-      <div className='w-full'>
-        <img src={`https://www.tucumanturismo.gob.ar/public/img/${event.imagen}`} alt={event.nombre} className="w-full h-40 object-cover" />
-      </div>
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="font-bold text-lg">{event.nombre}</h3>
-        <p className="text-sm text-gray-600 mt-1 truncate">{event.direccion} - {event.nombreLocalidad}</p>
-        <p className="text-sm text-gray-800 mt-2">
-          {event.fechaInicio} al {event.fechaFin}
-        </p>
-        <p className="text-gray-700 mt-2 text-sm line-clamp-3 flex-grow">{event.descripcion}</p>
-      </div>
-    </div>
-  </div>
-);
+import EventCard from './EventCard';
 
 // --- Componente Principal del Carrusel (con nuevas funcionalidades) ---
 const EventCarousel = () => {
@@ -77,15 +58,10 @@ const EventCarousel = () => {
   // --- JSX con los nuevos controles ---
   return (
     <section className="relative">
-      <div className="flex justify-between items-center px-4">
-        <h2 className="text-xl font-bold">Eventos Destacados</h2>
-        <a href="/eventos" className="text-sm font-semibold text-blue-600 hover:underline">Ver todos</a>
-      </div>
-
       <div className="embla overflow-hidden" ref={emblaRef}>
-        <div className="embla__container flex p-4">
+        <div className="embla__container flex px-4 py-2">
           {data.result.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <EventCard key={event.id} evento={event} />
           ))}
         </div>
       </div>
@@ -114,7 +90,7 @@ const EventCarousel = () => {
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${index === selectedIndex ? 'bg-blue-600' : 'bg-gray-300'
+            className={`w-3 h-3 rounded-full transition-colors ${index === selectedIndex ? 'bg-primary' : 'bg-gray-300'
               }`}
             aria-label={`Ir al evento ${index + 1}`}
           />

@@ -26,7 +26,7 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="bg-[#D6E9CF] flex-shrink-0 h-[350px] relative overflow-hidden">
+        <header className="bg-[#D6E9CF] flex-shrink-0 h-[340px] relative overflow-hidden">
             <img className='absolute w-full object-cover z-[2] opacity-60' src="/img/header/textura-tucuman.png" alt="" />
             <img className='absolute w-full object-cover z-[3] top-30' src="/img/header/montana.png" alt="" />
             <div className='z-[30] flex justify-between items-end relative h-full'>
@@ -50,8 +50,8 @@ export default function Header() {
                         />
                     </AnimatePresence>
                 </div>
-                <div className='w-6/13 flex flex-col items-center justify-center h-full gap-5 relative z-10'>
-                    <div className='w-9/12'>
+                <div className='w-6/13 flex flex-col items-center justify-center h-full gap-4 relative z-10'>
+                    <div className='w-9/13'>
                         <img src="/img/header/tuctur-logo.svg" alt="Tucumán Turismo" className="p-2 w-full" />
                     </div>
                     <hr className='border-1 border-white w-10/12' />
