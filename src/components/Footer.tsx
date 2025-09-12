@@ -1,4 +1,5 @@
 import { Home } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react'
 import { FaBus, FaUtensils } from 'react-icons/fa'
@@ -6,7 +7,7 @@ import { LuBedDouble } from "react-icons/lu";
 
 export default function Footer() {
     const router = useRouter();
-    const socialLinks = [
+    const buttonsLeft = [
         { href: "transportes", color: "#800077", label: "Transportes", icon: FaBus },
         { href: "restaurantes", color: "#a83413", label: "Restaurantes", icon: FaUtensils },
         { href: "alojamientos", color: "#006b96", label: "Alojamientos", icon: LuBedDouble },
@@ -15,10 +16,10 @@ export default function Footer() {
         <footer className="bg-secondary text-white px-4 py-1 flex items-center justify-between flex-shrink-0 mt-auto relative">
             <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
             <div className="flex items-center gap-3 z-[1]">
-                {socialLinks.map(link => (
-                    <a href={link.href} aria-label={link.label} className="size-10  rounded-full flex justify-center items-center border border-zinc-300" style={{ backgroundColor: link.color }}>
+                {buttonsLeft.map((link, index) => (
+                    <Link href={link.href} key={index} aria-label={link.label} className="size-10  rounded-full flex justify-center items-center border border-zinc-300" style={{ backgroundColor: link.color }}>
                         <link.icon size={18} color={"#fff"} />
-                    </a>
+                    </Link>
                 ))}
             </div>
             <div className="flex items-center gap-3 z-[1] h-full">

@@ -59,6 +59,7 @@ export interface Evento {
   latitud: string | null;
   longitud: string | null;
   nombreLocalidad: string;
+  nombreCategoria: string;
   idCategoria: string;
   idSubcat: string;
   subCategoriaNombre: string;

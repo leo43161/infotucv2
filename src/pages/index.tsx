@@ -14,9 +14,6 @@ export default function HomePage() {
         <NavButtons />
       </div>
       <div className="bg-gray-200">
-        {/* <div className="p-5 text-center">
-          <h1 className="text-3xl font-bold">Planificá tu viaje al Corazón del Norte Argentino</h1>
-        </div> */}
         <div className="">
           <Itinerario />
         </div>

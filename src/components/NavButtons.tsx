@@ -62,8 +62,8 @@ export default function NavButtons() {
     return (
         <nav className="p-2 flex-shrink-0">
             <div className="grid grid-cols-3 grid-rows-4 gap-4"> {/* Damos una altura fija al contenedor */}
-                {navItems.map((item) => (
-                    <div className={item.gridClass}>
+                {navItems.map((item, index) => (
+                    <div className={item.gridClass} key={index}>
                         <a
                             href={item.href}
                             className={`group ${item.row ? "flex-row justify-start gap-5" : "flex-col justify-center"} flex  items-center text-center rounded shadow-lg transition-all duration-300 ease-in-out h-full transform hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 gap-2 px-4 py-2.5 focus:ring-${item.color}/50 border-2`}

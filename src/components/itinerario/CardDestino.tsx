@@ -12,7 +12,7 @@ import ImageGallery from './ImageGallery';
 
 export default function CardDestino({ destino, colorCircuito }: { destino: Destino, colorCircuito: string | null }) {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isModalFavorite, setIsModalFavorite] = useState(false);
 
   const [destinoSeleccionado, setDestinoSeleccionado] = useState<Destino | null>(null);

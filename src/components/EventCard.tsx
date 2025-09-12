@@ -1,5 +1,5 @@
 import { Clock, MapPin, Calendar } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Evento } from '@/types/api';
 import { useRouter } from 'next/router';
 // Objeto con los textos para internacionalización
@@ -20,7 +20,8 @@ const content = {
     }
 };
 
-export default function CardEventoHome({ evento }: { evento: Evento }) {
+export default function CardEventoHome({ evento, handleOpenModal }: { evento: Evento, handleOpenModal: (evento: Evento) => void }) {
+    const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
     const { lang } = router.query;
     const isEnglish = lang === 'EN';
@@ -60,44 +61,48 @@ export default function CardEventoHome({ evento }: { evento: Evento }) {
 
     // Formatear la hora con texto dinámico
     const formattedTime = horaInicio ? `${horaInicio.substring(0, 5)} ${currentContent.timeSuffix}`.trim() : currentContent.timeNotAvailable;
-
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    };
     return (
-        <div className='embla__slide flex-shrink-0 flex-grow-0 basis-full md:basis-1/2 lg:basis-1/3 pr-4'>
-            <div className='flex flex-col h-full items-stretch'>
-                <div className='relative border h-65'>
-                    <img
-                        src={process.env.URL_IMG + imagen}
-                        className='object-cover object-center h-full w-full'
-                        alt={nombre || currentContent.imageAlt}
-                    />
-                    <div className='rounded-b-md absolute top-0 left-8 shadow-lg bg-white w-auto py-1 px-2 flex justify-center'>
-                        <h4 className='font-bold text-[1.4em] flex items-center  gap-1'>
-                            <Calendar className='font-bold text-lg' size={17} />
-                            {displayDate}
-                        </h4>
-                    </div>
-                </div>
-                <div className='flex-col flex gap-2 mb-6 pt-1'>
-                    <h3 className='font-bold text-left text-3xl line-clamp-2'>{nombre}</h3>
-                    <div className='flex items-center gap-2'>
-                        <div>
-                            <Clock className='font-bold text-lg' size={20} />
+        <>
+            <div onClick={() => handleOpenModal(evento)} className='embla__slide flex-shrink-0 flex-grow-0 basis-full md:basis-1/2 lg:basis-1/3 pr-4'>
+                <div className='flex flex-col h-full items-stretch'>
+                    <div className='relative border h-65'>
+                        <img
+                            src={process.env.URL_IMG + imagen}
+                            className='object-cover object-center h-full w-full'
+                            alt={nombre || currentContent.imageAlt}
+                        />
+                        <div className='rounded-b-md absolute top-0 left-8 shadow-lg bg-white w-auto py-1 px-2 flex justify-center'>
+                            <h4 className='font-bold text-[1.4em] flex items-center  gap-1'>
+                                <Calendar className='font-bold text-lg' size={21} />
+                                {displayDate}
+                            </h4>
                         </div>
-                        <span className='font-bold text-[1.1em]'>{formattedTime}</span>
                     </div>
-                    <div className='flex items-center gap-2'>
-                        <div>
-                            <MapPin className='font-bold text-lg' size={20} />
+                    <div className='flex-col flex gap-2 mb-1 pt-1'>
+                        <h3 className='font-bold text-left text-3xl line-clamp-2'>{nombre}</h3>
+                        <div className='flex items-center gap-2'>
+                            <div>
+                                <Clock className='font-bold text-lg' size={20} />
+                            </div>
+                            <span className='font-bold text-[1.1em]'>{formattedTime}</span>
                         </div>
-                        <span className='font-bold text-[1.1em]'>{direccion} - {nombreLocalidad}</span>
+                        <div className='flex items-center gap-2'>
+                            <div>
+                                <MapPin className='font-bold text-lg' size={20} />
+                            </div>
+                            <span className='font-bold text-[1.1em]'>{direccion} - {nombreLocalidad}</span>
+                        </div>
                     </div>
-                </div>
-                {/* <div>
+                    {/* <div>
                     <div className='shadow-lg w-full bg-primary text-white py-2 text-center'>
                             {currentContent.buttonText}
                     </div>   
                 </div> */}
+                </div>
             </div>
-        </div>
+        </>
     );
 }

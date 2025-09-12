@@ -1,6 +1,6 @@
 import { QrCode, LoaderCircle, AlertCircle } from 'lucide-react';
 import { useSelector } from 'react-redux';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from '@/components/common/Modal';
 import { QRCodeSVG } from 'qrcode.react';
 import { setCookie, getCookie, encriptar, desencriptar } from '@/utils/cookie';
@@ -98,9 +98,9 @@ export default function PDFGeneratorButton() {
       <button
         onClick={handleOpenModalClick}
         disabled={isLoading}
-        className="flex items-center text-white cursor-pointer h-full hover:bg-secondary transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed gap-1  px-4"
+        className="flex items-center text-white cursor-pointer h-full hover:bg-secondary transition-all duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed gap-2  px-4"
       >
-        <FaFileDownload size={21} />
+        <QrCode size={26} />
         <p className="text-xl underline">
           {isLoading && !isModalOpen ? lenguaje.code === 'ES' ? 'Generando...' : 'Generating...' : lenguaje.code === 'ES' ? 'Descargar' : 'Download'}
         </p>
