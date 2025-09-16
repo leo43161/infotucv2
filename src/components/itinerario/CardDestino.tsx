@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { Check, Plus } from 'lucide-react';
 import { useGetGaleryDestinoQuery } from '@/store/services/itinerarioApi';
 import ImageGallery from './ImageGallery';
+import { RootState } from '@/store/store';
 
 export default function CardDestino({ destino, colorCircuito }: { destino: Destino, colorCircuito: string | null }) {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
   const [isModalFavorite, setIsModalFavorite] = useState(false);
 
   const [destinoSeleccionado, setDestinoSeleccionado] = useState<Destino | null>(null);
-  const { circuitos, favoritos } = useSelector((state: any) => state.itinerarios.value);
+  const { circuitos, favoritos } = useSelector((state: RootState) => state.itinerarios.value);
   const imageBaseUrl = 'https://www.tucumanturismo.gob.ar/public/img/';
 
   const { data: galery, error: errorGalery, isLoading: isLoadingGalery, isFetching: isFetchingGalery } = useGetGaleryDestinoQuery({
@@ -26,8 +27,12 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
     refetchOnMountOrArgChange: true
   });
 
-  const circuitoSelected = circuitos.find((c: any) => c.id === parseInt(destino.idcircuitostur ?? "5"));
-  const isFavorite = favoritos[circuitoSelected.name]?.destinos.find((item: any) => item.id === destino.idArticulo);
+  const circuitoSelected = circuitos.find((c: { id: number; name: string; color: string }) =>
+    c.id === parseInt(destino.idcircuitostur ?? "5")
+  );
+  const isFavorite = circuitoSelected?.name
+    ? favoritos[circuitoSelected.name]?.destinos.find((item: Destino) => item.id === destino.idArticulo)
+    : undefined;
 
   useEffect(() => {
     if (destinoSeleccionado && favoritos && circuitoSelected?.name) {
@@ -38,7 +43,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
     }
   }, [destinoSeleccionado, favoritos, circuitoSelected]);
   const actualizarFavoritos = (item: Destino) => {
-    dispatch(setFavorito({ type: 'destinos', item, idCircuito: circuitoSelected.id }));
+    dispatch(setFavorito({ type: 'destinos', item, idCircuito: circuitoSelected?.id }));
   };
   const handleOpenModal = (destino: Destino) => {
     setDestinoSeleccionado(destino);
@@ -52,7 +57,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
   return (
     <>
       <div className="rounded-md shadow-md overflow-hidden bg-white relative">
-        <div className="absolute w-full h-full bg-black opacity-7 z-10 "  onClick={() => handleOpenModal(destino)}></div>
+        <div className="absolute w-full h-full bg-black opacity-7 z-10 " onClick={() => handleOpenModal(destino)}></div>
         <div className="relative">
           <button
             className={`rounded-full bg-white p-1 text-[32px] absolute top-2 right-2 border shadow z-30`}
@@ -89,11 +94,11 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
               <div className="relative rounded-md overflow-hidden">
                 <div className="absolute w-full h-full bg-black opacity-7"></div>
                 <Image
-                  src={window.innerWidth < 1024 ?
-                    imageBaseUrl + destinoSeleccionado.imagenMovil
-                    ||
-                    imageBaseUrl + destinoSeleccionado.imagen :
-                    imageBaseUrl + destinoSeleccionado.imagen}
+                  src={
+                    typeof window !== 'undefined' && window.innerWidth < 1024
+                      ? imageBaseUrl + (destinoSeleccionado.imagenMovil || destinoSeleccionado.imagen)
+                      : imageBaseUrl + destinoSeleccionado.imagen
+                  }
                   alt={destinoSeleccionado.nombre}
                   width={250}
                   height={400}
@@ -107,7 +112,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
                   </div>
                   <div className="flex flex-row gap-2 mb-3 flex-wrap">
                     {destinoSeleccionado.tags.split(",").map((categoria, index) => (
-                      <p key={index} className="rounded-md px-2 py-1 text-white text-[16px] font-semibold" style={{ backgroundColor: circuitoSelected.color }}>
+                      <p key={index} className="rounded-md px-2 py-1 text-white text-[16px] font-semibold" style={{ backgroundColor: circuitoSelected?.color  }}>
                         {categoria}
                       </p>
                     ))}
@@ -163,7 +168,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
                     </div>
                   ) : errorGalery ? (<></>) : galery && galery?.result?.length > 0 ? (
                     <ImageGallery
-                      items={galery?.result?.length > 0 ? galery.result.map(item => ({
+                      items={galery?.result?.length > 0 ? galery.result.map((item: { archivo: string; texto: string }) => ({
                         img: imageBaseUrl + item.archivo,
                         text: item.texto
                       })) : []}

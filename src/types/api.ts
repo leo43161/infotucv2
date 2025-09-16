@@ -101,6 +101,31 @@ export interface Restaurante {
   // ...
 }
 
+export interface Colectivo {
+  Idtiene: string;
+  ida: string;
+  vuelta: string;
+  dia: string;
+  tiene_IdAutobus: string;
+  tiene_Idlugares: string;
+  tiene_activo: string; // '0' o '1'
+  borrado: string; // '0' o '1'
+  orden: string;
+  IdAutobus: string;
+  Empresa: string;
+  Plataforma: string;
+  Precio: string;
+  telefono: string;
+  latitud: string;
+  longitud: string;
+  visible: string; // '0' o '1'
+  autobus_activo: string; // '0' o '1'
+  idlugares: string;
+  nombre: string; // Nombre del destino, ej: "Simoca"
+  idlocalidades: string;
+  idcircuitostur: string;
+}
+
 export interface Category {
   id: string;
   nombre: string;
@@ -140,4 +165,9 @@ export interface RestaurantesApiResponse {
   result: Restaurante[];
   total: string;
   categorias: Category[];
+}
+
+export interface ColectivosApiResponse {
+  status: number;
+  result: Colectivo[];
 }

@@ -1,4 +1,3 @@
-import { BedDouble, Briefcase, BusFront, Map, Utensils, Car, Bike } from 'lucide-react';
 import { FaBus, FaBriefcase, FaHiking, FaMapMarkedAlt, FaUtensils } from 'react-icons/fa'
 import { LuBedDouble } from "react-icons/lu";
 import { FaCar } from "react-icons/fa6";

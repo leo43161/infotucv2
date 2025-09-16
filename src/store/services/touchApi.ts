@@ -1,6 +1,6 @@
 // src/store/services/touchApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { EventosDestacadosApiResponse, Evento } from '@/types/api';
+import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse } from '@/types/api';
 
 export const touchApi = createApi({
   reducerPath: 'touchApi',
@@ -18,7 +18,16 @@ export const touchApi = createApi({
         };
       },
     }),
+    getColectivos: builder.query<ColectivosApiResponse, void>({
+      query: () => 'colectivos',
+      transformResponse: (response: { result: Colectivo[] }) => {
+        return {
+          status: 200,
+          result: response.result,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetEventosDestacadosQuery } = touchApi;
+export const { useGetEventosDestacadosQuery, useGetColectivosQuery } = touchApi;

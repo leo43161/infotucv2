@@ -1,10 +1,9 @@
 // src/components/EventCarousel.tsx
 import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { EmblaOptionsType } from 'embla-carousel';
-import { Calendar, ChevronLeft, ChevronRight, Clock, MapPin } from 'lucide-react'; // Usamos iconos para los botones
+import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
+import { ChevronLeft, ChevronRight, } from 'lucide-react'; // Usamos iconos para los botones
 import { useGetEventosDestacadosQuery } from '@/store/services/touchApi';
-import Modal from './common/Modal';
 import EventCard from './EventCard';
 import { Evento } from '@/types/api';
 import ModalEvent from './ModalEvent';
@@ -18,26 +17,26 @@ const EventCarousel = () => {
 
   // Hook de Embla y el estado para los botones y puntos
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' } as EmblaOptionsType);
-  const [scrollSnaps, setScrollSnaps] = useState([]);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Funciones para mover el carrusel, envueltas en useCallback para optimización
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
 
   // 3. Usamos useEffect para "escuchar" los eventos del carrusel y actualizar nuestro estado
   useEffect(() => {
     if (!emblaApi) return;
 
     // Esta función se ejecuta cada vez que el carrusel se asienta en un nuevo slide
-    const onSelect = (emblaApi: any) => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
+    const onSelect = (api: EmblaCarouselType) => {
+      setSelectedIndex(api.selectedScrollSnap());
     };
 
     // Esta función se ejecuta al inicio y cada vez que el carrusel se recalcula
-    const onInit = (emblaApi: any) => {
-      setScrollSnaps(emblaApi.scrollSnapList());
+    const onInit = (api: EmblaCarouselType) => {
+      setScrollSnaps(api.scrollSnapList());
     };
 
     onInit(emblaApi);
@@ -57,7 +56,7 @@ const EventCarousel = () => {
   if (error) {
     return <div className="text-center p-10 text-red-500">Error al cargar los eventos.</div>;
   }
-  if (!data || data.result.length === 0) {
+  if (!data || !data.result || data.result.length === 0) {
     return <div className="text-center p-10">No hay eventos para mostrar.</div>;
   }
 
@@ -121,9 +120,7 @@ const EventCarousel = () => {
           event={eventoSeleccionado}
           isOpen={true}
           handleCloseModal={handleCloseModal}
-        >
-
-        </ModalEvent>
+        />
       )}
     </>
   );
