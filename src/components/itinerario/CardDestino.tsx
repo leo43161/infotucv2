@@ -17,7 +17,7 @@ export default function CardDestino({ destino, colorCircuito }: { destino: Desti
   const [isModalFavorite, setIsModalFavorite] = useState(false);
 
   const [destinoSeleccionado, setDestinoSeleccionado] = useState<Destino | null>(null);
-  const { circuitos, favoritos } = useSelector((state: RootState) => state.itinerarios.value);
+  const { circuitos, favoritos } = useSelector((state: RootState) => state.itinerarios?.value);
   const imageBaseUrl = 'https://www.tucumanturismo.gob.ar/public/img/';
 
   const { data: galery, error: errorGalery, isLoading: isLoadingGalery, isFetching: isFetchingGalery } = useGetGaleryDestinoQuery({

@@ -9,6 +9,8 @@
  * Hacemos opcionales todos los campos con '?' porque mencionaste
  * que la API funciona con valores por defecto si no se envían.
  */
+
+/* --------------------------------------- */
 export type DayQueryOption = "hoy" | "mañana" | "";
 export interface EventosQueryArgs {
   Busqueda?: string;
@@ -83,6 +85,7 @@ export interface Hotel {
   // Añadimos las propiedades que, aunque no las usemos, existen en la respuesta
   visible: string;
   activo: string;
+  total: string;
   // ... y cualquier otra propiedad que consideres relevante
 }
 
@@ -132,6 +135,14 @@ export interface Category {
   name: string; // La API devuelve tanto 'nombre' como 'name'
   fcreacion: string;
 }
+export interface CategoriaHotel {
+  id: string;
+  nombre: string;
+}
+export interface LocalidadHotel {
+  id: string;
+  nombre: string;
+}
 
 
 /**
@@ -145,6 +156,7 @@ export interface Category {
 export interface HotelesApiResponse {
   status: number;
   result: Hotel[];
+  total: number;
   // El endpoint de hoteles no parece devolver 'total' en el nivel raíz,
   // sino dentro de cada objeto. Lo dejamos así para ser fieles a la API.
 }
@@ -170,4 +182,10 @@ export interface RestaurantesApiResponse {
 export interface ColectivosApiResponse {
   status: number;
   result: Colectivo[];
+}
+/* ------------------------------------------------------------- */
+export interface HotelesFilterResponse {
+  status: number;
+  categorias: CategoriaHotel[];
+  localidades: LocalidadHotel[];
 }

@@ -1,6 +1,6 @@
 // src/store/services/touchApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse } from '@/types/api';
+import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel } from '@/types/api';
 
 export const touchApi = createApi({
   reducerPath: 'touchApi',
@@ -27,7 +27,31 @@ export const touchApi = createApi({
         };
       },
     }),
+    getHoteles: builder.query<HotelesApiResponse, HotelesQueryArgs>({
+      query: ({
+        search,
+        categoria,
+        estrellas,
+        localidad,
+        offset,
+        limit
+      }) => ({
+        url: 'hoteles',
+        params: { search, categoria, estrellas, localidad, offset, limit }
+      }),
+      transformResponse: (response: { result: Hotel[] }) => {
+        return {
+          status: 200,
+          result: response.result,
+          total: response.result.length ? parseInt(response.result[0].total) : 0
+        };
+      },
+    }),
+    getHotelesFilters: builder.query<HotelesFilterResponse, void>({
+
+      query: () => 'alojamientos_filters',
+    }),
   }),
 });
 
-export const { useGetEventosDestacadosQuery, useGetColectivosQuery } = touchApi;
+export const { useGetEventosDestacadosQuery, useGetColectivosQuery, useGetHotelesQuery, useGetHotelesFiltersQuery } = touchApi;

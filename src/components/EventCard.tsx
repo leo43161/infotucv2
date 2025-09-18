@@ -66,17 +66,17 @@ export default function CardEventoHome({ evento, handleOpenModal }: { evento: Ev
     };
     return (
         <>
-            <div onClick={() => handleOpenModal(evento)} className='embla__slide flex-shrink-0 flex-grow-0 basis-full md:basis-1/2 lg:basis-1/3 pr-4'>
-                <div className='flex flex-col h-full items-stretch'>
+            <div onClick={() => handleOpenModal(evento)} className='embla__slide flex-shrink-0 flex-grow-0 basis-full md:basis-1/2 lg:basis-1/3 pr-4 h-109.5'>
+                <div className='flex flex-col h-full items-stretch overflow-hidden'>
                     <div className='relative border h-65'>
                         <img
                             src={process.env.URL_IMG + imagen}
                             className='object-cover object-center h-full w-full'
                             alt={nombre || currentContent.imageAlt}
                         />
-                        <div className='rounded-b-md absolute top-0 left-8 shadow-lg bg-white w-auto py-1 px-2 flex justify-center'>
-                            <h4 className='font-bold text-[1.4em] flex items-center  gap-1'>
-                                <Calendar className='font-bold text-lg' size={21} />
+                        <div className='rounded-b-md absolute top-0 left-8 shadow bg-primary w-auto py-1 px-2 flex justify-center border-b-2 border-l-2 border-r-2 border-zinc-100'>
+                            <h4 className='font-bold text-[1.4em] flex items-center gap-1 text-zinc-50'>
+                                <Calendar className='font-bold text-lg' size={23} />
                                 {displayDate}
                             </h4>
                         </div>
