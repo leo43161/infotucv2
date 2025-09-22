@@ -37,6 +37,12 @@ export interface RestaurantesQueryArgs {
   limit?: number;
 }
 
+export interface PrestadorQueryArgs {
+  search?: string;
+  offset?: number;
+  limit?: number;
+}
+
 
 /**
  * =================================================================
@@ -50,10 +56,10 @@ export interface RestaurantesQueryArgs {
 export interface Evento {
   id: string;
   nombre: string;
-  fechaFin: string| null;
+  fechaFin: string | null;
   fechaInicio: string;
   horaInicio: string;
-  descripcion: string| null;
+  descripcion: string | null;
   url: string | null;
   imagen: string;
   direccion: string | null;
@@ -88,6 +94,27 @@ export interface Hotel {
   total: string;
   // ... y cualquier otra propiedad que consideres relevante
 }
+export interface Prestador {
+  id: string;
+  titulo: string;
+  responsable: string;
+  direccion: string;
+  idLocalidad: string;
+  localidad_nombre: string;
+  telefono_final: string | null;
+  email: string | null;
+  web: string | null;
+  facebook: string | null;
+  instagram: string | null;
+  actividades_texto_original: string | null;
+  nombres_actividades: string | null;
+  activo: string;
+  visible: string;
+  total: string;
+  legajo: string | null;
+  archivo: string | null;
+}
+
 
 export interface Restaurante {
   idGastronomia: string;
@@ -135,6 +162,14 @@ export interface Category {
   name: string; // La API devuelve tanto 'nombre' como 'name'
   fcreacion: string;
 }
+export interface Actividad {
+  id: string;
+  nombre: string;
+  imagen: string | null;
+  fcreacion: string;
+  visible: string;
+  activo: string;
+}
 export interface CategoriaHotel {
   id: string;
   nombre: string;
@@ -166,6 +201,11 @@ export interface EventosApiResponse {
   result: Evento[];
   total: string;
 }
+export interface PrestadorApiResponse {
+  status: number;
+  result: Prestador[];
+  total: number;
+}
 
 export interface EventosDestacadosApiResponse {
   status: number;
@@ -188,4 +228,8 @@ export interface HotelesFilterResponse {
   status: number;
   categorias: CategoriaHotel[];
   localidades: LocalidadHotel[];
+}
+export interface ActividadesResponse {
+  status: number;
+  actividades: Actividad[];
 }
