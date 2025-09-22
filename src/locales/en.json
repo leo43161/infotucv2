@@ -1,0 +1,99 @@
+{
+  "navigation": {
+    "home": "Home",
+    "accommodations": "Accommodations",
+    "transportation": "Transportation",
+    "restaurants": "Restaurants",
+    "activities": "Activities",
+    "agencies": "Agencies",
+    "cars": "Cars",
+    "maps": "Maps"
+  },
+  "header": {
+    "title": "Tucumán Tourism Information App",
+    "subtitle": "Discover the beauty of San Miguel de Tucumán"
+  },
+  "home": {
+    "welcome": "HOW CAN WE HELP YOU?",
+    "explore": "Explore the best destinations in Tucumán"
+  },
+  "accommodations": {
+    "title": "Find your place to stay here",
+    "categories": "Categories",
+    "stars": "Stars",
+    "locations": "Locations",
+    "category": "Category",
+    "location": "Location",
+    "contact": "Contact",
+    "website": "View Website",
+    "location_maps": "Location on Maps"
+  },
+  "transportation": {
+    "title": "Find your bus in our different circuits",
+    "platform": "Platform",
+    "prices": "Prices",
+    "schedule_departure": "Departure Schedules",
+    "schedule_return": "Return Schedules",
+    "no_departures": "No departures for this day.",
+    "no_returns": "No returns for this day.",
+    "see_more": "See more",
+    "see_less": "See less"
+  },
+  "activities": {
+    "title": "Select a provider to enjoy Tucumán",
+    "subtitle": "Select the activity you would like to do",
+    "all": "All"
+  },
+  "restaurants": {
+    "title": "Discover the best flavors of Tucumán",
+    "cuisine_type": "Cuisine Type",
+    "price_range": "Price Range"
+  },
+  "itinerary": {
+    "title": "My Itinerary",
+    "download": "Download",
+    "generating": "Generating...",
+    "qr_ready": "Your QR is ready!",
+    "scan_qr": "Scan the QR code to view your itinerary",
+    "scan_description": "Scan the QR code to view your itinerary and enjoy the destinations of San Miguel de Tucuman",
+    "add_items": "You must add items to your itinerary.",
+    "generating_itinerary": "Generating your itinerary...",
+    "may_take_seconds": "This may take a few seconds.",
+    "error_generating": "Error generating your itinerary"
+  },
+  "common": {
+    "search": "Search",
+    "filter": "Filter",
+    "loading": "Loading...",
+    "error": "Error",
+    "no_results": "No results found",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "close": "Close",
+    "open": "Open",
+    "save": "Save",
+    "cancel": "Cancel",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "website": "Website"
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "circuits": {
+    "historica": "Historic City Experience",
+    "yungas": "Yungas Experience", 
+    "choromoro": "Choromoro Valley Experience",
+    "calchaqui": "Calchaqui Valley Experience",
+    "sur": "Southern Experience"
+  }
+}

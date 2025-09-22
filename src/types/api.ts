@@ -120,15 +120,15 @@ export interface Restaurante {
   idGastronomia: string;
   nombre: string;
   direccion: string;
+  web: string;
+  email: string;
   imagen: string;
   horarios: string;
-  servicios: string;
   telefono: string;
   latitud: string;
   longitud: string;
   nombreLocalidad: string;
   nombreCategoria: string;
-  // ...
 }
 
 export interface Colectivo {
@@ -174,7 +174,7 @@ export interface CategoriaHotel {
   id: string;
   nombre: string;
 }
-export interface LocalidadHotel {
+export interface Localidad {
   id: string;
   nombre: string;
 }
@@ -227,7 +227,11 @@ export interface ColectivosApiResponse {
 export interface HotelesFilterResponse {
   status: number;
   categorias: CategoriaHotel[];
-  localidades: LocalidadHotel[];
+  localidades: Localidad[];
+}
+export interface LocalidadResponse {
+  status: number;
+  localidades: Localidad[];
 }
 export interface ActividadesResponse {
   status: number;

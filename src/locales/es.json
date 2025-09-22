@@ -1,0 +1,99 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "accommodations": "Alojamientos",
+    "transportation": "Transportes",
+    "restaurants": "Restaurantes",
+    "activities": "Actividades",
+    "agencies": "Agencias",
+    "cars": "Autos",
+    "maps": "Mapas"
+  },
+  "header": {
+    "title": "Aplicación Informativa Tucumán Turismo",
+    "subtitle": "Descubre la belleza de San Miguel de Tucumán"
+  },
+  "home": {
+    "welcome": "¿EN QUÉ TE PODEMOS AYUDAR?",
+    "explore": "Explora los mejores destinos de Tucumán"
+  },
+  "accommodations": {
+    "title": "Buscá aquí donde hospedarte",
+    "categories": "Categorías",
+    "stars": "Estrellas",
+    "locations": "Localidades",
+    "category": "Categoría",
+    "location": "Localidad",
+    "contact": "Contacto",
+    "website": "Ver Web",
+    "location_maps": "Ubicación en Maps"
+  },
+  "transportation": {
+    "title": "Encuentra tu colectivo en nuestros diferentes circuitos",
+    "platform": "Plataforma",
+    "prices": "Precios",
+    "schedule_departure": "Horarios de Ida",
+    "schedule_return": "Horarios de Vuelta",
+    "no_departures": "No hay salidas para este día.",
+    "no_returns": "No hay regresos para este día.",
+    "see_more": "Ver más",
+    "see_less": "Ver menos"
+  },
+  "activities": {
+    "title": "Selecciona un prestador para disfrutar Túcuman",
+    "subtitle": "Selecciona la actividad que te gustaria realizar",
+    "all": "Todos"
+  },
+  "restaurants": {
+    "title": "Descubre los mejores sabores de Tucumán",
+    "cuisine_type": "Tipo de Cocina",
+    "price_range": "Rango de Precios"
+  },
+  "itinerary": {
+    "title": "Mi Itinerario",
+    "download": "Descargar",
+    "generating": "Generando...",
+    "qr_ready": "¡Tu QR está listo!",
+    "scan_qr": "Escanea el código QR para ver tu itinerario",
+    "scan_description": "Escanea el código QR para ver tu itinerario y disfrutar de los destinos de San Miguel de Tucuman",
+    "add_items": "Debes agregar items a tu itinerario.",
+    "generating_itinerary": "Generando tu itinerario...",
+    "may_take_seconds": "Esto puede tardar unos segundos.",
+    "error_generating": "Error al generar tu itinerario"
+  },
+  "common": {
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "no_results": "No se encontraron resultados",
+    "page": "Página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "address": "Dirección",
+    "website": "Sitio web"
+  },
+  "days": {
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
+  },
+  "circuits": {
+    "historica": "Ciudad Histórica",
+    "yungas": "Yungas Tucumanas", 
+    "choromoro": "Valle De Choromoro",
+    "calchaqui": "Valle Calchaqui",
+    "sur": "Sur Tucumano"
+  }
+}

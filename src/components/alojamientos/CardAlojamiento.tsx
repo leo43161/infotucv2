@@ -120,7 +120,7 @@ const CardAlojamientos: React.FC<HotelCardProps> = ({ hotel, className = '' }) =
                                 size={115}
                                 level="L"
                                 includeMargin={false}
-                                bgColor='#ffffff00' 
+                                bgColor='#ffffff00'
                                 fgColor='#fff'
                             />
                         </div>

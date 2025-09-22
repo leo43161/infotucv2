@@ -4,9 +4,12 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import { FaBus, FaUtensils } from 'react-icons/fa'
 import { LuBedDouble } from "react-icons/lu";
+import LanguageSwitcher from './LanguageSwitcher';
+import { useI18n } from '@/hooks/useI18n';
 
 export default function Footer() {
     const router = useRouter();
+    const { t } = useI18n();
     const buttonsLeft = [
         { href: "transportes", color: "#800077", label: "Transportes", icon: FaBus },
         { href: "restaurantes", color: "#a83413", label: "Restaurantes", icon: FaUtensils },
@@ -32,10 +35,13 @@ export default function Footer() {
                     <img src="/icons/footer/eatt2024blancohorizontal.svg" className='h-18 w-full' alt="" />
                 </div>
             </div>
-            {router.pathname !== '/' ? <a href="/" className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary rounded transition-colors z-[1]">
-                <Home></Home>
-                <span className="font-bold">Inicio</span>
-            </a> : <div></div>}
+            <div className='flex items-center gap-3'>
+                <LanguageSwitcher buttonClassName='bg-primary text-zinc-50' direction='up' />
+                {router.pathname !== '/' && <a href="/" className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary rounded transition-colors z-[1]">
+                    <Home></Home>
+                    <span className="font-bold">{t('navigation.home')}</span>
+                </a>}
+            </div>
         </footer>
     )
 }

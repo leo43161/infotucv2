@@ -1,6 +1,6 @@
 // src/store/services/touchApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel, PrestadorApiResponse, PrestadorQueryArgs, Prestador, ActividadesResponse } from '@/types/api';
+import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel, PrestadorApiResponse, PrestadorQueryArgs, Prestador, ActividadesResponse, RestaurantesApiResponse, RestaurantesQueryArgs, Restaurante, LocalidadResponse } from '@/types/api';
 
 export const touchApi = createApi({
   reducerPath: 'touchApi',
@@ -64,6 +64,20 @@ export const touchApi = createApi({
         };
       },
     }),
+    getRestaurantes: builder.query<RestaurantesApiResponse, RestaurantesQueryArgs>({
+      query: ({
+        localidad,
+        categoria,
+        offset,
+        limit
+      }) => ({
+        url: 'restaurantes',
+        params: { offset, limit, localidad,categoria}
+      })
+    }),
+    getLocalidades: builder.query<LocalidadResponse, void>({
+      query: () => 'localidades',
+    }),
     getHotelesFilters: builder.query<HotelesFilterResponse, void>({
       query: () => 'alojamientos_filters',
     }),
@@ -79,5 +93,7 @@ export const {
   useGetHotelesQuery,
   useGetHotelesFiltersQuery,
   useGetPrestadorQuery,
-  useGetActividadesQuery
+  useGetActividadesQuery,
+  useGetLocalidadesQuery,
+  useGetRestaurantesQuery
 } = touchApi;
