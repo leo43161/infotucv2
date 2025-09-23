@@ -72,8 +72,8 @@ jobs:
           server-dir: / # <-- La carpeta de destino en tu servidor
 
       # 8. Llama al script PHP para que descomprima el archivo
-      - name: Trigger unzip on server
-        run: curl --fail "https://tucumanturismo.gob.ar/infotucv2/descomprimir.php?secret=${{ secrets.UNZIP_SECRET }}"
+      #- name: Trigger unzip on server
+      #  run: curl --fail "https://tucumanturismo.gob.ar/infotucv2/descomprimir.php?secret=${{ secrets.UNZIP_SECRET }}"
 
           # --- OPCIONES MODIFICADAS ---
           # dangerous-clean-slate: true # <-- ELIMINADO
