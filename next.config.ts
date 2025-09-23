@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     URL_IMG: "https://www.tucumanturismo.gob.ar/public/img/",
     URL_WEB: "https://www.tucumanturismo.gob.ar/",
     URL_TOUCH: "https://www.tucumanturismo.gob.ar/infotucv2/",
+    URL_IMG_TOUCH: "/infotucv2",
   },
   devIndicators: false,
   /* config options here */

@@ -109,7 +109,7 @@ const CardPrestador: React.FC<PrestadorCardProps> = ({ prestador, className = ''
               <div className='flex flex-wrap justify-center gap-2'>
                 {prestador.actividades_texto_original?.split(',').map((actividad, index) => (
                   <div key={index} className='flex items-center gap-2 bg-primary text-zinc-50 px-2 py-1 rounded-xl'>
-                    <img src="https://www.tucumanturismo.gob.ar/public/img/altamontana_0g9toa6f_27-08-2024.png" className='size-6' alt="" />
+                    <img src={process.env.URL_IMG_TOUCH + "https://www.tucumanturismo.gob.ar/public/img/altamontana_0g9toa6f_27-08-2024.png"} className='size-6' alt="" />
                     <p className="text-white font-semibold">
                       {actividad}
                     </p>

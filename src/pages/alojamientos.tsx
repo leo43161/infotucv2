@@ -40,13 +40,13 @@ export default function alojamientos() {
     return (
         <div className='h-[1500px] flex justify-between flex-col'>
             <div className="bg-aloj p-5 text-center relative shrink-0">
-                <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+                <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
                 <h1 className="text-5xl font-bold text-white">{t('accommodations.title')}</h1>
             </div>
             <div
                 className={`flex flex-col justify-between relative grow backdrop-brightness-120`}
             >
-                <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+                <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
                 <div className='grow z-[1]'>
                     <div className='flex flex-col h-full justify-center'>
                         {/* Necesito una card horizontal para alojamientos */}

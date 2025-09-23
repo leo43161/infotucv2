@@ -93,7 +93,7 @@ export default function Transportes() {
       >
         <img
           className='absolute w-full h-full object-cover z-[0] opacity-30 object-center top-0 left-0'
-          src="/img/header/textura-tucuman.png"
+          src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"}
           alt=""
         />
         {infoDestino && infoDestino?.length > 0 && (
@@ -145,7 +145,7 @@ export default function Transportes() {
         <div className="bg-secondary p-5 text-center relative">
           <img
             className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0'
-            src="/img/header/textura-tucuman.png"
+            src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"}
             alt=""
           />
           <h1 className="text-5xl font-bold text-white">{t("transportation.title")}</h1>
@@ -168,7 +168,7 @@ export default function Transportes() {
                 }
               >
                 <img
-                  src={"/icons/rutas/" + circuito.logo}
+                  src={process.env.URL_IMG_TOUCH + "/icons/rutas/" + circuito.logo}
                   className='h-18 w-auto opacity-100 z-10'
                   alt={circuito.nombre}
                 />

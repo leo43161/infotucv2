@@ -118,7 +118,7 @@ export default function Itinerario() {
         <div className='h-133'>
             <div className="grid grid-cols-7 grid-rows-10 h-full overflow-hidden">
                 <div className="col-span-2 col-start-1 row-start-1 relative overflow-hidden">
-                    <img className='absolute w-full object-cover z-[2] opacity-20 object-center -top-6/12' src="/img/header/textura-tucuman.png" alt="" />
+                    <img className='absolute w-full object-cover z-[2] opacity-20 object-center -top-6/12' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
                     <div className="flex justify-center items-center h-full bg-secondary z-10">
                         <p className="text-2xl font-bold text-white text-nowrap">{t("itinerary.choose_destination")}</p>
                     </div>
@@ -206,7 +206,7 @@ export default function Itinerario() {
                             {progressText}
                         </p>
                         <div className='h-full bg-primary relative overflow-hidden'>
-                            <img className='absolute w-full h-full object-cover z-[0] opacity-20 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+                            <img className='absolute w-full h-full object-cover z-[0] opacity-20 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
                             <PDFDownload />
                         </div>
                     </div>

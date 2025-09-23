@@ -31,7 +31,7 @@ export default function actividades() {
       <div
         className={clsx(`flex flex-col justify-center relative grow overflow-auto backdrop-brightness-120 pt-4`)}
       >
-        <img className='absolute w-full h-full object-cover z-[0] opacity-30 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+        <img className='absolute w-full h-full object-cover z-[0] opacity-30 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
         <div className='grow z-[1]'>
           <div className='flex flex-col h-full justify-start'>
             {/* Necesito una card horizontal para alojamientos */}
@@ -56,7 +56,7 @@ export default function actividades() {
 
       <div className='overflow-hidden flex flex-col justify-end shrink-0'>
         <div className="bg-secondary p-5 text-center relative">
-          <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+          <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
           <h1 className="text-5xl font-bold text-white">{t('activities.subtitle')}</h1>
         </div>
         <div className='flex flex-wrap '>

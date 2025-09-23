@@ -17,7 +17,7 @@ export default function Footer() {
     ];
     return (
         <footer className="bg-secondary text-white px-4 py-1 flex items-center justify-between flex-shrink-0 mt-auto relative">
-            <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
+            <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
             <div className="flex items-center gap-3 z-[1]">
                 {buttonsLeft.map((link, index) => (
                     <Link href={link.href} key={index} aria-label={link.label} className="size-10  rounded-full flex justify-center items-center border border-zinc-300" style={{ backgroundColor: link.color }}>
@@ -27,12 +27,12 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-3 z-[1] h-full">
                 <div>
-                    <img src="/icons/footer/logo-tuctur-w.svg" className='h-9 w-full' alt="" />
+                    <img src={process.env.URL_IMG_TOUCH + "/icons/footer/logo-tuctur-w.svg"} className='h-9 w-full' alt="" />
                 </div>
                 <div className='h-10 border'>
                 </div>
                 <div>
-                    <img src="/icons/footer/eatt2024blancohorizontal.svg" className='h-18 w-full' alt="" />
+                    <img src={process.env.URL_IMG_TOUCH + "/icons/footer/eatt2024blancohorizontal.svg"} className='h-18 w-full' alt="" />
                 </div>
             </div>
             <div className='flex items-center gap-3 h-11'>

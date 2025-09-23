@@ -52,7 +52,7 @@ export default function mapas() {
       >
         <img
           className='absolute w-full h-full object-cover z-[0] opacity-30 object-center top-0 left-0'
-          src="/img/header/textura-tucuman.png"
+          src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"}
           alt=""
         />
         <div className='grow z-[1] flex justify-center items-center'>
@@ -64,7 +64,7 @@ export default function mapas() {
         <div className="bg-secondary p-5 text-center relative">
           <img
             className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0'
-            src="/img/header/textura-tucuman.png"
+            src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"}
             alt=""
           />
           <h1 className="text-5xl font-bold text-white">{t('maps.title')}</h1>
