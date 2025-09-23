@@ -55,18 +55,50 @@
     "generating": "Generating...",
     "qr_ready": "Your QR is ready!",
     "scan_qr": "Scan the QR code to view your itinerary",
-    "scan_description": "Scan the QR code to view your itinerary and enjoy the destinations of San Miguel de Tucuman",
+    "scan_description": "Scan the QR code to view your itinerary and enjoy the destinations of San Miguel de Tucumán",
     "add_items": "You must add items to your itinerary.",
     "generating_itinerary": "Generating your itinerary...",
     "may_take_seconds": "This may take a few seconds.",
-    "error_generating": "Error generating your itinerary"
+    "error_generating": "Error generating your itinerary",
+    "choose_destination": "Choose your destination and plan your trip",
+    "click_for_info": "Click to learn more about your destination",
+    "error_loading_localities": "An error occurred while loading the information.",
+    "error_loading_destinations": "Error loading destinations.",
+    "your_itinerary": "Your itinerary",
+    "days": "day",
+    "days_plural": "days",
+    "loading": "Loading..."
+  },
+  "pdfItinerary": {
+    "author": "Your Trip through Tucumán",
+    "title": "My Personalized Itinerary",
+    "itinerary": "Itinerary",
+    "must_visit": "Must-Visit Destinations",
+    "rest": "Where to Rest",
+    "stars": "STARS",
+    "address": "Address",
+    "phone": "Phone",
+    "web": "Website",
+    "email": "Email",
+    "adventures": "Adventures and Activities",
+    "offers": "Offers",
+    "more": "more",
+    "instagram": "Instagram",
+    "view_profile": "View profile",
+    "guides": "Expert Guides",
+    "operates_in": "Operates in",
+    "of": "of",
+    "footer": "My Itinerary through Tucumán - Page "
   },
   "common": {
     "search": "Search",
     "filter": "Filter",
     "loading": "Loading...",
     "error": "Error",
+    "oops": "Oops! Something went wrong",
+    "try_again_later": "We couldn’t load the information. Please try again later.",
     "no_results": "No results found",
+    "try_again_filter": "Please try again with different filters.",
     "page": "Page",
     "of": "of",
     "previous": "Previous",
@@ -78,7 +110,11 @@
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
-    "website": "Website"
+    "website": "Website",
+    "categories": "Categories",
+    "locations": "Locations",
+    "category": "Category",
+    "location": "Location"
   },
   "days": {
     "monday": "Monday",
@@ -90,10 +126,10 @@
     "sunday": "Sunday"
   },
   "circuits": {
-    "historica": "Historic City Experience",
-    "yungas": "Yungas Experience", 
-    "choromoro": "Choromoro Valley Experience",
-    "calchaqui": "Calchaqui Valley Experience",
-    "sur": "Southern Experience"
+    "historica": "Historic City",
+    "yungas": "Tucumán Yungas",
+    "choromoro": "Choromoro Valley",
+    "calchaqui": "Calchaqui Valley",
+    "sur": "Southern Tucumán"
   }
 }

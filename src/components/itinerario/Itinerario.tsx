@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { useGetLocalidadesQuery, useGetDestinosQuery } from '@/store/services/itinerarioApi'; // Ajusta la ruta si es necesario
 import type { Localidad } from '@/types/itinerario';
@@ -8,6 +9,7 @@ import { cn, getCurrentLanguage } from '@/utils';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { useI18n } from '@/hooks/useI18n';
 
 // Se agrega la prop onClick para manejar la interacción del usuario
 const LocalidadPill = ({ destino, active, onClick, isLoading = false }: { destino: Localidad, active: boolean, onClick: () => void, isLoading?: boolean }) => {
@@ -45,19 +47,23 @@ const DestinoSkeleton = () => {
     )
 }
 
-const PDFDownload = dynamic(
-    () => import('./PDFDownload'),
-    {
-        ssr: false,
-        loading: () => (
+const PDFDownload = dynamic(() => import('./PDFDownload'), {
+    ssr: false,
+    loading: () => {
+        const { t } = useI18n();
+        return (
             <div className="flex items-center px-4 text-white h-full">
-                <p className="font-700 uppercase text-2xl ml-2">Cargando...</p>
+                <p className="font-700 uppercase text-2xl ml-2">
+                    {/* 🔹 Traducción del "Cargando..." */}
+                    {t("itinerary.loading")}
+                </p>
             </div>
         )
-    }
-);
+    },
+});
 
 export default function Itinerario() {
+    const { t } = useI18n();
     const router = useRouter();
     const Circuitos = useSelector((state: any) => state.itinerarios.value.circuitos);
     const { progress } = useSelector((state: any) => state.itinerarios.value);
@@ -86,14 +92,14 @@ export default function Itinerario() {
 
     if (isError) {
         console.error("Error al cargar las localidades:", error);
-        return <div>Ocurrió un error al cargar la información.</div>;
+        return <div>{t("itinerary.error_loading_localities")}</div>;
     }
 
     // Obtenemos el array de localidades del objeto de respuesta o un array vacío si no hay datos
     const localidades = localidadesData?.result || [];
     const destinos = destinosData?.result?.articulos || [];
     const dias = Math.ceil(progress / 100);
-    const progressText = `${dias} día${dias > 1 ? "s" : ""}`;
+    const progressText = `${dias} ${dias > 1 ? t("itinerary.days_plural") : t("itinerary.days")}`;
     const progressWidth = progress > 100 ? 100 : progress;
     const lenguaje = getCurrentLanguage(router.query);
     return (
@@ -101,15 +107,14 @@ export default function Itinerario() {
             <div className="grid grid-cols-7 grid-rows-10 h-full overflow-hidden">
                 <div className="col-span-2 col-start-1 row-start-1 relative overflow-hidden">
                     <img className='absolute w-full object-cover z-[2] opacity-20 object-center -top-6/12' src="/img/header/textura-tucuman.png" alt="" />
-                    <div className='flex justify-center items-center h-full bg-secondary z-10'>
-                        <p className="text-2xl font-bold text-white">Elegí tu destino y planifica tu viaje</p>
+                    <div className="flex justify-center items-center h-full bg-secondary z-10">
+                        <p className="text-2xl font-bold text-white">{t("itinerary.choose_destination")}</p>
                     </div>
                 </div>
                 <div className="col-span-5 col-start-3 row-start-1" style={{ backgroundColor: colorCircuito || "#01415c" }}>
                     <div className='flex justify-center items-center h-full'>
                         <p className="text-3xl font-bold text-white">
-                            {/* {localidad?.nombre || "Elegí tu destino y planifica tu viaje"} */}
-                            Haz click para conocer mas informacion sobre tu destino
+                            {t("itinerary.click_for_info")}
                         </p>
                     </div>
                 </div>
@@ -146,11 +151,11 @@ export default function Itinerario() {
                             </div>
                         }
 
-                        {isErrorDestinos &&
+                        {isErrorDestinos && (
                             <div>
-                                <p className="text-red-500">Error al cargar los destinos.</p>
+                                <p className="text-red-500">{t("itinerary.error_loading_destinations")}</p>
                             </div>
-                        }
+                        )}
 
                         {!isLoadingDestinos && !isErrorDestinos && (
                             <>
@@ -170,7 +175,7 @@ export default function Itinerario() {
                 <div className="col-span-7 col-start-1 row-start-12 h-11">
                     <div className='h-full w-full flex justify-between items-center text-white gap-3' style={{ backgroundColor: colorCircuito || "#01415c" }}>
                         <div className='text-xl font-semibold ps-4'>
-                            Tu itinerario
+                            {t("itinerary.your_itinerary")}
                         </div>
                         <div className='flex-1 h-full py-2'>
                             <div className='flex-1 border-1 rounded-2xl h-full bg-gray-200'>

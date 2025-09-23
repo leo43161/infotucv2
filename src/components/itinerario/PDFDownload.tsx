@@ -9,8 +9,10 @@ import { useRouter } from 'next/router';
 import { getCurrentLanguage } from '@/utils';
 import { Favoritos } from '@/types/itinerarioState';
 import { FaFileDownload } from 'react-icons/fa';
+import { useI18n } from '@/hooks/useI18n';
 
 export default function PDFGeneratorButton() {
+  const { t } = useI18n();
   const router = useRouter();
   const lenguaje = getCurrentLanguage(router.query);
 

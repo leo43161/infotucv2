@@ -2,6 +2,7 @@ import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font, Image, Link, PDFViewer } from '@react-pdf/renderer';
 import { extractGoogleMapsLink } from '@/utils';
 import { Favoritos } from '@/types/itinerarioState';
+import { useI18n } from '@/hooks/useI18n';
 
 const URLImg = process.env.URL_IMG
 console.log(URLImg);
@@ -229,6 +230,7 @@ const styles = StyleSheet.create({
 type CircuitoKey = keyof typeof circuitosData;
 // --- Componente Principal del Documento PDF ---
 const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
+  const { t } = useI18n();
   const circuitsWithFavorites = Object.keys(data).filter(circuitKey =>
     data[circuitKey as CircuitoKey].destinos.length > 0 ||
     data[circuitKey as CircuitoKey].alojamientos.length > 0 ||
@@ -236,7 +238,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
     data[circuitKey as CircuitoKey].guias.length > 0
   );
   return (
-    <Document author="Tu Viaje por Tucumán" title="Mi Itinerario Personalizado">
+    <Document author={t("pdfItinerary.author")} title={t("pdfItinerary.title")}>
       {circuitsWithFavorites.flatMap((circuitKey: string, index: number) => {
         const circuitData = data[circuitKey];
         const circuito = circuitosData[circuitKey as CircuitoKey] || circuitosData.default;
@@ -254,14 +256,14 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
             <View style={styles.contentArea}>
               <View style={{ ...styles.contentPageHeader, borderBottomColor: circuito.secondary }}>
                 <Text style={{ ...styles.contentH1, color: circuito.primary }}>
-                  Itinerario: {circuito.nombre}
+                  {t("pdfItinerary.itinerary")}: {circuito.nombre}
                 </Text>
               </View>
 
               {/* SECCIÓN DESTINOS */}
               {circuitData.destinos.length > 0 && (
                 <View style={styles.section}>
-                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>Destinos Imperdibles</Text>
+                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>{t("pdfItinerary.must_visit")}</Text>
                   {circuitData.destinos.map(destino => (
                     <View key={destino.idArticulo} style={{
                       ...styles.card,
@@ -297,7 +299,9 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
               {/* SECCIÓN ALOJAMIENTOS */}
               {circuitData.alojamientos.length > 0 && (
                 <View style={styles.section}>
-                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>Dónde Descansar</Text>
+                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>
+                    {t("pdfItinerary.rest")}
+                  </Text>
                   {circuitData.alojamientos.map(alojamiento => (
                     <View key={alojamiento.id} style={{
                       ...styles.card,
@@ -319,7 +323,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
                       <View style={{ ...styles.cardBody }}>
                         {/* Fila para el Título y las Estrellas */}
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                          <Text style={{ ...styles.cardTitle, marginBottom: 4, color: circuito.primary }}>{alojamiento.nombre} - {alojamiento.estrellas} ESTRELLAS</Text>
+                          <Text style={{ ...styles.cardTitle, marginBottom: 4, color: circuito.primary }}>{alojamiento.nombre} - {alojamiento.estrellas} {t("pdfItinerary.stars")}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                           <Text style={{
@@ -335,21 +339,21 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
                         {/* Resto de la información */}
                         <View style={{ flexDirection: 'column', gap: 5, justifyContent: 'space-between' }} >
                           <Text style={{ fontSize: 10, marginBottom: 0 }}>
-                            <Text style={styles.cardLabel}>Dirección: </Text>
+                            <Text style={styles.cardLabel}>{t("pdfItinerary.address")}: </Text>
                             {alojamiento.direccion}, {alojamiento.nombreLocalidad}
                           </Text>
                           <Text style={{ fontSize: 10, marginBottom: 0 }}>
-                            <Text style={styles.cardLabel}>Teléfono: </Text>
+                            <Text style={styles.cardLabel}>{t("pdfItinerary.phone")}: </Text>
                             {alojamiento.telefono}
                           </Text>
                           {alojamiento.web && (
                             <Link src={alojamiento.web} style={{ fontSize: 10, marginBottom: 0 }}>
-                              <Text style={styles.cardLabel}>Web: </Text>{alojamiento.web}
+                              <Text style={styles.cardLabel}>{t("pdfItinerary.web")}: </Text>{alojamiento.web}
                             </Link>
                           )}
                           {alojamiento.mail && (
                             <Text style={{ fontSize: 10, marginBottom: 0 }}>
-                              <Text style={styles.cardLabel}>Email: </Text>{alojamiento.mail}
+                              <Text style={styles.cardLabel}>{t("pdfItinerary.email")}: </Text>{alojamiento.mail}
                             </Text>
                           )}
                         </View>
@@ -362,7 +366,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
               {/* SECCIÓN ACTIVIDADES */}
               {circuitData.prestadores.length > 0 && (
                 <View style={styles.section}>
-                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>Aventuras y Actividades</Text>
+                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>{t("pdfItinerary.adventures")}</Text>
                   {circuitData.prestadores.map(prestador => {
                     const allActivities = prestador.actividades ? prestador.actividades.split(',') : [];
                     const visibleActivities = allActivities.slice(0, 11);
@@ -389,7 +393,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
                         </View>
                         {/* Contenedor para las actividades como badges */}
                         <View style={{ marginBottom: 7 }}>
-                          <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>Ofrece:</Text>
+                          <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>{t("pdfItinerary.offers")}:</Text>
                           <View style={styles.tagsContainer}>
                             {visibleActivities.map((actividad: string) => (
                               <Text key={actividad} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>
@@ -398,7 +402,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
                             ))}
                             {remainingCount > 0 && (
                               <Text style={{ ...styles.tagBadge, backgroundColor: '#757575' }}>
-                                +{remainingCount} más
+                                +{remainingCount} {t("pdfItinerary.more")}
                               </Text>
                             )}
                           </View>
@@ -407,14 +411,14 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
                         {/* Información de contacto mejorada */}
                         <View style={{ flexDirection: 'column', gap: 5, justifyContent: 'space-between' }}>
                           <Text style={styles.infoLine}>
-                            <Text style={styles.cardLabel}>Teléfono: </Text>{prestador.telefono}
+                            <Text style={styles.cardLabel}>{t("pdfItinerary.phone")}: </Text>{prestador.telefono}
                           </Text>
                           <Text style={styles.infoLine}>
-                            <Text style={styles.cardLabel}>Email: </Text>{prestador.email}
+                            <Text style={styles.cardLabel}>{t("pdfItinerary.email")}: </Text>{prestador.email}
                           </Text>
                           {prestador.instagram && (
                             <Link src={prestador.instagram} style={styles.infoLine}>
-                              <Text style={styles.cardLabel}>Instagram: </Text>Ver perfil
+                              <Text style={styles.cardLabel}>Instagram: </Text>{t("pdfItinerary.view_profile")}
                             </Link>
                           )}
                         </View>
@@ -425,7 +429,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
               )}
               {circuitData.guias.length > 0 && (
                 <View style={styles.section}>
-                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>Guías Expertos</Text>
+                  <Text style={{ ...styles.h2, color: circuito.primary, borderBottomColor: circuito.secondary }}>{t("pdfItinerary.guides")}</Text>
 
 
 
@@ -456,7 +460,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
 
                         {/* Zonas de Operación como badges */}
                         <View style={{ marginBottom: 7 }}>
-                          <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>Opera en:</Text>
+                          <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>{t("pdfItinerary.operates_in")}:</Text>
                           <View style={styles.tagsContainer}>
                             {visibleZones.map((zona: string) => (
                               <Text key={zona} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>
@@ -465,21 +469,21 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
                             ))}
                             {remainingZones > 0 && (
                               <Text style={{ ...styles.tagBadge, backgroundColor: '#757575' }}>
-                                +{remainingZones} más
+                                +{remainingZones} {t("pdfItinerary.more")}
                               </Text>
                             )}
                           </View>
                         </View>
 
-                        {/* Email de contacto al final */}
+                        {/* {t("pdfItinerary.email")} de contacto al final */}
                         <View style={{ flexDirection: 'column', gap: 5, justifyContent: 'space-between' }}>
                           {guia.domicilio && (
                             <Text style={styles.infoLine}>
-                              <Text style={styles.cardLabel}>Domicilio: </Text>{guia.domicilio}
+                              <Text style={styles.cardLabel}>{t("pdfItinerary.address")}: </Text>{guia.domicilio}
                             </Text>
                           )}
                           <Text style={styles.infoLine}>
-                            <Text style={styles.cardLabel}>Email: </Text>{guia.email}
+                            <Text style={styles.cardLabel}>{t("pdfItinerary.email")}: </Text>{guia.email}
                           </Text>
                         </View>
                       </View>
@@ -490,7 +494,7 @@ const ItinerarioDoc = ({ data }: { data: Favoritos }) => {
 
             </View>
             <Text style={styles.footer} render={({ pageNumber, totalPages }) => (
-              `Mi Itinerario por Tucumán - Página ${pageNumber} de ${totalPages}`
+              `${t("pdfItinerary.footer")} ${pageNumber} ${t("pdfItinerary.of")} ${totalPages}`
             )} fixed />
           </Page>
         );

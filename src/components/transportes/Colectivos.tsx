@@ -1,14 +1,15 @@
-// components/Colectivos.js
+// components/Colectivos.tsx
 "use client";
 import { useEffect, useState } from 'react';
-import { Bus, Ticket, User, Phone, MapPin, Clock, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Ticket, Phone, MapPin, Clock, ArrowRight, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
-import { Colectivo } from '@/types/api';
 import { FaBus } from 'react-icons/fa';
+import { useI18n } from '@/hooks/useI18n';
+import { translateDay } from '@/utils/transportes';
 
 const Colectivos = ({ data, color }: { data: any, color: string }) => {
-    console.log(data);
+    const { t, locale } = useI18n();
     const [activeTab, setActiveTab] = useState(data.horarios[0].dia);
     const activeHorario = data.horarios.find((h: any) => h.dia === activeTab);
 
@@ -23,7 +24,7 @@ const Colectivos = ({ data, color }: { data: any, color: string }) => {
 
     return (
         <div className="bg-white rounded-xl shadow-lg p-6 w-full mx-auto border border-gray-100 z-10 overflow-auto h-full">
-            {/* Encabezado con Destino y Empresa */}
+            {/* Encabezado con Empresa */}
             <div className="flex justify-between items-start mb-6">
                 <div>
                     <div className="flex items-center text-gray-800 gap-3">
@@ -38,21 +39,21 @@ const Colectivos = ({ data, color }: { data: any, color: string }) => {
                 <div className="flex items-center bg-gray-100 p-3 rounded-lg">
                     <MapPin className="size-7 mr-3 text-gray-500" />
                     <div className='z-[1]'>
-                        <p className="font-bold text-gray-700 text-2xl">Plataforma</p>
+                        <p className="font-bold text-gray-700 text-2xl">{t('transportation.platform')}</p>
                         <p className="text-gray-600">{data.Plataforma}</p>
                     </div>
                 </div>
                 <div className="flex items-center bg-gray-100 p-3 rounded-lg">
                     <Ticket className="size-7 mr-3 text-gray-500" />
                     <div>
-                        <p className="font-bold text-gray-700 text-2xl">Precios</p>
+                        <p className="font-bold text-gray-700 text-2xl">{t('transportation.prices')}</p>
                         <p className="text-gray-600">{data.Precio}</p>
                     </div>
                 </div>
                 <div className="flex items-center bg-gray-100 p-3 rounded-lg">
                     <Phone className="size-7 mr-3 text-gray-500" />
                     <div>
-                        <p className="font-bold text-gray-700 text-2xl">Contacto</p>
+                        <p className="font-bold text-gray-700 text-2xl">{t('accommodations.contact')}</p>
                         <p className="text-gray-600">{data.telefono}</p>
                     </div>
                 </div>
@@ -72,7 +73,7 @@ const Colectivos = ({ data, color }: { data: any, color: string }) => {
                                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                             )}
                         >
-                            {horario.dia}
+                            {translateDay(horario.dia, locale)}
                         </button>
                     ))}
                 </nav>
@@ -93,7 +94,7 @@ const Colectivos = ({ data, color }: { data: any, color: string }) => {
                             <div>
                                 <div className="flex items-center mb-4">
                                     <ArrowRight className="size-7 text-primary mr-2" />
-                                    <h3 className="font-bold text-lg text-gray-700">Horarios de Ida</h3>
+                                    <h3 className="font-bold text-lg text-gray-700">{t('transportation.schedule_departure')}</h3>
                                 </div>
                                 {formatTimes(activeHorario.ida).length > 0 ? (
                                     <div className="flex flex-wrap gap-2">
@@ -103,14 +104,14 @@ const Colectivos = ({ data, color }: { data: any, color: string }) => {
                                             </span>
                                         ))}
                                     </div>
-                                ) : <p className="text-gray-500 italic text-sm">No hay salidas para este día.</p>}
+                                ) : <p className="text-gray-500 italic text-sm">{t('transportation.no_departures')}</p>}
                             </div>
 
                             {/* Horarios de Vuelta */}
                             <div>
                                 <div className="flex items-center mb-4">
                                     <ArrowLeft className="size-7 text-secondary mr-2" />
-                                    <h3 className="font-bold text-lg text-gray-700">Horarios de Vuelta</h3>
+                                    <h3 className="font-bold text-lg text-gray-700">{t('transportation.schedule_return')}</h3>
                                 </div>
                                 {formatTimes(activeHorario.vuelta).length > 0 ? (
                                     <div className="flex flex-wrap gap-2">
@@ -120,7 +121,7 @@ const Colectivos = ({ data, color }: { data: any, color: string }) => {
                                             </span>
                                         ))}
                                     </div>
-                                ) : <p className="text-gray-500 italic text-sm">No hay regresos para este día.</p>}
+                                ) : <p className="text-gray-500 italic text-sm">{t('transportation.no_returns')}</p>}
                             </div>
                         </div>
                     )}

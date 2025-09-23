@@ -1,67 +1,71 @@
 import { FaBus, FaBriefcase, FaHiking, FaMapMarkedAlt, FaUtensils } from 'react-icons/fa'
 import { LuBedDouble } from "react-icons/lu";
 import { FaCar } from "react-icons/fa6";
+import { useI18n } from '@/hooks/useI18n';
 // Rediseñamos la estructura de datos para incluir el icono y el color de Tailwind
-const navItems = [
-    {
-        href: "/transportes",
-        label: "Transportes",
-        icon: FaBus, // Nombre del icono de Lucide
-        color: "trans",     // Clave del color en tailwind.config.mjs
-        gridClass: "row-span-2"
-    },
-    {
-        href: "/mapas",
-        label: "Mapas",
-        icon: FaMapMarkedAlt,
-        color: "mapas",
-        gridClass: "row-span-2",
-    },
-    {
-        href: "/alojamientos",
-        label: "Alojamientos",
-        icon: LuBedDouble,
-        color: "aloj",
-        gridClass: "row-span-2"
-    },
-    {
-        href: "/actividades",
-        label: "Actividades",
-        icon: FaHiking,
-        color: "acti",
-        gridClass: "row-span-2 row-start-3"
-    },
+const navItems = () => {
+    const { t } = useI18n();
+    return [
+        {
+            href: "/transportes",
+            label: t("navigation.transportation"),
+            icon: FaBus, // Nombre del icono de Lucide
+            color: "trans",     // Clave del color en tailwind.config.mjs
+            gridClass: "row-span-2"
+        },
+        {
+            href: "/mapas",
+            label: t("navigation.maps"),
+            icon: FaMapMarkedAlt,
+            color: "mapas",
+            gridClass: "row-span-2",
+        },
+        {
+            href: "/alojamientos",
+            label: t("navigation.accommodations"),
+            icon: LuBedDouble,
+            color: "aloj",
+            gridClass: "row-span-2"
+        },
+        {
+            href: "/actividades",
+            label: t("navigation.activities"),
+            icon: FaHiking,
+            color: "acti",
+            gridClass: "row-span-2 row-start-3"
+        },
 
-    {
-        href: "/agencias",
-        label: "Agencias",
-        icon: FaBriefcase,
-        gridClass: "row-start-3",
-        row: true,
-        color: "agen",
-    },
-    {
-        href: "/autos",
-        label: "Autos",
-        icon: FaCar,
-        color: "autos",
-        gridClass: "col-start-2 row-start-4",
-        row: true
-    },
-    {
-        href: "/restaurantes",
-        label: "Restaurantes",
-        icon: FaUtensils,
-        color: "rest",
-        gridClass: "row-span-2 col-start-3 row-start-3",
-    },
-];
+        {
+            href: "/agencias",
+            label: t("navigation.agencies"),
+            icon: FaBriefcase,
+            gridClass: "row-start-3",
+            row: true,
+            color: "agen",
+        },
+        {
+            href: "/autos",
+            label: t("navigation.cars"),
+            icon: FaCar,
+            color: "autos",
+            gridClass: "col-start-2 row-start-4",
+            row: true
+        },
+        {
+            href: "/restaurantes",
+            label: t("navigation.restaurants"),
+            icon: FaUtensils,
+            color: "rest",
+            gridClass: "row-span-2 col-start-3 row-start-3",
+        },
+    ]
+};
 
 export default function NavButtons() {
     return (
         <nav className="p-2 flex-shrink-0">
             <div className="grid grid-cols-3 grid-rows-4 gap-4"> {/* Damos una altura fija al contenedor */}
-                {navItems.map((item, index) => (
+                {navItems().map((item, index) => (
                     <div className={item.gridClass} key={index}>
                         <a
                             href={item.href}

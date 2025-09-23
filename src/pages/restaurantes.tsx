@@ -15,8 +15,10 @@ import TouchSelect from '../components/common/Select';
 
 // Importa íconos para los mensajes
 import { SearchX, AlertTriangle } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 export default function restaurantes() {
+      const { t } = useI18n();
     const [categoria, setCategoria] = useState<string>('');
     const [localidad, setLocalidad] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -49,8 +51,8 @@ export default function restaurantes() {
             return (
                 <FeedbackMessage
                     icon={<AlertTriangle size={64} />}
-                    title="¡Oops! Algo salió mal"
-                    message="No pudimos cargar la información. Por favor, intenta de nuevo más tarde."
+                    title={t('common.oops')}
+                    message={t('common.try_again_later')}
                 />
             );
         }
@@ -60,8 +62,8 @@ export default function restaurantes() {
             return (
                 <FeedbackMessage
                     icon={<SearchX size={64} />}
-                    title="No se encontraron resultados"
-                    message="Prueba cambiando los filtros o ampliando tu búsqueda para encontrar lo que necesitas."
+                    title={t('common.no_results')}
+                    message={t('common.try_again_filter')}
                 />
             );
         }
@@ -77,7 +79,7 @@ export default function restaurantes() {
         <div className='h-[1500px] flex flex-col justify-between'>
             <div className="bg-aloj p-5 text-center relative shrink-0">
                 <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
-                <h1 className="text-5xl font-bold text-white">Buscá aquí donde comer</h1>
+                <h1 className="text-5xl font-bold text-white">{t('restaurants.title')}</h1>
             </div>
 
             <div className="flex flex-col justify-between relative grow backdrop-brightness-120">
@@ -94,20 +96,20 @@ export default function restaurantes() {
                         <div className='flex flex-col md:flex-row justify-center gap-5'>
                             <div className='flex-1 max-w-sm'>
                                 <TouchSelect
-                                    label="Categorías"
+                                    label={t('common.categories')}
                                     options={categorias}
                                     value={categoria}
                                     onChange={(val) => { setCategoria(val); setCurrentPage(1); }}
-                                    placeholder="Todas las categorías"
+                                    placeholder={t('common.categories')}
                                 />
                             </div>
                             <div className='flex-1 max-w-sm'>
                                 <TouchSelect
-                                    label="Localidades"
+                                    label={t('common.locations')}
                                     options={localidades}
                                     value={localidad}
                                     onChange={(val) => { setLocalidad(val); setCurrentPage(1); }}
-                                    placeholder="Todas las localidades"
+                                    placeholder={t('common.locations')}
                                 />
                             </div>
                         </div>

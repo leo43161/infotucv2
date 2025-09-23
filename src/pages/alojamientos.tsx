@@ -4,9 +4,11 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import CardAlojamientos from '../components/alojamientos/CardAlojamiento';
 import TouchSelect from '../components/common/Select';
 import { useGetHotelesFiltersQuery, useGetHotelesQuery } from '@/store/services/touchApi';
+import { useI18n } from '@/hooks/useI18n';
 
 
 export default function alojamientos() {
+    const { t } = useI18n();
     const [categoria, setCategoria] = useState<string>('');
     const [estrellas, setEstrellas] = useState<string>('');
     const [localidad, setLocalidad] = useState<string>('');
@@ -39,7 +41,7 @@ export default function alojamientos() {
         <div className='h-[1500px] flex justify-between flex-col'>
             <div className="bg-aloj p-5 text-center relative shrink-0">
                 <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src="/img/header/textura-tucuman.png" alt="" />
-                <h1 className="text-5xl font-bold text-white">Buscá aquí donde hospedarte</h1>
+                <h1 className="text-5xl font-bold text-white">{t('accommodations.title')}</h1>
             </div>
             <div
                 className={`flex flex-col justify-between relative grow backdrop-brightness-120`}
@@ -59,33 +61,33 @@ export default function alojamientos() {
                             {/* Categorías */}
                             <div className='flex flex-col w-80'>
                                 <TouchSelect
-                                    label="Categorías"
+                                    label={t('accommodations.categories')}
                                     options={categorias}
                                     value={categoria}
                                     onChange={setCategoria}
-                                    placeholder="Categoría"
+                                    placeholder={t('accommodations.category')}
                                 />
                             </div>
 
                             {/* Estrellas */}
                             <div className='flex flex-col w-80'>
                                 <TouchSelect
-                                    label="Estrellas"
+                                    label={t('accommodations.stars')}
                                     options={estrellasOptions}
                                     value={estrellas}
                                     onChange={setEstrellas}
-                                    placeholder="Estrellas"
+                                    placeholder={t('accommodations.stars')}
                                 />
                             </div>
 
                             {/* Localidades */}
                             <div className='flex flex-col w-80'>
                                 <TouchSelect
-                                    label="Localidades"
+                                    label={t('accommodations.locations')}
                                     options={localidades}
                                     value={localidad}
                                     onChange={setLocalidad}
-                                    placeholder="Localidad"
+                                    placeholder={t('accommodations.location')}
                                 />
                             </div>
                         </div>

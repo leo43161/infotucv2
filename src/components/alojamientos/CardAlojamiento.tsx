@@ -3,7 +3,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { MapPin, Star, Phone, Mail, Globe, Image as ImageIcon, LocateIcon } from 'lucide-react';
 import { Hotel } from '@/types/api';
 import { FaLocationCrosshairs, FaLocationDot } from 'react-icons/fa6';
-
+import { useI18n } from '@/hooks/useI18n';
 
 interface HotelCardProps {
     hotel: Hotel;
@@ -11,6 +11,7 @@ interface HotelCardProps {
 }
 
 const CardAlojamientos: React.FC<HotelCardProps> = ({ hotel, className = '' }) => {
+    const { t } = useI18n();
     // Generar URL de Google Maps
     const googleMapsUrl = `https://www.google.com/maps?q=${hotel.latitud},${hotel.longitud}`;
 
@@ -27,7 +28,6 @@ const CardAlojamientos: React.FC<HotelCardProps> = ({ hotel, className = '' }) =
             />
         ));
     };
-
     return (
         <div className={`bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300 ${className}`}>
             <div className="flex flex-row h-64">
@@ -110,7 +110,7 @@ const CardAlojamientos: React.FC<HotelCardProps> = ({ hotel, className = '' }) =
                         <div className="text-center">
                             <h4 className="text-lg font-bold text-zinc-50 flex items-center gap-1">
                                 <span><FaLocationCrosshairs className="size-5 text-zinc-50" /></span>
-                                Ubicacion en Maps
+                                {t('accommodations.location_maps')}
                             </h4>
                         </div>
 
