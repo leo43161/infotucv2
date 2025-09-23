@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  basePath: process.env.NODE_ENV === 'production' ? "/infotucv2" : "",
   eslint: {
     ignoreDuringBuilds: true,
   },
