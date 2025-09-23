@@ -2,7 +2,6 @@ import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font, Image, Link } from '@react-pdf/renderer';
 import { extractGoogleMapsLink } from '@/utils';
 import { Favoritos } from '@/types/itinerarioState';
-import { useI18n } from '@/hooks/useI18n';
 
 // Las constantes de datos (URLImg, circuitosData) y el registro de fuentes
 // permanecen exactamente iguales, ya que los datos y la marca no cambian.
@@ -168,203 +167,217 @@ const styles = StyleSheet.create({
 type CircuitoKey = keyof typeof circuitosData;
 // --- Componente Principal del Documento PDF Móvil ---
 const ItinerarioMobile = ({ data }: { data: Favoritos }) => {
-  const { t } = useI18n();
-
-  const circuitsWithFavorites = Object.keys(data).filter(circuitKey =>
+    const circuitsWithFavorites = Object.keys(data).filter(circuitKey =>
     data[circuitKey as CircuitoKey].destinos.length > 0 ||
     data[circuitKey as CircuitoKey].alojamientos.length > 0 ||
     data[circuitKey as CircuitoKey].prestadores.length > 0 ||
     data[circuitKey as CircuitoKey].guias.length > 0
   );
 
-  return (
-    <Document author={t("pdfItinerary.author")} title={t("pdfItinerary.title") + " Mobile"}>
-      <Page size={{ width: 390, height: 1200 }} style={styles.page}>
-        {circuitsWithFavorites.map((circuitKey: string, index) => {
-          const circuitData = data[circuitKey];
-          const circuito = circuitosData[circuitKey as CircuitoKey] || circuitosData.default;
+    return (
+        <Document author="Tu Viaje por Tucumán" title="Mi Itinerario Personalizado Mobile">
+            {/* Un solo <Page> largo que contiene todos los circuitos */}
+            <Page size={{ width: 390, height: 1200 }} style={styles.page}>
+                {circuitsWithFavorites.map((circuitKey : string, index) => {
+                    const circuitData = data[circuitKey];
+                    const circuito = circuitosData[circuitKey as CircuitoKey] || circuitosData.default;
 
-          return (
-            <View key={circuitKey} style={{ ...styles.section, paddingTop: index > 0 ? 30 : 0 }} break={index > 0}>
-              <View style={{ ...styles.circuitHeader, borderBottomColor: circuito.secondary }}>
-                <View style={{ backgroundColor: circuito.primary, width: '100%', textAlign: 'center' }}>
-                  <Image src={circuito.icono} style={styles.circuitIcon} />
-                </View>
-              </View>
-
-              {/* SECCIÓN DESTINOS */}
-              {circuitData.destinos.length > 0 && (
-                <View>
-                  <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>
-                    {t("pdfItinerary.must_visit")}
-                  </Text>
-                  {circuitData.destinos.map(destino => (
-                    <View key={destino.idArticulo} style={styles.card} wrap={false}>
-                      <Image src={{ uri: URLImg + (destino.imagenMovil || destino.imagen) }} style={styles.cardImage} />
-                      <View style={styles.cardContent}>
-                        <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{destino.nombre}</Text>
-                        {destino.copete && <Text style={styles.cardCopete}>"{destino.copete}"</Text>}
-                        <View style={styles.tagsContainer}>
-                          {destino.tags.split(',').map((tag: string) => (
-                            <Text key={tag} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>{tag.trim()}</Text>
-                          ))}
-                        </View>
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              )}
-
-              {/* SECCIÓN ALOJAMIENTOS */}
-              {circuitData.alojamientos.length > 0 && (
-                <View style={{ marginTop: 20 }}>
-                  <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>
-                    {t("pdfItinerary.rest")}
-                  </Text>
-                  {circuitData.alojamientos.map(alojamiento => (
-                    <View key={alojamiento.id} style={styles.card} wrap={false}>
-                      <Image src={{ uri: `https://www.tucumanturismo.gob.ar/public/img/alojamientos/${alojamiento.logo}` }} style={styles.cardImage} />
-                      <View style={styles.cardContent}>
-                        <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{alojamiento.nombre}</Text>
-                        {alojamiento.nombre_localidad && (
-                          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                            <Text style={{ ...styles.tagBadge, backgroundColor: circuito.primary, fontSize: 16, fontWeight: 'bold' }}>
-                              {alojamiento.nombre_localidad}
-                            </Text>
-                          </View>
-                        )}
-                        <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
-                          <Text style={styles.cardLabel}>{t("pdfItinerary.address")}: </Text>{alojamiento.domicilio}
-                        </Text>
-                        {alojamiento.telefono && (
-                          <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
-                            <Text style={styles.cardLabel}>{t("pdfItinerary.phone")}: </Text>{alojamiento.telefono}
-                          </Text>
-                        )}
-                        {alojamiento.email && (
-                          <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
-                            <Text style={styles.cardLabel}>{t("pdfItinerary.email")}: </Text>{alojamiento.email}
-                          </Text>
-                        )}
-                        {alojamiento.instagram && (
-                          <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
-                            <Text style={styles.cardLabel}>{t("pdfItinerary.instagram")}: </Text>{alojamiento.instagram}
-                          </Text>
-                        )}
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              )}
-
-              {/* SECCIÓN PRESTADORES */}
-              {circuitData.prestadores.length > 0 && (
-                <View style={{ marginTop: 20 }}>
-                  <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>
-                    {t("pdfItinerary.adventures")}
-                  </Text>
-                  {circuitData.prestadores.map(prestador => {
-                    const allActivities = prestador.actividades ? prestador.actividades.split(',') : [];
-                    const visibleActivities = allActivities.slice(0, 6);
-                    const remainingCount = allActivities.length - visibleActivities.length;
                     return (
-                      <View key={prestador.id} style={styles.card} wrap={false}>
-                        <View style={styles.cardContent}>
-                          <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{prestador.titulo}</Text>
-                          {prestador.nombre_localidad && (
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                              <Text style={{ ...styles.tagBadge, backgroundColor: circuito.primary, fontSize: 16, fontWeight: 'bold' }}>
-                                {prestador.nombre_localidad}
-                              </Text>
+                        <View key={circuitKey} style={{ ...styles.section, paddingTop: index > 0 ? 30 : 0 }} break={index > 0}>
+                            {/* ENCABEZADO DEL CIRCUITO */}
+                            <View style={{ ...styles.circuitHeader, borderBottomColor: circuito.secondary }}>
+                                <View style={{ backgroundColor: circuito.primary, width: '100%', textAlign: 'center' }}>
+                                    <Image src={circuito.icono} style={styles.circuitIcon} />
+                                </View>
+                                {/* <Text style={{ ...styles.circuitTitle, color: circuito.primary }}>{circuito.nombre}</Text> */}
                             </View>
-                          )}
-                          <View style={{ flexDirection: 'row', gap: 4, justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                            <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
-                              <Text style={styles.cardLabel}>{t("pdfItinerary.phone")}: </Text>{prestador.telefono}
-                            </Text>
-                            {prestador.email && (
-                              <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
-                                <Text style={styles.cardLabel}>{t("pdfItinerary.email")}: </Text>{prestador.email}
-                              </Text>
-                            )}
-                            {prestador.instagram && (
-                              <Link src={prestador.instagram} style={{ ...styles.infoLine, marginBottom: 0 }}>
-                                <Text style={styles.cardLabel}>{t("pdfItinerary.instagram")}: </Text>{t("pdfItinerary.view_profile")}
-                              </Link>
-                            )}
-                          </View>
-                          <View style={styles.activitiesContainer}>
-                            <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>{t("pdfItinerary.offers")}:</Text>
-                            <View style={styles.tagsContainer}>
-                              {visibleActivities.map((act: string) => (
-                                <Text key={act} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>{act.trim()}</Text>
-                              ))}
-                              {remainingCount > 0 && (
-                                <Text style={{ ...styles.tagBadge, backgroundColor: '#757575' }}>
-                                  +{remainingCount} {t("pdfItinerary.more")}
-                                </Text>
-                              )}
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    )
-                  })}
-                </View>
-              )}
 
-              {/* SECCIÓN GUÍAS */}
-              {circuitData.guias.length > 0 && (
-                <View style={{ marginTop: 20 }}>
-                  <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>
-                    {t("pdfItinerary.guides")}
-                  </Text>
-                  {circuitData.guias.map(guias => {
-                    const allZonas = guias.zona_operacion ? guias.zona_operacion.split(',') : [];
-                    const visibleZonas = allZonas.slice(0, 6);
-                    const remainingCount = allZonas.length - visibleZonas.length;
-                    return (
-                      <View key={guias.id} style={styles.card} wrap={false}>
-                        <View style={styles.cardContent}>
-                          <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{guias.nombre}</Text>
-                          {guias.nombre_localidad && (
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                              <Text style={{ ...styles.tagBadge, backgroundColor: circuito.primary, fontSize: 16, fontWeight: 'bold' }}>
-                                {guias.nombre_localidad}
-                              </Text>
-                            </View>
-                          )}
-                          <View style={{ flexDirection: 'row', gap: 4, justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                            {guias.email && (
-                              <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
-                                <Text style={styles.cardLabel}>{t("pdfItinerary.email")}: </Text>{guias.email}
-                              </Text>
+                            {/* SECCIÓN DESTINOS */}
+                            {circuitData.destinos.length > 0 && (
+                                <View>
+                                    <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>Destinos</Text>
+                                    {circuitData.destinos.map(destino => (
+                                        <View key={destino.idArticulo} style={styles.card} wrap={false}>
+                                            <Image src={{ uri: URLImg + (destino.imagenMovil || destino.imagen) }} style={styles.cardImage} />
+                                            <View style={styles.cardContent}>
+                                                <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{destino.nombre}</Text>
+                                                {destino.copete && <Text style={styles.cardCopete}>"{destino.copete}"</Text>}
+                                                <View style={styles.tagsContainer}>
+                                                    {destino.tags.split(',').map((tag : string) => (
+                                                        <Text key={tag} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>{tag.trim()}</Text>
+                                                    ))}
+                                                </View>
+                                            </View>
+                                        </View>
+                                    ))}
+                                </View>
                             )}
-                          </View>
-                          <View style={styles.activitiesContainer}>
-                            <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>{t("pdfItinerary.operates_in")}:</Text>
-                            <View style={styles.tagsContainer}>
-                              {visibleZonas.map((act: string) => (
-                                <Text key={act} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>{act.trim()}</Text>
-                              ))}
-                              {remainingCount > 0 && (
-                                <Text style={{ ...styles.tagBadge, backgroundColor: '#757575' }}>
-                                  +{remainingCount} {t("pdfItinerary.more")}
-                                </Text>
-                              )}
-                            </View>
-                          </View>
+
+                            {/* SECCIÓN ALOJAMIENTOS */}
+                            {circuitData.alojamientos.length > 0 && (
+                                <View style={{ marginTop: 20 }}>
+                                    <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>Alojamientos</Text>
+                                    {circuitData.alojamientos.map(alojamiento => (
+                                        <View key={alojamiento.id} style={styles.card} wrap={false}>
+                                            <Image src={{ uri: `https://www.tucumanturismo.gob.ar/public/img/alojamientos/${alojamiento.logo}` }} style={styles.cardImage} />
+                                            <View style={styles.cardContent}>
+                                                <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{alojamiento.nombre}</Text>
+                                                {alojamiento.nombre_localidad && (
+                                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                                                        <Text style={{
+                                                            ...styles.tagBadge,
+                                                            backgroundColor: circuito.primary,
+                                                            fontSize: 16,
+                                                            fontWeight: 'bold',
+                                                        }}>
+                                                            {alojamiento.nombre_localidad}
+                                                        </Text>
+                                                    </View>
+                                                )}
+                                                {/* <Text style={{ ...styles.infoLine, marginTop: 5 }}><Text style={styles.cardLabel}>Estrellas: </Text>{'★'.repeat(parseInt(alojamiento.estrellas, 10))}</Text> */}
+                                                <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
+                                                    <Text style={styles.cardLabel}>Teléfono: </Text>{alojamiento.domicilio}
+                                                </Text>
+                                                {alojamiento.telefono && (
+                                                    <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
+                                                        <Text style={styles.cardLabel}>Email: </Text>{alojamiento.email}
+                                                    </Text>
+                                                )}
+                                                {alojamiento.instagram && (
+                                                    <Text style={{ ...styles.infoLine, marginBottom: 5 }}>
+                                                        <Text style={styles.cardLabel}>Instagram: </Text>{alojamiento.instagram}
+                                                    </Text>
+                                                )}
+                                            </View>
+                                        </View>
+                                    ))}
+                                </View>
+                            )}
+
+                            {/* SECCIONES PRESTADORES Y GUÍAS (ya son de una columna, solo se adaptan al nuevo estilo de tarjeta) */}
+                            {circuitData.prestadores.length > 0 && (
+                                <View style={{ marginTop: 20 }}>
+                                    <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>Aventuras y Actividades</Text>
+                                    {circuitData.prestadores.map(prestador => {
+                                        const allActivities = prestador.actividades ? prestador.actividades.split(',') : [];
+                                        const visibleActivities = allActivities.slice(0, 6);
+                                        const remainingCount = allActivities.length - visibleActivities.length;
+                                        return (
+                                            <View key={prestador.id} style={styles.card} wrap={false}>
+                                                <View style={styles.cardContent}>
+                                                    <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{prestador.titulo}</Text>
+                                                    {prestador.nombre_localidad && (
+                                                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                                                            <Text style={{
+                                                                ...styles.tagBadge,
+                                                                backgroundColor: circuito.primary,
+                                                                fontSize: 16,
+                                                                fontWeight: 'bold',
+                                                            }}>
+                                                                {prestador.nombre_localidad}
+                                                            </Text>
+                                                        </View>
+                                                    )}
+                                                    {/* Información de contacto mejorada */}
+                                                    <View style={{ flexDirection: 'row', gap: 4, justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                                                        <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
+                                                            <Text style={styles.cardLabel}>Teléfono: </Text>{prestador.telefono}
+                                                        </Text>
+                                                        {prestador.email && (
+                                                            <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
+                                                                <Text style={styles.cardLabel}>Email: </Text>{prestador.email}
+                                                            </Text>
+                                                        )}
+                                                        {prestador.instagram && (
+                                                            <Link src={prestador.instagram} style={{ ...styles.infoLine, marginBottom: 0 }}>
+                                                                <Text style={styles.cardLabel}>Instagram: </Text>Ver perfil
+                                                            </Link>
+                                                        )}
+                                                    </View>
+                                                    <View style={styles.activitiesContainer}>
+                                                        <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>Ofrece:</Text>
+                                                        <View style={styles.tagsContainer}>
+                                                            {visibleActivities.map((act : string) => (
+                                                                <Text key={act} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>{act.trim()}</Text>
+                                                            ))}
+                                                            {remainingCount > 0 && (
+                                                                <Text style={{ ...styles.tagBadge, backgroundColor: '#757575' }}>
+                                                                    +{remainingCount} más
+                                                                </Text>
+                                                            )}
+                                                        </View>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        )
+                                    })}
+                                </View>
+                            )}
+                            {circuitData.guias.length > 0 && (
+                                <View style={{ marginTop: 20 }}>
+                                    <Text style={{ ...styles.sectionTitle, color: circuito.primary, borderBottomColor: circuito.secondary }}>Guías Expertos</Text>
+                                    {circuitData.guias.map(guias => {
+                                        const allZonas = guias.zona_operacion ? guias.zona_operacion.split(',') : [];
+                                        const visibleZonas = allZonas.slice(0, 6);
+                                        const remainingCount = allZonas.length - visibleZonas.length;
+                                        return (
+                                            <View key={guias.id} style={styles.card} wrap={false}>
+                                                <View style={styles.cardContent}>
+                                                    <Text style={{ ...styles.cardTitle, color: circuito.primary }}>{guias.nombre}</Text>
+                                                    {guias.nombre_localidad && (
+                                                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                                                            <Text style={{
+                                                                ...styles.tagBadge,
+                                                                backgroundColor: circuito.primary,
+                                                                fontSize: 16,
+                                                                fontWeight: 'bold',
+                                                            }}>
+                                                                {guias.nombre_localidad}
+                                                            </Text>
+                                                        </View>
+                                                    )}
+                                                    {/* Información de contacto mejorada */}
+                                                    <View style={{ flexDirection: 'row', gap: 4, justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                                                        {/* <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
+                                                            <Text style={styles.cardLabel}>Teléfono: </Text>{guias.telefono}
+                                                        </Text> */}
+                                                        {guias.email && (
+                                                            <Text style={{ ...styles.infoLine, marginBottom: 0 }}>
+                                                                <Text style={styles.cardLabel}>Email: </Text>{guias.email}
+                                                            </Text>
+                                                        )}
+                                                        {/* {guias.instagram && (
+                                                            <Link src={guias.instagram} style={{ ...styles.infoLine, marginBottom: 0 }}>
+                                                                <Text style={styles.cardLabel}>Instagram: </Text>Ver perfil
+                                                            </Link>
+                                                        )} */}
+                                                    </View>
+                                                    <View style={styles.activitiesContainer}>
+                                                        <Text style={{ ...styles.activitiesTitle, color: circuito.secondary }}>Zona:</Text>
+                                                        <View style={styles.tagsContainer}>
+                                                            {visibleZonas.map((act : string) => (
+                                                                <Text key={act} style={{ ...styles.tagBadge, backgroundColor: circuito.secondary }}>{act.trim()}</Text>
+                                                            ))}
+                                                            {remainingCount > 0 && (
+                                                                <Text style={{ ...styles.tagBadge, backgroundColor: '#757575' }}>
+                                                                    +{remainingCount} más
+                                                                </Text>
+                                                            )}
+                                                        </View>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        )
+                                    })}
+                                </View>
+                            )}
+
                         </View>
-                      </View>
                     )
-                  })}
-                </View>
-              )}
-            </View>
-          )
-        })}
-      </Page>
-    </Document>
-  );
+                })}
+            </Page>
+        </Document>
+    );
 };
+
 export default ItinerarioMobile;
