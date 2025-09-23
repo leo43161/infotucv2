@@ -81,7 +81,7 @@ export default function PDFGeneratorButton() {
     };
     try {
       const response = await guardarItinerario(payload).unwrap();
-      setPdfUrl(process.env.URL_TOUCH + "itinerario?id=" + response.id_itinerario);
+      setPdfUrl(process.env.URL_WEB + "itinerario?id=" + response.id_itinerario + (lenguaje.code === 'ES' ? '' : '?lang=EN'));
     } catch (error) {
       console.error('Error al guardar el itinerario:', error);
     }
