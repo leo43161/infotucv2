@@ -5,11 +5,11 @@ import { useI18n } from '@/hooks/useI18n';
 
 // La lista de imágenes no cambia
 const headerImages = [
-    "/img/header/casahistorica-inicio.svg",
-    "/img/header/pozoindio-inicio.svg",
-    "/img/header/quetupi-inicio.svg",
-    "/img/header/azucenaempanada-inicio.svg",
-    "/img/header/menhires-inicio.svg"
+    process.env.URL_IMG_TOUCH + "/img/header/casahistorica-inicio.svg",
+    process.env.URL_IMG_TOUCH + "/img/header/pozoindio-inicio.svg",
+    process.env.URL_IMG_TOUCH + "/img/header/quetupi-inicio.svg",
+    process.env.URL_IMG_TOUCH + "/img/header/azucenaempanada-inicio.svg",
+    process.env.URL_IMG_TOUCH + "/img/header/menhires-inicio.svg"
 ];
 
 const cycleInterval = 10000; // 10 segundos
@@ -30,12 +30,12 @@ export default function Header() {
         <header className="bg-[#D6E9CF] flex-shrink-0 h-[340px] relative overflow-hidden">
             <img className='absolute w-full object-cover z-[2] opacity-60' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
             <img className='absolute w-full object-cover z-[3] top-30' src={process.env.URL_IMG_TOUCH + "/img/header/montana.png"} alt="" />
-            
+
             {/* Selector de idioma en la esquina superior derecha */}
             {/* <div className="absolute top-4 right-4 z-[40]">
                 <LanguageSwitcher />
             </div> */}
-            
+
             <div className='z-[30] flex justify-between items-end relative h-full'>
                 <div className='w-6/13 h-full flex items-end justify-center relative'>
                     <AnimatePresence mode='wait'>
