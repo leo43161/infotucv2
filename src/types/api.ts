@@ -42,6 +42,14 @@ export interface PrestadorQueryArgs {
   offset?: number;
   limit?: number;
 }
+export interface AgenciasQueryArgs {
+  offset?: number;
+  limit?: number;
+}
+export interface AutosQueryArgs {
+  offset?: number;
+  limit?: number;
+}
 
 
 /**
@@ -115,6 +123,38 @@ export interface Prestador {
   archivo: string | null;
 }
 
+export interface Agencia {
+  id: string;
+  nombre: string;
+  legajo: string;
+  direccion: string;
+  idLocalidad: string;
+  localidad_nombre: string;
+  telefonos: string;
+  email: string;
+  web: string;
+  facebook: string;
+  instagram: string;
+  Activo: string;
+  Visible: string;
+  total: string;
+}
+
+export interface Auto {
+  id: string;
+  nombre: string;
+  direccion: string;
+  idLocalidad: string;
+  localidad_nombre: string;
+  telefonos: string;
+  email: string;
+  web: string;
+  facebook: string;
+  instagram: string;
+  Activo: string;
+  Visible: string;
+  total: string;
+}
 
 export interface Restaurante {
   idGastronomia: string;
@@ -204,6 +244,17 @@ export interface EventosApiResponse {
 export interface PrestadorApiResponse {
   status: number;
   result: Prestador[];
+  total: number;
+}
+
+export interface AgenciasApiResponse {
+  status: number;
+  result: Agencia[];
+  total: number;
+}
+export interface AutosApiResponse {
+  status: number;
+  result: Auto[];
   total: number;
 }
 

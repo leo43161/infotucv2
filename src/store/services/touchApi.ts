@@ -1,6 +1,6 @@
 // src/store/services/touchApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel, PrestadorApiResponse, PrestadorQueryArgs, Prestador, ActividadesResponse, RestaurantesApiResponse, RestaurantesQueryArgs, Restaurante, LocalidadResponse } from '@/types/api';
+import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel, PrestadorApiResponse, PrestadorQueryArgs, Prestador, ActividadesResponse, RestaurantesApiResponse, RestaurantesQueryArgs, Restaurante, LocalidadResponse, AgenciasApiResponse, AgenciasQueryArgs, Agencia, AutosApiResponse, AutosQueryArgs, Auto } from '@/types/api';
 
 export const touchApi = createApi({
   reducerPath: 'touchApi',
@@ -8,6 +8,7 @@ export const touchApi = createApi({
     baseUrl: 'https://www.tucumanturismo.gob.ar/api/v1/api/',
   }),
   endpoints: (builder) => ({
+    /* EVENTOS */
     getEventosDestacados: builder.query<EventosDestacadosApiResponse, void>({
       query: () => 'eventos_destacados',
       transformResponse: (response: { result: Evento[] }) => {
@@ -18,6 +19,7 @@ export const touchApi = createApi({
         };
       },
     }),
+    /* COLECTIVOS */
     getColectivos: builder.query<ColectivosApiResponse, void>({
       query: () => 'colectivos',
       transformResponse: (response: { result: Colectivo[] }) => {
@@ -27,6 +29,7 @@ export const touchApi = createApi({
         };
       },
     }),
+    /* HOTELES */
     getHoteles: builder.query<HotelesApiResponse, HotelesQueryArgs>({
       query: ({
         search,
@@ -47,6 +50,7 @@ export const touchApi = createApi({
         };
       },
     }),
+    /* PRESTADORES */
     getPrestador: builder.query<PrestadorApiResponse, PrestadorQueryArgs>({
       query: ({
         search,
@@ -54,7 +58,7 @@ export const touchApi = createApi({
         limit
       }) => ({
         url: 'prestadores',
-        params: { offset, limit, busqueda: search}
+        params: { offset, limit, busqueda: search }
       }),
       transformResponse: (response: { result: Prestador[] }) => {
         return {
@@ -64,6 +68,7 @@ export const touchApi = createApi({
         };
       },
     }),
+    /* RESTAURANTES */
     getRestaurantes: builder.query<RestaurantesApiResponse, RestaurantesQueryArgs>({
       query: ({
         localidad,
@@ -72,9 +77,45 @@ export const touchApi = createApi({
         limit
       }) => ({
         url: 'restaurantes',
-        params: { offset, limit, localidad,categoria}
+        params: { offset, limit, localidad, categoria }
       })
     }),
+    /* AGENCIAS */
+    getAgencias: builder.query<AgenciasApiResponse, AgenciasQueryArgs>({
+      query: ({
+        offset,
+        limit
+      }) => ({
+        url: 'agencias',
+        params: { offset, limit }
+      }),
+      transformResponse: (response: { result: Agencia[] }) => {
+        return {
+          status: 200,
+          result: response.result,
+          total: response.result.length > 0 ? parseInt(response.result[0].total) : 0
+        };
+      },
+    }),
+    /* AUTOS */
+    getAutos: builder.query<AutosApiResponse, AutosQueryArgs>({
+      query: ({
+        offset,
+        limit
+      }) => ({
+        url: 'autos',
+        params: { offset, limit }
+      }),
+
+      transformResponse: (response: { result: Auto[] }) => {
+        return {
+          status: 200,
+          result: response.result,
+          total: response.result.length > 0 ? parseInt(response.result[0].total) : 0
+        };
+      },
+    }),
+    /* FILTROS */
     getLocalidades: builder.query<LocalidadResponse, void>({
       query: () => 'localidades',
     }),
@@ -95,5 +136,7 @@ export const {
   useGetPrestadorQuery,
   useGetActividadesQuery,
   useGetLocalidadesQuery,
-  useGetRestaurantesQuery
+  useGetRestaurantesQuery,
+  useGetAgenciasQuery,
+  useGetAutosQuery
 } = touchApi;

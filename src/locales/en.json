@@ -49,6 +49,11 @@
     "cuisine_type": "Cuisine Type",
     "price_range": "Price Range"
   },
+  "maps": {
+    "title": "Select the map of your interest",
+    "cuisine_type": "Cuisine Type",
+    "price_range": "Price Range"
+  },
   "itinerary": {
     "title": "My Itinerary",
     "download": "Download",
@@ -60,7 +65,7 @@
     "generating_itinerary": "Generating your itinerary...",
     "may_take_seconds": "This may take a few seconds.",
     "error_generating": "Error generating your itinerary",
-    "choose_destination": "Choose your destination and plan your trip",
+    "choose_destination": "Choose your destination",
     "click_for_info": "Click to learn more about your destination",
     "error_loading_localities": "An error occurred while loading the information.",
     "error_loading_destinations": "Error loading destinations.",

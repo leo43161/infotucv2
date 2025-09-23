@@ -13,8 +13,8 @@ import { useI18n } from '@/hooks/useI18n';
 
 // Se agrega la prop onClick para manejar la interacción del usuario
 const LocalidadPill = ({ destino, active, onClick, isLoading = false }: { destino: Localidad, active: boolean, onClick: () => void, isLoading?: boolean }) => {
-    const Circuitos = useSelector((state: any) => state.itinerarios.value.circuitos);
-    const Color = Circuitos.find((c: any) => c.id === parseInt(destino.idcircuitostur))?.color;
+    const { circuitos: Circuitos, circuitosEN } = useSelector((state: any) => state.itinerarios.value);
+    const Color = [...Circuitos, ...circuitosEN].find((c: any) => c.id === parseInt(destino.idcircuitostur))?.color;
     return (
         <button
             onClick={onClick}
@@ -65,9 +65,13 @@ const PDFDownload = dynamic(() => import('./PDFDownload'), {
 export default function Itinerario() {
     const { t } = useI18n();
     const router = useRouter();
-    const Circuitos = useSelector((state: any) => state.itinerarios.value.circuitos);
+    /* 🔹 Seleccionamos los circuitos */
+    const { circuitos: Circuitos, circuitosEN } = useSelector((state: any) => state.itinerarios.value);
     const { progress } = useSelector((state: any) => state.itinerarios.value);
-    const { data: localidadesData, isLoading, isError, error } = useGetLocalidadesQuery({ idioma: "1" });
+    /* 🔹 Seleccionamos el lenguaje */
+    const lenguaje = getCurrentLanguage(router.query);
+    /* 🔹 Obtenemos los destinos */
+    const { data: localidadesData, isLoading, isError, error } = useGetLocalidadesQuery({ idioma: `${lenguaje.id || 1}` });
     const [activeLocalidadId, setActiveLocalidadId] = useState<string | null>(null);
     const [localidad, setLocalidad] = useState<Localidad | null | undefined>(null);
     const [colorCircuito, setColorCircuito] = useState<string | null>("#01415c");
@@ -84,7 +88,10 @@ export default function Itinerario() {
         }
         const localidadSelected = localidadesData?.result.find((l: Localidad) => l.idSubseccion === activeLocalidadId);
         setLocalidad(localidadSelected);
-        const circuitoColor = Circuitos.find(
+        console.log(localidadSelected);
+        console.log(parseInt(localidadSelected?.idcircuitostur ?? ""));
+        console.log([...Circuitos, ...circuitosEN]);
+        const circuitoColor = [...Circuitos, ...circuitosEN].find(
             (c: any) => c.id === parseInt(localidadSelected?.idcircuitostur ?? "")
         )?.color
         setColorCircuito(circuitoColor);
@@ -95,20 +102,25 @@ export default function Itinerario() {
         return <div>{t("itinerary.error_loading_localities")}</div>;
     }
 
+    useEffect(() => {
+        if (localidadesData?.result && localidadesData.result.length > 0) {
+            setActiveLocalidadId(localidadesData?.result[0].idSubseccion);
+        }
+    }, [lenguaje, localidadesData]);
+
     // Obtenemos el array de localidades del objeto de respuesta o un array vacío si no hay datos
     const localidades = localidadesData?.result || [];
     const destinos = destinosData?.result?.articulos || [];
     const dias = Math.ceil(progress / 100);
     const progressText = `${dias} ${dias > 1 ? t("itinerary.days_plural") : t("itinerary.days")}`;
     const progressWidth = progress > 100 ? 100 : progress;
-    const lenguaje = getCurrentLanguage(router.query);
     return (
         <div className='h-133'>
             <div className="grid grid-cols-7 grid-rows-10 h-full overflow-hidden">
                 <div className="col-span-2 col-start-1 row-start-1 relative overflow-hidden">
                     <img className='absolute w-full object-cover z-[2] opacity-20 object-center -top-6/12' src="/img/header/textura-tucuman.png" alt="" />
                     <div className="flex justify-center items-center h-full bg-secondary z-10">
-                        <p className="text-2xl font-bold text-white">{t("itinerary.choose_destination")}</p>
+                        <p className="text-2xl font-bold text-white text-nowrap">{t("itinerary.choose_destination")}</p>
                     </div>
                 </div>
                 <div className="col-span-5 col-start-3 row-start-1" style={{ backgroundColor: colorCircuito || "#01415c" }}>

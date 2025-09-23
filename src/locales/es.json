@@ -49,6 +49,11 @@
     "cuisine_type": "Tipo de Cocina",
     "price_range": "Rango de Precios"
   },
+  "maps": {
+    "title": "Selecciona el mapa de tu interés",
+    "cuisine_type": "Tipo de Cocina",
+    "price_range": "Rango de Precios"
+  },
   "itinerary": {
     "title": "Mi Itinerario",
     "download": "Descargar",

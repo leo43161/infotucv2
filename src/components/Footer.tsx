@@ -35,9 +35,9 @@ export default function Footer() {
                     <img src="/icons/footer/eatt2024blancohorizontal.svg" className='h-18 w-full' alt="" />
                 </div>
             </div>
-            <div className='flex items-center gap-3'>
-                <LanguageSwitcher buttonClassName='bg-primary text-zinc-50' direction='up' />
-                {router.pathname !== '/' && <a href="/" className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary rounded transition-colors z-[1]">
+            <div className='flex items-center gap-3 h-11'>
+                <LanguageSwitcher buttonClassName='bg-primary text-zinc-50 h-full' className='h-full' direction='up' />
+                {router.pathname !== '/' && <a href="/" className="flex h-full items-center gap-2 px-4 py-2 bg-primary hover:bg-primary rounded transition-colors z-[1] justify-center">
                     <Home></Home>
                     <span className="font-bold">{t('navigation.home')}</span>
                 </a>}
