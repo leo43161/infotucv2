@@ -2,33 +2,35 @@ import { FaBus, FaBriefcase, FaHiking, FaMapMarkedAlt, FaUtensils } from 'react-
 import { LuBedDouble } from "react-icons/lu";
 import { FaCar } from "react-icons/fa6";
 import { useI18n } from '@/hooks/useI18n';
+import { urlFormater } from '@/utils';
 // Rediseñamos la estructura de datos para incluir el icono y el color de Tailwind
 const navItems = () => {
+    urlFormater();
     const { t } = useI18n();
     return [
         {
-            href: "/transportes",
+            href: urlFormater("transportes"),
             label: t("navigation.transportation"),
             icon: FaBus, // Nombre del icono de Lucide
             color: "trans",     // Clave del color en tailwind.config.mjs
             gridClass: "row-span-2"
         },
         {
-            href: "/mapas",
+            href: urlFormater("mapas"),
             label: t("navigation.maps"),
             icon: FaMapMarkedAlt,
             color: "mapas",
             gridClass: "row-span-2",
         },
         {
-            href: "/alojamientos",
+            href: urlFormater("alojamientos"),
             label: t("navigation.accommodations"),
             icon: LuBedDouble,
             color: "aloj",
             gridClass: "row-span-2"
         },
         {
-            href: "/actividades",
+            href: urlFormater("actividades"),
             label: t("navigation.activities"),
             icon: FaHiking,
             color: "acti",
@@ -36,7 +38,7 @@ const navItems = () => {
         },
 
         {
-            href: "/agencias",
+            href: urlFormater("agencias"),
             label: t("navigation.agencies"),
             icon: FaBriefcase,
             gridClass: "row-start-3",
@@ -44,7 +46,7 @@ const navItems = () => {
             color: "agen",
         },
         {
-            href: "/autos",
+            href: urlFormater("autos"),
             label: t("navigation.cars"),
             icon: FaCar,
             color: "autos",
@@ -52,7 +54,7 @@ const navItems = () => {
             row: true
         },
         {
-            href: "/restaurantes",
+            href: urlFormater("restaurantes"),
             label: t("navigation.restaurants"),
             icon: FaUtensils,
             color: "rest",

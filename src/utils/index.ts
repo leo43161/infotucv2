@@ -1,4 +1,6 @@
 import { clsx } from 'clsx';
+import { useRouter } from 'next/router';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -7,8 +9,15 @@ export const languages = [
   { id: 2, code: 'EN', label: 'English', flag: (process.env.URL_IMG_LOCAL || '') + '/svg/eng.svg', alt: 'Bandera Reino Unido' } // Asumiendo ID 2 para inglés
 ];
 
-export function cn(...inputs : string[]) {
+export function cn(...inputs: string[]) {
   return twMerge(clsx(inputs));
+}
+
+export const urlFormater = (url: string = "") => {
+  const router = useRouter();
+  const languageCode = getCurrentLanguageCode(router.query);    
+  console.log(`${process.env.URL_TOUCH}${url}?lang=${languageCode}`);
+  return url !== "" ? `${process.env.URL_TOUCH}${url}?lang=${languageCode}` : `${process.env.URL_TOUCH}?lang=${languageCode}`;
 }
 
 /**
@@ -26,7 +35,7 @@ export function cn(...inputs : string[]) {
      }
    }, [router.isReady, router.query]);
  */
-export function getCurrentLanguage(query : any) {
+export function getCurrentLanguage(query: any) {
   const defaultLanguage = languages[0]; // Español como default
   if (query && query.lang) {
     const langCode = typeof query.lang === 'string' ? query.lang.toUpperCase() : '';
@@ -41,7 +50,7 @@ export function getCurrentLanguage(query : any) {
  * @param {object} query - El objeto `router.query` de Next.js.
  * @returns {boolean} True si el idioma es diferente al por defecto, false en caso contrario.
  */
-export function isAlternateLanguage(query : any) {
+export function isAlternateLanguage(query: any) {
   const currentLang = getCurrentLanguage(query);
   // Asumimos que el primer idioma en el array 'languages' (ID 1, código 'ES') es el principal/por defecto.
   return currentLang.id !== languages[0].id;
@@ -52,7 +61,7 @@ export function isAlternateLanguage(query : any) {
  * @param {object} query - El objeto `router.query` de Next.js.
  * @returns {string} El código del idioma actual.
  */
-export function getCurrentLanguageCode(query : any) {
+export function getCurrentLanguageCode(query: any) {
   return getCurrentLanguage(query).code;
 }
 
@@ -62,7 +71,7 @@ export function getCurrentLanguageCode(query : any) {
  * @param {string} htmlString - El string de HTML que puede contener el enlace.
  * @returns {string|null} La URL completa de Google Maps si se encuentra, de lo contrario, null.
  */
-export function extractGoogleMapsLink(htmlString : string) {
+export function extractGoogleMapsLink(htmlString: string) {
   // Si el string de entrada no es válido, retorna null inmediatamente.
   if (!htmlString || typeof htmlString !== 'string') {
     return null;

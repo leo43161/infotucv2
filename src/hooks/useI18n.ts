@@ -65,7 +65,6 @@ export function useI18n() {
   const changeLanguage = (newLocale: string) => {
     const langCode = newLocale.toUpperCase();
     const currentPath = router.asPath.split('?')[0]; // Remover query params existentes
-    
     // Construir nueva URL con parámetro lang
     const newQuery = { ...router.query, lang: langCode };
     
