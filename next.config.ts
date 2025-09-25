@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
     URL_SERVER: "https://www.tucumanturismo.gob.ar/api/v1/api/",
     URL_IMG: "https://www.tucumanturismo.gob.ar/public/img/",
     URL_WEB: "https://www.tucumanturismo.gob.ar/",
-    URL_TOUCH: process.env.NODE_ENV === 'production' ? "https://www.tucumanturismo.gob.ar/infotucv2/" : "http://10.20.20.5:3000/",
-    URL_IMG_TOUCH: process.env.NODE_ENV === 'production' ? "/infotucv2" : "",
+    URL_TOUCH: process.env.NODE_ENV === 'production' ? "https://www.tucumanturismo.gob.ar/infotuc/" : "http://10.20.20.5:3000/",
+    URL_IMG_TOUCH: process.env.NODE_ENV === 'production' ? "/infotuc" : "",
   },
   devIndicators: false,
   /* config options here */
@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? "/infotucv2" : "",
+  basePath: process.env.NODE_ENV === 'production' ? "/infotuc" : "",
   eslint: {
     ignoreDuringBuilds: true,
   },
