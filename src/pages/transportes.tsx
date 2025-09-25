@@ -75,7 +75,7 @@ export default function Transportes() {
   }, [verMas]);
 
   return (
-    <div className='h-[1500px] flex justify-between flex-col'>
+    <div className='container-height flex justify-between flex-col'>
       {/* Header con el destino */}
       <div
         className="bg-secondary p-5 text-center relative shadow-lg shrink-0"

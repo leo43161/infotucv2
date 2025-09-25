@@ -50,9 +50,11 @@
     "price_range": "Price Range"
   },
   "maps": {
-    "title": "Select the map of your interest",
+    "title": "Select the map you need",
     "cuisine_type": "Cuisine Type",
-    "price_range": "Price Range"
+    "price_range": "Price Range",
+    "downloadPdf": "Download PDF", 
+    "scanToDownload": "Scan to download the map"
   },
   "itinerary": {
     "title": "My Itinerary",
@@ -101,7 +103,7 @@
     "loading": "Loading...",
     "error": "Error",
     "oops": "Oops! Something went wrong",
-    "try_again_later": "We couldn’t load the information. Please try again later.",
+    "try_again_later": "We couldn't load the information. Please try again later.",
     "no_results": "No results found",
     "try_again_filter": "Please try again with different filters.",
     "page": "Page",
@@ -134,7 +136,7 @@
     "historica": "Historic City",
     "yungas": "Tucumán Yungas",
     "choromoro": "Choromoro Valley",
-    "calchaqui": "Calchaqui Valley",
+    "calchaqui": "Calchaquí Valley",
     "sur": "Southern Tucumán"
   }
 }

@@ -18,7 +18,7 @@
     "explore": "Explora los mejores destinos de Tucumán"
   },
   "accommodations": {
-    "title": "Buscá aquí donde hospedarte",
+    "title": "Busca aquí dónde hospedarte",
     "categories": "Categorías",
     "stars": "Estrellas",
     "locations": "Localidades",
@@ -40,8 +40,8 @@
     "see_less": "Ver menos"
   },
   "activities": {
-    "title": "Selecciona un prestador para disfrutar Túcuman",
-    "subtitle": "Selecciona la actividad que te gustaria realizar",
+    "title": "Selecciona un prestador para disfrutar Tucumán",
+    "subtitle": "Selecciona la actividad que te gustaría realizar",
     "all": "Todos"
   },
   "restaurants": {
@@ -50,9 +50,11 @@
     "price_range": "Rango de Precios"
   },
   "maps": {
-    "title": "Selecciona el mapa de tu interés",
+    "title": "Selecciona el mapa de tu interés",
     "cuisine_type": "Tipo de Cocina",
-    "price_range": "Rango de Precios"
+    "price_range": "Rango de Precios",
+    "downloadPdf": "Descargar PDF",
+    "scanToDownload": "Escanea para descargar el mapa"
   },
   "itinerary": {
     "title": "Mi Itinerario",
@@ -60,13 +62,13 @@
     "generating": "Generando...",
     "qr_ready": "¡Tu QR está listo!",
     "scan_qr": "Escanea el código QR para ver tu itinerario",
-    "scan_description": "Escanea el código QR para ver tu itinerario y disfrutar de los destinos de San Miguel de Tucuman",
-    "add_items": "Debes agregar items a tu itinerario.",
+    "scan_description": "Escanea el código QR para ver tu itinerario y disfrutar de los destinos de San Miguel de Tucumán",
+    "add_items": "Debes agregar ítems a tu itinerario.",
     "generating_itinerary": "Generando tu itinerario...",
     "may_take_seconds": "Esto puede tardar unos segundos.",
     "error_generating": "Error al generar tu itinerario",
-    "choose_destination": "Elegí tu destino y planifica tu viaje",
-    "click_for_info": "Haz click para conocer más información sobre tu destino",
+    "choose_destination": "Elige tu destino y planifica tu viaje",
+    "click_for_info": "Haz clic para conocer más información sobre tu destino",
     "error_loading_localities": "Ocurrió un error al cargar la información.",
     "error_loading_destinations": "Error al cargar los destinos.",
     "your_itinerary": "Tu itinerario",
@@ -133,8 +135,8 @@
   "circuits": {
     "historica": "Ciudad Histórica",
     "yungas": "Yungas Tucumanas",
-    "choromoro": "Valle De Choromoro",
-    "calchaqui": "Valle Calchaqui",
+    "choromoro": "Valle de Choromoro",
+    "calchaqui": "Valle Calchaquí",
     "sur": "Sur Tucumano"
   }
 }

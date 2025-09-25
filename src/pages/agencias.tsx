@@ -20,7 +20,7 @@ export default function agencias() {
       }
     );
     return (
-      <div className='h-[1500px] flex justify-between flex-col'>
+      <div className='container-height flex justify-between flex-col'>
         <div className="p-5 text-center relative shadow-lg shrink-0 bg-acti">
           <h1 className="text-5xl font-bold text-white">{t('activities.title')}</h1>
         </div>

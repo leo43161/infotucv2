@@ -94,4 +94,15 @@
   p {
     font-size: 1.5em;
   }
+
+  .container-height {
+    height: 1500px;
+  }
+
+  @media (1200px <= height) {
+    .container-height {
+      height: 78.1vh;
+    }
+  }
+
 }
