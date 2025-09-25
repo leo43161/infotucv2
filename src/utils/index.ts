@@ -15,8 +15,7 @@ export function cn(...inputs: string[]) {
 
 export const urlFormater = (url: string = "") => {
   const router = useRouter();
-  const languageCode = getCurrentLanguageCode(router.query);    
-  console.log(`${process.env.URL_TOUCH}${url}?lang=${languageCode}`);
+  const languageCode = getCurrentLanguageCode(router.query);
   return url !== "" ? `${process.env.URL_TOUCH}${url}?lang=${languageCode}` : `${process.env.URL_TOUCH}?lang=${languageCode}`;
 }
 
