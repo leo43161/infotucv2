@@ -13,9 +13,9 @@ export default function Footer() {
     const { t } = useI18n();
     //Quiero una funcion que me cree una url dependiendo el lenguaje y el process.env.URL_TOUCH
     const buttonsLeft = [
-        { href: urlFormater("/transportes"), color: "#800077", label: "Transportes", icon: FaBus },
-        { href: urlFormater("/restaurantes"), color: "#a83413", label: "Restaurantes", icon: FaUtensils },
-        { href: urlFormater("/alojamientos"), color: "#006b96", label: "Alojamientos", icon: LuBedDouble },
+        { href: urlFormater("transportes"), color: "#800077", label: "Transportes", icon: FaBus },
+        { href: urlFormater("restaurantes"), color: "#a83413", label: "Restaurantes", icon: FaUtensils },
+        { href: urlFormater("alojamientos"), color: "#006b96", label: "Alojamientos", icon: LuBedDouble },
     ];
     return (
         <footer className="bg-secondary text-white px-4 py-1 flex items-center justify-between flex-shrink-0 mt-auto relative">
