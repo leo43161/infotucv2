@@ -5,7 +5,6 @@ import { Favoritos } from '@/types/itinerarioState';
 import { useI18n } from '@/hooks/useI18n';
 
 const URLImg = process.env.URL_IMG
-console.log(URLImg);
 
 // --- Paleta de Colores y Datos de Circuitos ---
 const circuitosData = {

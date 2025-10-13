@@ -55,7 +55,6 @@ export default function Itinerario() {
 
   try {
     const dataArray = JSON.parse(data.result[0].ItinerarioJSON);
-    console.log(dataArray);
     const itinerarioDocumento = <ItinerarioMobile data={dataArray} />;
     if (Object.keys(dataArray).every(key => Object.values(dataArray[key]).every((arr : any) => arr.length === 0))) {
       return (

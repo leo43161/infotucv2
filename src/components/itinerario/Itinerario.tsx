@@ -88,9 +88,6 @@ export default function Itinerario() {
         }
         const localidadSelected = localidadesData?.result.find((l: Localidad) => l.idSubseccion === activeLocalidadId);
         setLocalidad(localidadSelected);
-        console.log(localidadSelected);
-        console.log(parseInt(localidadSelected?.idcircuitostur ?? ""));
-        console.log([...Circuitos, ...circuitosEN]);
         const circuitoColor = [...Circuitos, ...circuitosEN].find(
             (c: any) => c.id === parseInt(localidadSelected?.idcircuitostur ?? "")
         )?.color

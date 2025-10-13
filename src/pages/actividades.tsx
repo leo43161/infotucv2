@@ -8,7 +8,6 @@ import { useI18n } from '@/hooks/useI18n';
 export default function actividades() {
   const [search, setSearch] = useState<string>('');
   const { t } = useI18n();
-  console.log(search);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 4;
 
@@ -21,7 +20,6 @@ export default function actividades() {
     }
   );
   const { data: actividades, isLoading: isLoadingActividades } = useGetActividadesQuery();
-  console.log(prestadores);
   return (
     <div className='container-height flex justify-between flex-col'>
       <div className="p-5 text-center relative shadow-lg shrink-0 bg-acti">
