@@ -48,18 +48,9 @@ const EventCarousel = () => {
     };
   }, [emblaApi]);
 
-
-  // --- Lógica de renderizado (igual que antes) ---
-  if (isLoading) {
-    return <div className="text-center p-10">Cargando eventos...</div>;
-  }
   if (error) {
     return <div className="text-center p-10 text-red-500">Error al cargar los eventos.</div>;
   }
-  if (!data || !data.result || data.result.length === 0) {
-    return <div className="text-center p-10">No hay eventos para mostrar.</div>;
-  }
-
   const handleCloseModal = () => {
     setIsOpen(false);
   };
@@ -74,13 +65,24 @@ const EventCarousel = () => {
       <section className="relative">
         <div className="embla overflow-hidden" ref={emblaRef}>
           <div className="embla__container flex px-4 py-2">
-            {data.result.map((evento: Evento) => (
-              <EventCard
-                key={evento.id}
-                evento={evento}
-                handleOpenModal={handleOpenModal}
-              />
-            ))}
+            {
+              isLoading ? (Array(5).fill(null).map((_, index) => <EventCard key={index} isLoading={true} evento={null} handleOpenModal={null} />))
+                :
+                (error) ?
+                  <div className="text-center p-10 text-red-500">Error al cargar los eventos.</div>
+                  :
+                  (!data || !data.result || data.result.length === 0) ?
+                    <div className="text-center p-10">No hay eventos para mostrar.</div>
+                    :
+                    data.result.map((evento: Evento) => (
+                      <EventCard
+                        key={evento.id}
+                        evento={evento}
+                        handleOpenModal={handleOpenModal}
+                        isLoading={isLoading}
+                      />
+                    ))
+            }
           </div>
         </div>
 
