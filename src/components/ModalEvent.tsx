@@ -18,26 +18,32 @@ export default function ModalEvent(
     const [isVerMas, setIsVerMas] = React.useState(false);
     // Función para formatear la fecha
     const formatearFecha = (fechaInicio: string, fechaFin: string) => {
-        // fechaInicio 
-        const fecha = new Date(fechaInicio);
-        const opciones: Intl.DateTimeFormatOptions = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
-
-        const fechaFormateada = fecha.toLocaleDateString('es-ES', opciones);
-        console.log(fechaFormateada);
-        console.log(event);
-        // Si las fechas son diferentes, mostrar rango
-        if (fechaInicio !== fechaFin) {
-            const fechaFinFormateada = new Date(fechaFin).toLocaleDateString('es-ES', opciones);
-            return `${fechaFormateada} - ${fechaFinFormateada}`;
-        }
-
-        return fechaFormateada;
+    const crearFechaLocal = (fechaStr: string) => {
+        const [year, month, day] = fechaStr.split('-').map(Number);
+        // Mes - 1 porque los meses en JS van de 0 a 11
+        return new Date(year, month - 1, day);
     };
+
+    const opciones: Intl.DateTimeFormatOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    };
+
+    const fechaInicioObj = crearFechaLocal(fechaInicio);
+    const fechaFinObj = crearFechaLocal(fechaFin);
+
+    const fechaInicioFormateada = fechaInicioObj.toLocaleDateString('es-ES', opciones);
+    const fechaFinFormateada = fechaFinObj.toLocaleDateString('es-ES', opciones);
+
+    // Si las fechas son diferentes, mostrar rango
+    if (fechaInicio !== fechaFin) {
+        return `${fechaInicioFormateada} - ${fechaFinFormateada}`;
+    }
+
+    return fechaInicioFormateada;
+};
 
     // Función para formatear la hora
     const formatearHora = (horaInicio: string) => {
