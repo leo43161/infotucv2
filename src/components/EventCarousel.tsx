@@ -7,6 +7,8 @@ import { useGetEventosDestacadosQuery } from '@/store/services/touchApi';
 import EventCard from './EventCard';
 import { Evento } from '@/types/api';
 import ModalEvent from './ModalEvent';
+import Autoplay from 'embla-carousel-autoplay';
+import AutoScroll from 'embla-carousel-auto-scroll'
 
 // --- Componente Principal del Carrusel (con nuevas funcionalidades) ---
 const EventCarousel = () => {
@@ -16,7 +18,7 @@ const EventCarousel = () => {
 
 
   // Hook de Embla y el estado para los botones y puntos
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' } as EmblaOptionsType);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' } as EmblaOptionsType , [AutoScroll({stopOnInteraction: false, startDelay: 1000})]);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -47,10 +49,6 @@ const EventCarousel = () => {
       emblaApi.off('select', onSelect);
     };
   }, [emblaApi]);
-
-  if (error) {
-    return <div className="text-center p-10 text-red-500">Error al cargar los eventos.</div>;
-  }
   const handleCloseModal = () => {
     setIsOpen(false);
   };
