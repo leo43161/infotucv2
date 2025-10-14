@@ -18,7 +18,7 @@ const EventCarousel = () => {
 
 
   // Hook de Embla y el estado para los botones y puntos
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' } as EmblaOptionsType , [AutoScroll({stopOnInteraction: false, startDelay: 1000})]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' } as EmblaOptionsType , [AutoScroll({stopOnInteraction: false, startDelay: 1500, speed: 1})]);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
