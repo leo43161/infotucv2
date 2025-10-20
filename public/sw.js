@@ -31,7 +31,7 @@ const STATIC_ASSETS = [
   '/infotuc/itinerario?lang=ES',
   '/infotuc/mapas?lang=ES',
   '/infotuc/img/mapas/jesuita.jpg',
-  '/infotuc/img/mapas/alchaqui-2025.jpg',
+  '/infotuc/img/mapas/calchaqui-2025.jpg',
   '/infotuc/img/mapas/yungas-2025.jpg',
   '/infotuc/img/mapas/azucar-2025.jpg',
   '/infotuc/img/mapas/sur-2025.jpg',
