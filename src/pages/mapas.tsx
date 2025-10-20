@@ -68,13 +68,13 @@ const maps = [
     url: 'rural-comunitario-2025.pdf',
     color: '#64050D'
   },
-  {
+  /* {
     id: 10,
     nombre: 'Circuito Este',
     img: ['este-2025.jpg'],
     url: 'este-2025.pdf',
     color: '#00A26F'
-  },
+  }, */
 ]
 
 export default function mapas() {
