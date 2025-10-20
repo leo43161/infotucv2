@@ -41,19 +41,26 @@ const STATIC_ASSETS = [
   '/infotuc/img/mapas/rural1.jpg',
 ];
 
+async function precacheAssets() {
+  const cache = await caches.open(STATIC_CACHE);
+  console.log('[SW] Instalando y precargando assets...');
+
+  for (const asset of STATIC_ASSETS) {
+    try {
+      // Pide y guarda cada asset individualmente
+      await cache.add(asset);
+    } catch (error) {
+      // Si un asset falla, lo reporta en la consola pero continúa con los demás.
+      console.warn(`[SW] Fallo al cachear: ${asset}`, error);
+    }
+  }
+  console.log('[SW] Precarga completada.');
+}
+
 // INSTALL: Precarga de archivos estáticos
 self.addEventListener('install', (event) => {
-  console.log(caches);
-  event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
-      console.log('Precargando archivos estáticos...');
-      console.log(STATIC_ASSETS);
-      console.log(cache);
-      return cache.addAll(STATIC_ASSETS);
-    })
-  );
-  console.log("caches");
-  console.log(caches);
+  // Usamos la nueva función robusta
+  event.waitUntil(precacheAssets());
   self.skipWaiting();
 });
 
