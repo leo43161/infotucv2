@@ -1,35 +1,35 @@
-const CACHE_NAME = 'infotucws-v1';
-const STATIC_CACHE = 'infotucws-static-v1';
-const API_CACHE = 'infotucws-api-v1';
+const CACHE_NAME = 'infotuc-v1';
+const STATIC_CACHE = 'infotuc-static-v1';
+const API_CACHE = 'infotuc-api-v1';
 
 const STATIC_ASSETS = [
-  '/infotucws/?lang=ES', // Página de inicio
-  '/infotucws/?lang=EN', // Página de inicio
-  '/infotucws/', // Página de inicio
-  '/infotucws/transportes',
-  '/infotucws/actividades',
-  '/infotucws/restaurantes',
-  '/infotucws/alojamientos',
-  '/infotucws/agencias',
-  '/infotucws/autos',
-  '/infotucws/itinerario',
-  '/infotucws/mapas',
-  '/infotucws/transportes?lang=EN',
-  '/infotucws/actividades?lang=EN',
-  '/infotucws/restaurantes?lang=EN',
-  '/infotucws/alojamientos?lang=EN',
-  '/infotucws/agencias?lang=EN',
-  '/infotucws/autos?lang=EN',
-  '/infotucws/itinerario?lang=EN',
-  '/infotucws/mapas?lang=EN',
-  '/infotucws/transportes?lang=ES',
-  '/infotucws/actividades?lang=ES',
-  '/infotucws/restaurantes?lang=ES',
-  '/infotucws/alojamientos?lang=ES',
-  '/infotucws/agencias?lang=ES',
-  '/infotucws/autos?lang=ES',
-  '/infotucws/itinerario?lang=ES',
-  '/infotucws/mapas?lang=ES',
+  '/infotuc/?lang=ES', // Página de inicio
+  '/infotuc/?lang=EN', // Página de inicio
+  '/infotuc/', // Página de inicio
+  '/infotuc/transportes',
+  '/infotuc/actividades',
+  '/infotuc/restaurantes',
+  '/infotuc/alojamientos',
+  '/infotuc/agencias',
+  '/infotuc/autos',
+  '/infotuc/itinerario',
+  '/infotuc/mapas',
+  '/infotuc/transportes?lang=EN',
+  '/infotuc/actividades?lang=EN',
+  '/infotuc/restaurantes?lang=EN',
+  '/infotuc/alojamientos?lang=EN',
+  '/infotuc/agencias?lang=EN',
+  '/infotuc/autos?lang=EN',
+  '/infotuc/itinerario?lang=EN',
+  '/infotuc/mapas?lang=EN',
+  '/infotuc/transportes?lang=ES',
+  '/infotuc/actividades?lang=ES',
+  '/infotuc/restaurantes?lang=ES',
+  '/infotuc/alojamientos?lang=ES',
+  '/infotuc/agencias?lang=ES',
+  '/infotuc/autos?lang=ES',
+  '/infotuc/itinerario?lang=ES',
+  '/infotuc/mapas?lang=ES',
   '/public/jesuita.png',
   '/public/alchaqui-2025.png',
   '/public/yungas-2025.png',

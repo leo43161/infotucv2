@@ -2,7 +2,7 @@
   "name": "InfoTuc - Tucumán Turismo",
   "short_name": "InfoTuc",
   "description": "Aplicación de turismo de Tucumán",
-  "start_url": "/infotucws/",
+  "start_url": "/infotuc/",
   "display": "standalone",
   "background_color": "#D6E9CF",
   "theme_color": "#006E66",
