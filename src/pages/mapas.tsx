@@ -8,70 +8,70 @@ const maps = [
   {
     id: 1,
     nombre: 'Ciudad Histórica',
-    img: ['historica-2025.png'],
+    img: ['historica-2025.jpg'],
     url: 'historica-2025.pdf',
     color: '#007A6B'
   },
   {
     id: 2,
     nombre: 'Circuitos Turisticos',
-    img: ['circuitos-2025.png'],
+    img: ['circuitos-2025.jpg'],
     url: 'circuitos-2025.pdf',
     color: '#093843'
   },
   {
     id: 3,
     nombre: 'Circuito Yungas',
-    img: ['yungas-2025.png'],
+    img: ['yungas-2025.jpg'],
     url: 'yungas-2025.pdf',
     color: '#A3B143'
   },
   {
     id: 4,
     nombre: 'Circuito Calchaquies',
-    img: ['calchaqui-2025.png'],
+    img: ['calchaqui-2025.jpg'],
     url: 'calchaqui-2025.pdf',
     color: '#DC3227'
   },
   {
     id: 5,
     nombre: 'Circuito Choromoro',
-    img: ['choromoro-2025.png'],
+    img: ['choromoro-2025.jpg'],
     url: 'choromoro-2025.pdf',
     color: '#F68E33'
   },
   {
     id: 6,
     nombre: 'Circuito Sur',
-    img: ['sur-2025.png'],
+    img: ['sur-2025.jpg'],
     url: 'choromoro-2025.pdf',
     color: '#A92183'
   },
   {
     id: 7,
     nombre: 'Circuito Jesuitas',
-    img: ['jesuita.png'],
+    img: ['jesuita.jpg'],
     url: 'jesuita.pdf',
     color: '#E45A5B'
   },
   {
     id: 8,
     nombre: 'Ruta del Azucar',
-    img: ['azucar-2025.png'],
+    img: ['azucar-2025.jpg'],
     url: 'azucar-2025.pdf',
     color: '#A63413'
   },
   {
     id: 9,
     nombre: 'Turismo Rural',
-    img: ['rural1.png', 'rural2.png'],
+    img: ['rural1.jpg', 'rural2.jpg'],
     url: 'rural-comunitario-2025.pdf',
     color: '#64050D'
   },
   {
     id: 10,
     nombre: 'Circuito Este',
-    img: ['este-2025.png'],
+    img: ['este-2025.jpg'],
     url: 'este-2025.pdf',
     color: '#00A26F'
   },
