@@ -30,24 +30,30 @@ const STATIC_ASSETS = [
   '/infotuc/autos?lang=ES',
   '/infotuc/itinerario?lang=ES',
   '/infotuc/mapas?lang=ES',
-  '/public/jesuita.png',
-  '/public/alchaqui-2025.png',
-  '/public/yungas-2025.png',
-  '/public/azucar-2025.png',
-  '/public/sur-2025.png',
-  '/public/historica-2025.png',
-  '/public/choromoro-2025.png',
-  '/public/rural2.png',
-  '/public/rural1.png',
+  '/public/pdf/jesuita.png',
+  '/public/pdf/alchaqui-2025.png',
+  '/public/pdf/yungas-2025.png',
+  '/public/pdf/azucar-2025.png',
+  '/public/pdf/sur-2025.png',
+  '/public/pdf/historica-2025.png',
+  '/public/pdf/choromoro-2025.png',
+  '/public/pdf/rural2.png',
+  '/public/pdf/rural1.png',
 ];
 
 // INSTALL: Precarga de archivos estáticos
 self.addEventListener('install', (event) => {
+  console.log(caches);
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
+      console.log('Precargando archivos estáticos...');
+      console.log(STATIC_ASSETS);
+      console.log(cache);
       return cache.addAll(STATIC_ASSETS);
     })
   );
+  console.log("caches");
+  console.log(caches);
   self.skipWaiting();
 });
 
@@ -87,7 +93,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Estrategia para API: Network First con fallback
-  if (url.origin === 'https://www.tucumanturismo.gob.ar') {
+  if (url.origin === 'https://www.tucumanturismo.gob.ar/') {
     event.respondWith(networkFirst(request, API_CACHE));
     return;
   }
