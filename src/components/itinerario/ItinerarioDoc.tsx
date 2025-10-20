@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font, Image, Link, PDFViewer } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font, Image, Link } from '@react-pdf/renderer';
 import { extractGoogleMapsLink } from '@/utils';
 import { Favoritos } from '@/types/itinerarioState';
 import { useI18n } from '@/hooks/useI18n';

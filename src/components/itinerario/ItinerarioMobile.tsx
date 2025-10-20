@@ -1,6 +1,5 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font, Image, Link } from '@react-pdf/renderer';
-import { extractGoogleMapsLink } from '@/utils';
 import { Favoritos } from '@/types/itinerarioState';
 
 // Las constantes de datos (URLImg, circuitosData) y el registro de fuentes

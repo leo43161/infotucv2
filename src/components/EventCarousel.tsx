@@ -9,10 +9,15 @@ import { Evento } from '@/types/api';
 import ModalEvent from './ModalEvent';
 import Autoplay from 'embla-carousel-autoplay';
 import AutoScroll from 'embla-carousel-auto-scroll'
+import { useOfflineQuery } from '@/hooks/useOfflineQuery';
 
 // --- Componente Principal del Carrusel (con nuevas funcionalidades) ---
 const EventCarousel = () => {
-  const { data, error, isLoading } = useGetEventosDestacadosQuery();
+  const { data, error, isLoading } = useOfflineQuery(
+    useGetEventosDestacadosQuery,
+    null,
+    'getEventosDestacados?'
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [eventoSeleccionado, setEventoSeleccionado] = useState<Evento | null>(null);
 

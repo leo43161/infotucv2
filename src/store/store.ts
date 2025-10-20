@@ -5,6 +5,7 @@ import { itinerarioApi } from './services/itinerarioApi';
 import { itinerarioService } from './services/itinerarioService';
 import itinerariosReducer from './features/itinerarioSlice';
 import { visitasApi } from './services/visitasService';
+import { offlineMiddleware } from './middleware/offlineMiddleware';
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +21,7 @@ export const store = configureStore({
       itinerarioApi.middleware,
       itinerarioService.middleware,
       visitasApi.middleware
-    ),
+    ).concat(offlineMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

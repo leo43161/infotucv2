@@ -55,7 +55,7 @@ export function useI18n() {
 
   // Función para traducir
   const t = (key: string, fallback?: string): string => {
-    if (isLoading) return fallback || key;
+    if (isLoading) return fallback || '---------';
     
     const translation = getNestedTranslation(translations, key);
     return typeof translation === 'string' ? translation : (fallback || key);

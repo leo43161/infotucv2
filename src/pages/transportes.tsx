@@ -6,6 +6,7 @@ import { Colectivo } from '@/types/api';
 import { clsx } from 'clsx';
 import Colectivos from '@/components/transportes/Colectivos';
 import { useI18n } from '@/hooks/useI18n';
+import { useOfflineQuery } from '@/hooks/useOfflineQuery';
 
 export default function Transportes() {
   const { t } = useI18n();
@@ -14,13 +15,17 @@ export default function Transportes() {
   const [destinoActivo, setDestinoActivo] = useState(destinos[0]);
   const [verMas, setVerMas] = useState(false);
   const [infoDestino, setInfoDestino] = useState<Colectivo[] | null>(null);
-  const { data: colectivosData, isLoading, isError } = useGetColectivosQuery();
+  const { data: colectivosData, isLoading } = useOfflineQuery(
+    useGetColectivosQuery,
+    undefined,
+    'getColectivos?'
+  );
 
   const groupedColectivos = useMemo(() => {
     if (!destinoActivo || !colectivosData) return null;
 
     const colectivosFiltrados = colectivosData.result.filter(
-      (c): any => parseInt(c.tiene_Idlugares) === destinoActivo.id
+      (c: Colectivo) => parseInt(c.tiene_Idlugares) === destinoActivo.id
     );
 
     if (colectivosFiltrados.length === 0) return null;
@@ -156,9 +161,8 @@ export default function Transportes() {
           {circuitos.filter((_, index) => index !== 0).map((circuito) => (
             <div key={circuito.name} className='flex-1 relative'>
               <button
-                className={`p-4 relative text-white font-medium w-full text-4xl shadow flex items-center justify-center transition-transform duration-300 ${
-                  circuitoActivo.name === circuito.name ? 'transform scale-102 z-10' : 'opacity-75 hover:opacity-100'
-                }`}
+                className={`p-4 relative text-white font-medium w-full text-4xl shadow flex items-center justify-center transition-transform duration-300 ${circuitoActivo.name === circuito.name ? 'transform scale-102 z-10' : 'opacity-75 hover:opacity-100'
+                  }`}
                 style={{
                   backgroundColor: circuitoActivo.name === circuito.name ? circuito.color : circuito.color + "b7",
                   color: circuitoActivo.name === circuito.name ? "#fff" : "#fafafa"

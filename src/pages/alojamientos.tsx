@@ -5,6 +5,9 @@ import CardAlojamientos from '../components/alojamientos/CardAlojamiento';
 import TouchSelect from '../components/common/Select';
 import { useGetHotelesFiltersQuery, useGetHotelesQuery } from '@/store/services/touchApi';
 import { useI18n } from '@/hooks/useI18n';
+import { getNameCacheKeyWithArgs } from '@/utils/indexedDB';
+import { useOfflineQuery } from '@/hooks/useOfflineQuery';
+import { Hotel } from '@/types/api';
 
 
 export default function alojamientos() {
@@ -17,11 +20,12 @@ export default function alojamientos() {
 
     // Calcular el offset basado en la página actual
     const offset = (currentPage - 1) * itemsPerPage;
-    const { data: hoteles, isLoading } = useGetHotelesQuery(
+    const cacheKey = 'getHoteles?' + getNameCacheKeyWithArgs({ categoria, estrellas, localidad, offset, limit: itemsPerPage });
+    const { data: hoteles, isLoading } = useOfflineQuery(
+        useGetHotelesQuery,
         { categoria, estrellas, localidad, offset, limit: itemsPerPage },
-        {
-            refetchOnMountOrArgChange: true
-        }
+        cacheKey,
+        { refetchOnMountOrArgChange: true }
     );
     const { data: hotelesFilter, isLoading: isLoadingFilter } = useGetHotelesFiltersQuery();
 
@@ -51,7 +55,7 @@ export default function alojamientos() {
                     <div className='flex flex-col h-full justify-center'>
                         {/* Necesito una card horizontal para alojamientos */}
                         <div className='flex flex-col gap-4 py-6 px-8'>
-                            {hoteles?.result?.map((alojamiento) => (<CardAlojamientos key={alojamiento.id} hotel={alojamiento} />))}
+                            {hoteles?.result?.map((alojamiento : Hotel) => (<CardAlojamientos key={alojamiento.id} hotel={alojamiento} />))}
                         </div>
                     </div>
                 </div>

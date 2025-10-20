@@ -3,7 +3,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Restaurante } from '@/types/api';
+import { Category, Restaurante } from '@/types/api';
 import { useGetLocalidadesQuery, useGetRestaurantesQuery } from '@/store/services/touchApi';
 
 // Importa los nuevos componentes
@@ -12,29 +12,34 @@ import CardRestauranteSkeleton from '@/components/restaurantes/CardRestauranteSk
 import FeedbackMessage from '../components/common/FeedbackMessage';
 import Paginado from '../components/common/Paginado';
 import TouchSelect from '../components/common/Select';
+import { useOfflineQuery } from '@/hooks/useOfflineQuery';
+
 
 // Importa íconos para los mensajes
 import { SearchX, AlertTriangle } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
+import { getNameCacheKeyWithArgs } from '@/utils/indexedDB';
 
 export default function restaurantes() {
-      const { t } = useI18n();
+    const { t } = useI18n();
     const [categoria, setCategoria] = useState<string>('');
     const [localidad, setLocalidad] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 4;
-
     const offset = (currentPage - 1) * itemsPerPage;
+    const cacheKey = 'getRestaurantes?' + getNameCacheKeyWithArgs({ categoria, localidad, offset, limit: itemsPerPage });
 
     // Obtenemos isError del hook de RTK Query
-    const { data: restaurantes, isLoading, isError } = useGetRestaurantesQuery(
+    const { data: restaurantes, isLoading, isError } = useOfflineQuery(
+        useGetRestaurantesQuery,
         { categoria, localidad, offset, limit: itemsPerPage },
+        cacheKey,
         { refetchOnMountOrArgChange: true }
     );
 
     const { data: localidadesFilter } = useGetLocalidadesQuery();
 
-    const categorias = restaurantes?.categorias?.map((cat) => ({ value: cat.id, label: cat.nombre })) || [];
+    const categorias = restaurantes?.categorias?.map((cat: Category) => ({ value: cat.id, label: cat.nombre })) || [];
     const localidades = localidadesFilter?.localidades?.map((loc) => ({ value: loc.id, label: loc.nombre })) || [];
 
     // Lógica central para renderizar el contenido

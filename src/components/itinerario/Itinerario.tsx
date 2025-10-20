@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useGetLocalidadesQuery, useGetDestinosQuery } from '@/store/services/itinerarioApi'; // Ajusta la ruta si es necesario
-import type { Localidad } from '@/types/itinerario';
+import type { Destino, Localidad } from '@/types/itinerario';
 import { useSelector } from 'react-redux';
 import CardDestino from './CardDestino';
-import { FaFileDownload } from "react-icons/fa";
 import { cn, getCurrentLanguage } from '@/utils';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useI18n } from '@/hooks/useI18n';
+import { getNameCacheKeyWithArgs } from '@/utils/indexedDB';
+import { useOfflineQuery } from '@/hooks/useOfflineQuery';
 
 // Se agrega la prop onClick para manejar la interacción del usuario
 const LocalidadPill = ({ destino, active, onClick, isLoading = false }: { destino: Localidad, active: boolean, onClick: () => void, isLoading?: boolean }) => {
@@ -71,13 +71,22 @@ export default function Itinerario() {
     /* 🔹 Seleccionamos el lenguaje */
     const lenguaje = getCurrentLanguage(router.query);
     /* 🔹 Obtenemos los destinos */
-    const { data: localidadesData, isLoading, isError, error } = useGetLocalidadesQuery({ idioma: `${lenguaje.id || 1}` });
+    const cacheKeyLocalidades = 'getLocalidades?' + getNameCacheKeyWithArgs({ idioma: `${lenguaje.id || 1}` });
+    const { data: localidadesData, isLoading, isError, error } = useOfflineQuery(
+        useGetLocalidadesQuery, 
+        { idioma: `${lenguaje.id || 1}` },
+        cacheKeyLocalidades
+    );
     const [activeLocalidadId, setActiveLocalidadId] = useState<string | null>(null);
     const [localidad, setLocalidad] = useState<Localidad | null | undefined>(null);
     const [colorCircuito, setColorCircuito] = useState<string | null>("#01415c");
+    // AQUI SE CONSULTA LOS DESTINOS //
     // Usamos 'skip' para evitar que se ejecute la consulta si no hay un ID seleccionado.
-    const { data: destinosData, isLoading: isLoadingDestinos, isError: isErrorDestinos } = useGetDestinosQuery(
-        { id: activeLocalidadId! }, // El '!' indica a TS que no será null aquí por la opción 'skip'
+    const cacheKeyDestinos = 'getDestinos?' + getNameCacheKeyWithArgs({ id: activeLocalidadId! });
+    const { data: destinosData, isLoading: isLoadingDestinos, isError: isErrorDestinos } = useOfflineQuery(
+        useGetDestinosQuery,
+        { id: activeLocalidadId! },
+        cacheKeyDestinos,
         { skip: !activeLocalidadId }
     );
     useEffect(() => {
@@ -86,11 +95,14 @@ export default function Itinerario() {
             setActiveLocalidadId(localidadesData.result[0].idSubseccion);
             setLocalidad(localidadesData.result[0]);
         }
+
         const localidadSelected = localidadesData?.result.find((l: Localidad) => l.idSubseccion === activeLocalidadId);
         setLocalidad(localidadSelected);
+
         const circuitoColor = [...Circuitos, ...circuitosEN].find(
             (c: any) => c.id === parseInt(localidadSelected?.idcircuitostur ?? "")
         )?.color
+
         setColorCircuito(circuitoColor);
     }, [localidadesData, activeLocalidadId]); // Se ejecuta cuando los datos o el ID activo cambian
 
@@ -138,7 +150,7 @@ export default function Itinerario() {
                                 </button>
                             ))
                             :
-                            localidades.map((destino) => (
+                            localidades.map((destino : Localidad) => (
                                 <LocalidadPill
                                     destino={destino}
                                     key={destino.idSubseccion}
@@ -170,7 +182,7 @@ export default function Itinerario() {
                             <>
                                 {destinos.length > 0 ? (
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-3 py-3">
-                                        {destinos.map((destino) => (
+                                        {destinos.map((destino : Destino) => (
                                             <CardDestino key={destino.idArticulo} destino={destino} colorCircuito={colorCircuito} />
                                         ))}
                                     </div>

@@ -4,6 +4,9 @@ import { clsx } from 'clsx';
 import Paginado from '@/components/common/Paginado';
 import CardPrestador from '@/components/actividades/CardPrestador';
 import { useI18n } from '@/hooks/useI18n';
+import { getNameCacheKeyWithArgs } from '@/utils/indexedDB';
+import { useOfflineQuery } from '@/hooks/useOfflineQuery';
+import { Prestador } from '@/types/api';
 
 export default function actividades() {
   const [search, setSearch] = useState<string>('');
@@ -13,11 +16,12 @@ export default function actividades() {
 
   // Calcular el offset basado en la página actual
   const offset = (currentPage - 1) * itemsPerPage;
-  const { data: prestadores, isLoading } = useGetPrestadorQuery(
+  const cacheKey = 'getActividades?' + getNameCacheKeyWithArgs({ search, offset, limit: itemsPerPage });
+  const { data: prestadores, isLoading } = useOfflineQuery(
+    useGetPrestadorQuery,
     { search, offset, limit: itemsPerPage },
-    {
-      refetchOnMountOrArgChange: true
-    }
+    cacheKey,
+    { refetchOnMountOrArgChange: true }
   );
   const { data: actividades, isLoading: isLoadingActividades } = useGetActividadesQuery();
   return (
@@ -34,7 +38,7 @@ export default function actividades() {
           <div className='flex flex-col h-full justify-start'>
             {/* Necesito una card horizontal para alojamientos */}
             <div className='flex flex-col gap-4 py-2 px-8'>
-              {prestadores?.result?.map((prestador, index) => (
+              {prestadores?.result?.map((prestador: Prestador, index: number) => (
                 <CardPrestador prestador={prestador} key={index} />
               ))}
             </div>

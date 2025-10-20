@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export const languages = [
-  { id: 1, code: 'ES', label: 'Español', flag: (process.env.URL_IMG_LOCAL || '') + '/svg/arg.svg', alt: 'Bandera Argentina' },
-  { id: 2, code: 'EN', label: 'English', flag: (process.env.URL_IMG_LOCAL || '') + '/svg/eng.svg', alt: 'Bandera Reino Unido' } // Asumiendo ID 2 para inglés
+  { id: 1, code: 'ES', label: 'Español', flag: (process.env.URL_IMG_LOCAL || '') + 'svg/arg.svg', alt: 'Bandera Argentina' },
+  { id: 2, code: 'EN', label: 'English', flag: (process.env.URL_IMG_LOCAL || '') + 'svg/eng.svg', alt: 'Bandera Reino Unido' } // Asumiendo ID 2 para inglés
 ];
 
 export function cn(...inputs: string[]) {
