@@ -82,7 +82,7 @@ export default function mapas() {
   const [destinoActivo, setDestinoActivo] = useState(maps[0]);
 
   // Construir la URL completa del PDF
-  const pdfUrl = process.env.URL_TOUCH + `img/mapas/${destinoActivo.url}`;
+  const pdfUrl = process.env.URL_WEB + `public/pdf/${destinoActivo.url}`;
 
   return (
     <div className='container-height flex justify-between flex-col '>
@@ -108,7 +108,7 @@ export default function mapas() {
               return (
                 <img
                   key={index}
-                  src={process.env.URL_WEB + `public/pdf/${img}`}
+                  src={process.env.URL_TOUCH + `img/mapas/${img}`}
                   className='h-auto w-full'
                   alt={destinoActivo.nombre + index}
                 />
