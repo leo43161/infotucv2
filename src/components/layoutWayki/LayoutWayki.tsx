@@ -5,7 +5,7 @@ import { useI18n } from '@/hooks/useI18n';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function LayoutWayki({ show = true }: { show: boolean }) {
+export default function LayoutWayki({ show = false }: { show: boolean }) {
     const { t } = useI18n();
     const [viewLayout, setViewLayout] = useState(true);
     const variants = {
