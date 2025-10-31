@@ -20,6 +20,7 @@
   --color-mapas: #5A2175;
   --color-cupones: #C4007A;
   --color-autos: #006E66;
+  --color-events: #DD0303;
 }
 
 
@@ -66,6 +67,7 @@
     --mapas: #5A2175;
     --cupones: #C4007A;
     --autos: #006E66;
+    --events: #DD0303;
   }
 
   /* @media (prefers-color-scheme: light) {

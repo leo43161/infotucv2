@@ -8,12 +8,14 @@ import { cn, languages } from '@/utils';
 
 interface LanguageSwitcherProps {
     className?: string;
+    classNameLabel?: string;
     buttonClassName?: string;
     direction?: 'up' | 'down'; // Nueva prop para la dirección
 }
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     className = '',
+    classNameLabel = '',
     buttonClassName = '',
     direction = 'down', // 'down' por defecto
 }) => {
@@ -25,7 +27,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 
     // Llama al hook para cerrar el menú al hacer clic fuera
     useClickOutside(switcherRef as any, () => setIsOpen(false));
-    
+
     // Variantes de animación para el menú
     const menuVariants = {
         hidden: {
@@ -58,7 +60,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
                         alt={currentLanguage.alt}
                         className="w-5 h-5 rounded-sm"
                     />
-                    <span className='font-bold text-base'>{currentLanguage.label}</span>
+                    <span className={cn('font-bold text-base', classNameLabel)}>{currentLanguage.label}</span>
                 </div>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
@@ -96,7 +98,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
                                     alt={lang.alt}
                                     className="w-5 h-5 rounded-sm"
                                 />
-                                {lang.label}
+                                <span className={cn('', classNameLabel)}>{lang.label}</span>
                             </button>
                         ))}
                     </motion.div>

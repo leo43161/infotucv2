@@ -1,4 +1,16 @@
 {
+  "wayki_layout": {
+    "thanks": "Thanks!",
+    "welcome": "Welcome to Tucumán!",
+    "help": "Help me plan your trip!",
+    "skip": "Skip",
+    "itinerary": "Scan this QR code to see your itinerary.",
+    "back": "Back",
+    "return": "Return",
+    "next": "Next",
+    "finish": "Finish",
+    "mail": "We will ask for your email in the next step."
+  },
   "navigation": {
     "home": "Home",
     "accommodations": "Accommodations",
@@ -7,7 +19,8 @@
     "activities": "Activities",
     "agencies": "Agencies",
     "cars": "Cars",
-    "maps": "Maps"
+    "maps": "Maps",
+    "events": "Events"
   },
   "header": {
     "title": "Tucumán Tourism Information App",

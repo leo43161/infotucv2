@@ -1,4 +1,16 @@
 {
+  "wayki_layout": {
+    "thanks": "¡Gracias!",
+    "welcome": "!Bienvenido a TUCUMAN!",
+    "help": "¡Ayúdame a planear tu viaje!",
+    "skip": "Omitir Encuesta",
+    "itinerary": "Escanea este código QR para ver tu itinerario.",
+    "mail": "Te pediremos tu email en el siguiente paso.",
+    "back": "Anterior",
+    "return": "Volver",
+    "next": "Siguiente",
+    "finish": "Finalizar"
+  },
   "navigation": {
     "home": "Inicio",
     "accommodations": "Alojamientos",
@@ -7,7 +19,8 @@
     "activities": "Actividades",
     "agencies": "Agencias",
     "cars": "Autos",
-    "maps": "Mapas"
+    "maps": "Mapas",
+    "events": "Eventos"
   },
   "header": {
     "title": "Aplicación Informativa Tucumán Turismo",

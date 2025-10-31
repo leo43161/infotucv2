@@ -1,4 +1,4 @@
-import { FaBus, FaBriefcase, FaHiking, FaMapMarkedAlt, FaUtensils } from 'react-icons/fa'
+import { FaBus, FaBriefcase, FaHiking, FaMapMarkedAlt, FaUtensils, FaCalendarAlt } from 'react-icons/fa'
 import { LuBedDouble } from "react-icons/lu";
 import { FaCar } from "react-icons/fa6";
 import { useI18n } from '@/hooks/useI18n';
@@ -36,7 +36,6 @@ const navItems = () => {
             color: "acti",
             gridClass: "row-span-2 row-start-3"
         },
-
         {
             href: urlFormater("agencias"),
             label: t("navigation.agencies"),
@@ -58,7 +57,16 @@ const navItems = () => {
             label: t("navigation.restaurants"),
             icon: FaUtensils,
             color: "rest",
-            gridClass: "row-span-2 col-start-3 row-start-3",
+            gridClass: "row-span-1 col-start-3 row-start-3",
+            row: true
+        },
+        {
+            href: urlFormater("events"),
+            label: t("navigation.events"),
+            icon: FaCalendarAlt,
+            color: "events",
+            gridClass: "row-span-1 col-start-3 row-start-4",
+            row: true
         },
     ]
 };
