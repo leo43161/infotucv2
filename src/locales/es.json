@@ -30,6 +30,12 @@
     "welcome": "¿EN QUÉ TE PODEMOS AYUDAR?",
     "explore": "Explora los mejores destinos de Tucumán"
   },
+  "events": {
+    "title": "Buscá aquí los eventos",
+    "all_events": "Todos los eventos",
+    "today_event": "Eventos de hoy",
+    "tomorrow_event": "Eventos de mañana"
+  },
   "accommodations": {
     "title": "Busca aquí dónde hospedarte",
     "categories": "Categorías",

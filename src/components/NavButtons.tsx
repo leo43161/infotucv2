@@ -61,7 +61,7 @@ const navItems = () => {
             row: true
         },
         {
-            href: urlFormater("events"),
+            href: urlFormater("eventos"),
             label: t("navigation.events"),
             icon: FaCalendarAlt,
             color: "events",

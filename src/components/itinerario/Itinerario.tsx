@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic';
 import { useI18n } from '@/hooks/useI18n';
 import { getNameCacheKeyWithArgs } from '@/utils/indexedDB';
 import { useOfflineQuery } from '@/hooks/useOfflineQuery';
+import WaykiItinerarie from './WaykiItinerarie';
 
 // Se agrega la prop onClick para manejar la interacción del usuario
 const LocalidadPill = ({ destino, active, onClick, isLoading = false }: { destino: Localidad, active: boolean, onClick: () => void, isLoading?: boolean }) => {
@@ -73,7 +74,7 @@ export default function Itinerario() {
     /* 🔹 Obtenemos los destinos */
     const cacheKeyLocalidades = 'getLocalidades?' + getNameCacheKeyWithArgs({ idioma: `${lenguaje.id || 1}` });
     const { data: localidadesData, isLoading, isError, error } = useOfflineQuery(
-        useGetLocalidadesQuery, 
+        useGetLocalidadesQuery,
         { idioma: `${lenguaje.id || 1}` },
         cacheKeyLocalidades
     );
@@ -125,7 +126,7 @@ export default function Itinerario() {
     const progressWidth = progress > 100 ? 100 : progress;
     return (
         <div className='h-133'>
-            <div className="grid grid-cols-7 grid-rows-10 h-full overflow-hidden">
+            <div className="grid grid-cols-7 grid-rows-10 h-full overflow-hidden relative">
                 <div className="col-span-2 col-start-1 row-start-1 relative overflow-hidden">
                     <img className='absolute w-full object-cover z-[2] opacity-20 object-center -top-6/12' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
                     <div className="flex justify-center items-center h-full bg-secondary z-10">
@@ -150,7 +151,7 @@ export default function Itinerario() {
                                 </button>
                             ))
                             :
-                            localidades.map((destino : Localidad) => (
+                            localidades.map((destino: Localidad) => (
                                 <LocalidadPill
                                     destino={destino}
                                     key={destino.idSubseccion}
@@ -162,7 +163,14 @@ export default function Itinerario() {
                             ))}
                     </div>
                 </div>
-                <div className="col-span-5 row-span-10 col-start-3 row-start-2 overflow-auto relative" /* style={{ backgroundAttachment: "fixed", background: "no-repeat url('/img/header/textura-tucuman.png')" }} */>
+                <div className="col-span-5 row-span-10 col-start-3 row-start-2 overflow-auto relative scale-100" /* style={{ backgroundAttachment: "fixed", background: "no-repeat url('/img/header/textura-tucuman.png')" }} */>
+                    <div className='sticky top-0 z-40'>
+                        <div className="absolute top-0 h-120 overflow-hidden flex items-end">
+                            <div className='w-full flex justify-end'>
+                                <WaykiItinerarie />
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         {(isLoadingDestinos || isLoading) &&
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-3 py-3">
@@ -182,7 +190,7 @@ export default function Itinerario() {
                             <>
                                 {destinos.length > 0 ? (
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-3 py-3">
-                                        {destinos.map((destino : Destino) => (
+                                        {destinos.map((destino: Destino) => (
                                             <CardDestino key={destino.idArticulo} destino={destino} colorCircuito={colorCircuito} />
                                         ))}
                                     </div>

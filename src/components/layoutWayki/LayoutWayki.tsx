@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
+// src/components/layoutWayki/LayoutWayki.tsx
+import React from 'react'
 import WaykiQuestionnaire from './WaykiQuestionnaire'
 import LanguageSwitcher from '../LanguageSwitcher'
 import { useI18n } from '@/hooks/useI18n';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
-export default function LayoutWayki({ show = false }: { show: boolean }) {
+export default function LayoutWayki({ onSkip }: { onSkip: () => void }) {
     const { t } = useI18n();
-    const [viewLayout, setViewLayout] = useState(true);
+    const showWayki = useSelector((state: any) => state.ui.isWaykiOpenLayout);
     const variants = {
         enter: {
             x: 1100,
@@ -21,16 +22,10 @@ export default function LayoutWayki({ show = false }: { show: boolean }) {
             x: -1100,
         },
     };
-    useEffect(() => {
-        if (show) {
-            setViewLayout(true);
-        } else {
-            setViewLayout(false);
-        }
-    }, [show]);
+
     return (
         <AnimatePresence mode="wait">
-            {viewLayout ?
+            {showWayki ?
                 <motion.div
                     key={"layoutWayki"}
                     className='h-full w-full bg-secondary z-40 absolute overflow-hidden'
@@ -39,7 +34,7 @@ export default function LayoutWayki({ show = false }: { show: boolean }) {
                     animate="center"
                     exit="exit"
                     transition={{
-                        x: { type: 'spring', stiffness: 400, damping: 30 },
+                        x: { type: 'spring', stiffness: 400, damping: 30, delay: 0.9},
                     }}
                 >
                     <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
@@ -51,12 +46,13 @@ export default function LayoutWayki({ show = false }: { show: boolean }) {
                         <div>
                             <LanguageSwitcher classNameLabel='text-2xl font-bold' buttonClassName='bg-primary text-zinc-50 h-full text-2xl' className='h-full w-42' direction='up' />
                         </div>
-                        <div onClick={() => setViewLayout(false)}>
-                            <h4 className='text-2xl font-bold text-white underline'>{t('wayki_layout.skip')}</h4>
+                        {/* --- 2. CAMBIA EL onClick para usar onSkip --- */}
+                        <div onClick={onSkip}>
+                            <h4 className='text-2xl font-bold text-white underline cursor-pointer'>{t('wayki_layout.skip')}</h4>
                         </div>
                     </div>
                 </motion.div>
-                : (<div></div>)
+                : null // Renderiza null en lugar de un div vacío
             }
         </AnimatePresence>
     )

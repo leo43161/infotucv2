@@ -30,6 +30,12 @@
     "welcome": "HOW CAN WE HELP YOU?",
     "explore": "Explore the best destinations in Tucumán"
   },
+  "events": {
+    "title": "Find events here",
+    "all_events": "All events",
+    "today_event": "Today's events",
+    "tomorrow_event": "Tomorrow's events"
+  },
   "accommodations": {
     "title": "Find your place to stay here",
     "categories": "Categories",

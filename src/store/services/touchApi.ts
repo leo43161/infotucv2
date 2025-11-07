@@ -1,6 +1,6 @@
 // src/store/services/touchApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { EventosDestacadosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel, PrestadorApiResponse, PrestadorQueryArgs, Prestador, ActividadesResponse, RestaurantesApiResponse, RestaurantesQueryArgs, Restaurante, LocalidadResponse, AgenciasApiResponse, AgenciasQueryArgs, Agencia, AutosApiResponse, AutosQueryArgs, Auto } from '@/types/api';
+import type { EventosDestacadosApiResponse, EventosApiResponse, Evento, Colectivo, ColectivosApiResponse, HotelesApiResponse, Hotel, HotelesQueryArgs, HotelesFilterResponse, CategoriaHotel, PrestadorApiResponse, PrestadorQueryArgs, Prestador, ActividadesResponse, RestaurantesApiResponse, RestaurantesQueryArgs, Restaurante, LocalidadResponse, AgenciasApiResponse, AgenciasQueryArgs, Agencia, AutosApiResponse, AutosQueryArgs, Auto, EventosQueryArgs } from '@/types/api';
 
 export const touchApi = createApi({
   reducerPath: 'touchApi',
@@ -9,6 +9,25 @@ export const touchApi = createApi({
   }),
   endpoints: (builder) => ({
     /* EVENTOS */
+    getEventos: builder.query<EventosApiResponse, EventosQueryArgs>({
+
+      query: ({
+        Dia,
+        offset,
+        limit
+      }) => ({
+        url: 'eventos',
+        params: { Dia, offset, limit }
+      }),
+
+      transformResponse: (response: { result: Evento[], total: number }) => {
+        return {
+          status: 200,
+          result: response.result,
+          total: String(response.total)
+        };
+      },
+    }),
     getEventosDestacados: builder.query<EventosDestacadosApiResponse, void>({
       query: () => 'eventos_destacados',
       transformResponse: (response: { result: Evento[] }) => {
@@ -129,6 +148,7 @@ export const touchApi = createApi({
 });
 
 export const {
+  useGetEventosQuery,
   useGetEventosDestacadosQuery,
   useGetColectivosQuery,
   useGetHotelesQuery,

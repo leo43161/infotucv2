@@ -4,6 +4,7 @@ import { touchApi } from './services/touchApi';
 import { itinerarioApi } from './services/itinerarioApi';
 import { itinerarioService } from './services/itinerarioService';
 import itinerariosReducer from './features/itinerarioSlice';
+import uiSlice from './features/uiSlice';
 import { visitasApi } from './services/visitasService';
 import { offlineMiddleware } from './middleware/offlineMiddleware';
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     [itinerarioService.reducerPath]: itinerarioService.reducer,
     [visitasApi.reducerPath]: visitasApi.reducer,
     itinerarios: itinerariosReducer,
+    ui: uiSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
