@@ -11,33 +11,67 @@ const questions = [
         key: 'edad',
         text: '¿Qué edad tienes?',
         select: 'single',
-        options: ['18-25', '26-35', '36-50', '51+'],
+        options: [
+            { label: '18-25', value: '18-25' },
+            { label: '26-35', value: '26-35' },
+            { label: '36-50', value: '36-50' },
+            { label: '51+', value: '51+' },
+        ],
     },
     {
         key: 'origen',
         text: '¿De dónde nos visitas?',
         select: 'single',
-        options: ['Tucumán', 'Buenos Aires', 'Córdoba', 'Otra Pcia.', 'Extranjero'],
+        options: [
+            { label: 'Tucumán', value: 'tucuman' },
+            { label: 'Buenos Aires', value: 'buenos_aires' },
+            { label: 'Córdoba', value: 'cordoba' },
+            { label: 'Otra Pcia.', value: 'otra_provincia' },
+            { label: 'Extranjero', value: 'extranjero' },
+        ],
     },
     {
         key: 'estadia',
         text: '¿Cuántos días piensas quedarte?',
         select: 'single',
-        options: ['1-2 días', '3-5 días', 'Una semana', 'Más...'],
+        options: [
+            { label: '1-2 días', value: '1-2' },
+            { label: '3-5 días', value: '3-5' },
+            { label: 'Una semana', value: '7' },
+            { label: 'Más...', value: 'mas' },
+        ],
     },
     {
         key: 'cantidad',
         text: '¿Cuántas personas viajan?',
         select: 'single',
-        options: ['Solo/a', '2 personas', '3-5', 'Grupo (+5)'],
+        options: [
+            { label: 'Solo/a', value: '1' },
+            { label: '2 personas', value: '2' },
+            { label: '3-5', value: '3-5' },
+            { label: 'Grupo (+5)', value: '6+' },
+        ],
     },
     {
         key: 'actividades',
         text: '¿Qué actividades te gustan más? (Elige una o varias)',
         select: 'single',
-        options: ['Montañismo', 'Historia', 'Naturaleza', 'Compras', 'Cultura', 'Gastronomía'],
+        options: [
+            { label: 'Montañismo', value: 'montanismo' },
+            { label: 'Historia', value: 'historia' },
+            { label: 'Naturaleza', value: 'naturaleza' },
+            { label: 'Compras', value: 'compras' },
+            { label: 'Cultura', value: 'cultura' },
+            { label: 'Gastronomía', value: 'gastronomia' },
+        ],
     },
 ];
+type Question = {
+    key: string;
+    text: string;
+    select: 'single' | 'multiple';
+    options: { label: string; value: string }[];
+};
 
 // --- Variantes de animación (sin cambios) ---
 const variants = {
@@ -65,7 +99,7 @@ export default function WaykiQuestionnaire() {
     const { t } = useI18n();
 
 
-    const currentQuestion = questions[step];
+    const currentQuestion = questions[step] as Question;
 
     const nextStep = () => {
         if (step < questions.length - 1) {
@@ -87,24 +121,21 @@ export default function WaykiQuestionnaire() {
         }
     };
 
-    const handleOptionClick = (option: string) => {
+    const handleOptionClick = (option: { label: string; value: string }) => {
         const { key, select } = currentQuestion;
 
         if (select === 'multiple') {
             // Lógica para 'actividades' (multiselect)
             const currentValues = answers[key] || [];
             let newValues;
-            if (currentValues.includes(option)) {
-                newValues = currentValues.filter((item: string) => item !== option);
+            if (currentValues.includes(option.value)) {
+                newValues = currentValues.filter((item: string) => item !== option.value);
             } else {
-                newValues = [...currentValues, option];
+                newValues = [...currentValues, option.value];
             }
             setAnswers({ ...answers, [key]: newValues });
         } else {
-            setAnswers({ ...answers, [key]: option });
-
-            // --- AVANCE AUTOMÁTICO ---
-            // Espera 300ms para que el usuario vea el botón marcado y luego avanza
+            setAnswers({ ...answers, [key]: option.value });
             setTimeout(() => {
                 nextStep();
             }, 300);
@@ -121,14 +152,14 @@ export default function WaykiQuestionnaire() {
                 {options?.map((option) => {
                     let isSelected = false;
                     if (select === 'multiple') {
-                        isSelected = (answers[key] || []).includes(option);
+                        isSelected = (answers[key] || []).includes(option.value);
                     } else {
-                        isSelected = answers[key] === option;
+                        isSelected = answers[key] === option.value;
                     }
 
                     return (
                         <motion.button
-                            key={option}
+                            key={option.label}
                             onClick={() => handleOptionClick(option)}
                             className={cn(
                                 'flex items-center justify-center gap-2 p-3 rounded-lg text-3xl font-semibold transition-all shadow-md active:scale-95',
@@ -140,7 +171,7 @@ export default function WaykiQuestionnaire() {
                             whileTap={{ scale: 0.95 }}
                         >
                             {select === 'multiple' && isSelected && <Check size={18} />}
-                            {option}
+                            {option.label}
                         </motion.button>
                     );
                 })}
@@ -152,6 +183,7 @@ export default function WaykiQuestionnaire() {
 
     const getQRValue = () => {
         const params = new URLSearchParams();
+        console.log(answers);
         for (const key in answers) {
             if (Array.isArray(answers[key])) {
                 params.append(key, answers[key].join(','));
@@ -159,7 +191,7 @@ export default function WaykiQuestionnaire() {
                 params.append(key, answers[key]);
             }
         }
-        return `https://tu-sitio.com/itinerario?${params.toString()}`;
+        return `http://10.20.20.5:3000/it-wayki?${params.toString()}`;
     };
 
     const isMultiselectValid = () => {

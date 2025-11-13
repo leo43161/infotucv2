@@ -167,7 +167,7 @@ export default function Itinerario() {
                     <div className='sticky top-0 z-40'>
                         <div className="absolute top-0 h-120 overflow-hidden flex items-end">
                             <div className='w-full flex justify-end'>
-                                <WaykiItinerarie />
+                                {/* <WaykiItinerarie /> */}
                             </div>
                         </div>
                     </div>

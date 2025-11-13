@@ -40,7 +40,7 @@ const Layout = ({ children, className }: Props) => {
 
   return (
     <div className={cn("h-full flex flex-col overflow-hidden bg-gray-100", className ?? '')}>
-      <LayoutWayki onSkip={handleWaykiDismiss} />
+      {/* <LayoutWayki onSkip={handleWaykiDismiss} /> */}
       <Header />
       <main className="flex-grow overflow-y-auto relative">
         {children}
