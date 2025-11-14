@@ -11,6 +11,56 @@
     "finish": "Finish",
     "mail": "We will ask for your email in the next step."
   },
+  "questions": {
+    "edad": {
+      "text": "How old are you?",
+      "options": {
+        "18-25": "18-25",
+        "26-35": "26-35",
+        "36-50": "36-50",
+        "51+": "51+"
+      }
+    },
+    "origen": {
+      "text": "Where are you visiting us from?",
+      "options": {
+        "tucuman": "Tucumán",
+        "buenos_aires": "Buenos Aires",
+        "cordoba": "Córdoba",
+        "otra_provincia": "Other Province",
+        "extranjero": "Abroad"
+      }
+    },
+    "estadia": {
+      "text": "How many days are you planning to stay?",
+      "options": {
+        "1-2": "1-2 days",
+        "3-5": "3-5 days",
+        "7": "One week",
+        "mas": "More..."
+      }
+    },
+    "cantidad": {
+      "text": "How many people are traveling?",
+      "options": {
+        "1": "Alone",
+        "2": "2 people",
+        "3-5": "3-5",
+        "6+": "Group (+5)"
+      }
+    },
+    "actividades": {
+      "text": "What activities do you like the most?",
+      "options": {
+        "montanismo": "Mountaineering",
+        "historia": "History",
+        "naturaleza": "Nature",
+        "compras": "Shopping",
+        "cultura": "Culture",
+        "gastronomia": "Gastronomy"
+      }
+    }
+  },
   "navigation": {
     "home": "Home",
     "accommodations": "Accommodations",
@@ -72,7 +122,7 @@
     "title": "Select the map you need",
     "cuisine_type": "Cuisine Type",
     "price_range": "Price Range",
-    "downloadPdf": "Download PDF", 
+    "downloadPdf": "Download PDF",
     "scanToDownload": "Scan to download the map"
   },
   "itinerary": {

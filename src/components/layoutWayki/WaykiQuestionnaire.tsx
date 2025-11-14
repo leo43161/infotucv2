@@ -5,64 +5,65 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { cn } from '@/utils'; // Importamos tu 'cn' de utils
 import { useI18n } from '@/hooks/useI18n';
+const { t } = useI18n();
 
 const questions = [
     {
         key: 'edad',
-        text: '¿Qué edad tienes?',
+        text: t('questions.edad.text'),
         select: 'single',
         options: [
-            { label: '18-25', value: '18-25' },
-            { label: '26-35', value: '26-35' },
-            { label: '36-50', value: '36-50' },
-            { label: '51+', value: '51+' },
+            { label: t('questions.edad.options.18-25'), value: '18-25' },
+            { label: t('questions.edad.options.26-35'), value: '26-35' },
+            { label: t('questions.edad.options.36-50'), value: '36-50' },
+            { label: t('questions.edad.options.51+'), value: '51+' },
         ],
     },
     {
         key: 'origen',
-        text: '¿De dónde nos visitas?',
+        text: t('questions.origen.text'),
         select: 'single',
         options: [
-            { label: 'Tucumán', value: 'tucuman' },
-            { label: 'Buenos Aires', value: 'buenos_aires' },
-            { label: 'Córdoba', value: 'cordoba' },
-            { label: 'Otra Pcia.', value: 'otra_provincia' },
-            { label: 'Extranjero', value: 'extranjero' },
+            { label: t('questions.origen.options.tucuman'), value: 'tucuman' },
+            { label: t('questions.origen.options.buenos_aires'), value: 'buenos_aires' },
+            { label: t('questions.origen.options.cordoba'), value: 'cordoba' },
+            { label: t('questions.origen.options.otra_provincia'), value: 'otra_provincia' },
+            { label: t('questions.origen.options.extranjero'), value: 'extranjero' },
         ],
     },
     {
         key: 'estadia',
-        text: '¿Cuántos días piensas quedarte?',
+        text: t('questions.estadia.text'),
         select: 'single',
         options: [
-            { label: '1-2 días', value: '1-2' },
-            { label: '3-5 días', value: '3-5' },
-            { label: 'Una semana', value: '7' },
-            { label: 'Más...', value: 'mas' },
+            { label: t('questions.estadia.options.1-2'), value: '1-2' },
+            { label: t('questions.estadia.options.3-5'), value: '3-5' },
+            { label: t('questions.estadia.options.7'), value: '7' },
+            { label: t('questions.estadia.options.mas'), value: 'mas' },
         ],
     },
     {
         key: 'cantidad',
-        text: '¿Cuántas personas viajan?',
+        text: t('questions.cantidad.text'),
         select: 'single',
         options: [
-            { label: 'Solo/a', value: '1' },
-            { label: '2 personas', value: '2' },
-            { label: '3-5', value: '3-5' },
-            { label: 'Grupo (+5)', value: '6+' },
+            { label: t('questions.cantidad.options.1'), value: '1' },
+            { label: t('questions.cantidad.options.2'), value: '2' },
+            { label: t('questions.cantidad.options.3-5'), value: '3-5' },
+            { label: t('questions.cantidad.options.6+'), value: '6+' },
         ],
     },
     {
         key: 'actividades',
-        text: '¿Qué actividades te gustan más? (Elige una o varias)',
-        select: 'single',
+        text: t('questions.actividades.text'),
+        select: 'single', // Nota: El texto en español sugiere 'multiple'
         options: [
-            { label: 'Montañismo', value: 'montanismo' },
-            { label: 'Historia', value: 'historia' },
-            { label: 'Naturaleza', value: 'naturaleza' },
-            { label: 'Compras', value: 'compras' },
-            { label: 'Cultura', value: 'cultura' },
-            { label: 'Gastronomía', value: 'gastronomia' },
+            { label: t('questions.actividades.options.montanismo'), value: 'montanismo' },
+            { label: t('questions.actividades.options.historia'), value: 'historia' },
+            { label: t('questions.actividades.options.naturaleza'), value: 'naturaleza' },
+            { label: t('questions.actividades.options.compras'), value: 'compras' },
+            { label: t('questions.actividades.options.cultura'), value: 'cultura' },
+            { label: t('questions.actividades.options.gastronomia'), value: 'gastronomia' },
         ],
     },
 ];
