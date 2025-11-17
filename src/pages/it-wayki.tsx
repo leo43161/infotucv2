@@ -11,6 +11,7 @@ export default function ItinerarioEmail() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<Status>('idle');
+    const [emailError, setEmailError] = useState<string | null>('');
 
     // Extraemos los datos de las respuestas del URL
     const { estadia, actividades } = router.query;
@@ -39,10 +40,32 @@ export default function ItinerarioEmail() {
         }
     }, [estadia, actividades]);
 
+    const validateEmail = (email: string) => {
+        if (!email) {
+            return 'El correo electrónico es obligatorio.';
+        }
+        // Expresión regular simple para validación de email
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            return 'Por favor, ingresa un correo electrónico válido.';
+        }
+        return ''; // Sin error
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (status === 'loading' || !email) return;
+
+        // --- VALIDACIÓN AÑADIDA ---
+        // Validar el email antes de continuar
+        const validationError = validateEmail(email);
+        if (validationError) {
+            setEmailError(validationError);
+            return; // Detiene el envío si hay un error
+        }
+        setEmailError(''); // Limpia cualquier error anterior si es válido
+        // --- FIN DE LA VALIDACIÓN ---
+
+        if (status === 'loading') return;
 
         setStatus('loading');
 
@@ -65,12 +88,14 @@ export default function ItinerarioEmail() {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Hubo un problema al enviar el correo.');
             }
+            window.open('https://www.tucumanturismo.gob.ar/', '_blank');
             setStatus('success');
         } catch (error: any) {
             console.error(error);
             setStatus('error');
         }
     };
+
 
     const renderContent = () => {
         switch (status) {
@@ -87,10 +112,10 @@ export default function ItinerarioEmail() {
                         <p className="text-gray-600 mt-2">
                             Revisa tu bandeja de entrada (y spam) para descargar tu itinerario.
                         </p>
-                        <Link href="/" passHref>
+                        <Link href="https://www.tucumanturismo.gob.ar/" passHref>
                             <button className="mt-6 flex items-center gap-2 mx-auto px-6 py-3 rounded-lg bg-secondary text-white font-semibold shadow-lg hover:scale-105 transition-transform">
                                 <ArrowLeft size={20} />
-                                Volver al inicio
+                                Conoce mas de Tucumán
                             </button>
                         </Link>
                     </motion.div>
@@ -122,31 +147,39 @@ export default function ItinerarioEmail() {
                         <h2 className="text-3xl font-bold text-center text-gray-800">
                             ¡Casi listo!
                         </h2>
-                        <p className="text-gray-600 text-center mt-2 mb-6">
+                        <p className="text-gray-600 text-center mt-2 mb-3 text-xl font-bold">
                             Ingresa tu email para recibir tu itinerario personalizado.
                         </p>
 
                         {/* Muestra el resumen del itinerario que se va a enviar */}
                         {summary && (
-                            <div className="p-4 bg-primary/10 border-l-4 border-primary rounded-lg mb-6">
-                                <p className="font-semibold text-primary">{summary}</p>
+                            <div className="px-4 py-2 bg-primary/10 border-l-4 border-primary rounded-lg mb-3">
+                                <p className="font-semibold text-primary text-lg">{summary}</p>
                             </div>
                         )}
 
                         <div className="mb-4">
-                            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                            <label htmlFor="email" className="block text-lg font-semibold text-gray-700 mb-2">
                                 Correo Electrónico
                             </label>
                             <input
                                 type="email"
                                 id="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className="w-full p-3 text-lg text-gray-700 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                                className={`w-full p-3 text-lg text-gray-700 border-2 rounded-lg focus:outline-none transition-colors ${emailError
+                                    ? 'border-red-500 focus:border-red-500'
+                                    : 'border-gray-300 focus:border-primary'
+                                    }`}
                                 placeholder="tu.correo@ejemplo.com"
                                 disabled={status === 'loading'}
+                                formNoValidate
                             />
+                            {emailError && (
+                                <p className="mt-1 text-sm text-red-600">{emailError}</p>
+                            )}
                         </div>
 
                         <button
@@ -168,17 +201,31 @@ export default function ItinerarioEmail() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 ">
+        <div className="h-svh flex items-center justify-center bg-secondary p-2  overflow-hidden">
+            <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
             {/* Usamos el logo de Wayki en la esquina */}
-            <img
-                src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ? process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki.png' : '/img/wayki.png'}
-                alt="Wayki"
-                className="absolute w-48 -left-12 bottom-0 opacity-30 md:opacity-100 md:w-64 md:-left-20"
-            />
+            <div
+                className='absolute left-1/2 transform -translate-x-1/2 w-full h-full overflow-hidden flex justify-center items-center'>
+                <motion.div
+                    initial={{ rotate: -30, opacity: 0, y: 0 }}
+                    animate={{ rotate: 33, opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: 'easeInOut' }}
+                    style={{
+                        transformOrigin: 'bottom center'
+                    }}
+                    className='relative opacity-100 md:opacity-100 bottom-23 w-fit -left-100 max-w-none'
+                >
+                    <img
+                        src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ? process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki.png' : '/img/wayki.png'}
+                        alt="Wayki"
+                        className="w-[580px] max-w-none"
+                    />
+                </motion.div>
+            </div>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="w-full max-w-md p-8 bg-white rounded-xl shadow-2xl z-10"
+                className="w-6/7 max-w-md p-6 bg-white rounded-xl shadow-2xl z-10 absolute bottom-8 left-1/2 transform -translate-x-1/2"
             >
                 {renderContent()}
             </motion.div>

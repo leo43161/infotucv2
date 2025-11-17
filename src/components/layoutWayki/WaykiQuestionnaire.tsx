@@ -5,68 +5,6 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { cn } from '@/utils'; // Importamos tu 'cn' de utils
 import { useI18n } from '@/hooks/useI18n';
-const { t } = useI18n();
-
-const questions = [
-    {
-        key: 'edad',
-        text: t('questions.edad.text'),
-        select: 'single',
-        options: [
-            { label: t('questions.edad.options.18-25'), value: '18-25' },
-            { label: t('questions.edad.options.26-35'), value: '26-35' },
-            { label: t('questions.edad.options.36-50'), value: '36-50' },
-            { label: t('questions.edad.options.51+'), value: '51+' },
-        ],
-    },
-    {
-        key: 'origen',
-        text: t('questions.origen.text'),
-        select: 'single',
-        options: [
-            { label: t('questions.origen.options.tucuman'), value: 'tucuman' },
-            { label: t('questions.origen.options.buenos_aires'), value: 'buenos_aires' },
-            { label: t('questions.origen.options.cordoba'), value: 'cordoba' },
-            { label: t('questions.origen.options.otra_provincia'), value: 'otra_provincia' },
-            { label: t('questions.origen.options.extranjero'), value: 'extranjero' },
-        ],
-    },
-    {
-        key: 'estadia',
-        text: t('questions.estadia.text'),
-        select: 'single',
-        options: [
-            { label: t('questions.estadia.options.1-2'), value: '1-2' },
-            { label: t('questions.estadia.options.3-5'), value: '3-5' },
-            { label: t('questions.estadia.options.7'), value: '7' },
-            { label: t('questions.estadia.options.mas'), value: 'mas' },
-        ],
-    },
-    {
-        key: 'cantidad',
-        text: t('questions.cantidad.text'),
-        select: 'single',
-        options: [
-            { label: t('questions.cantidad.options.1'), value: '1' },
-            { label: t('questions.cantidad.options.2'), value: '2' },
-            { label: t('questions.cantidad.options.3-5'), value: '3-5' },
-            { label: t('questions.cantidad.options.6+'), value: '6+' },
-        ],
-    },
-    {
-        key: 'actividades',
-        text: t('questions.actividades.text'),
-        select: 'single', // Nota: El texto en español sugiere 'multiple'
-        options: [
-            { label: t('questions.actividades.options.montanismo'), value: 'montanismo' },
-            { label: t('questions.actividades.options.historia'), value: 'historia' },
-            { label: t('questions.actividades.options.naturaleza'), value: 'naturaleza' },
-            { label: t('questions.actividades.options.compras'), value: 'compras' },
-            { label: t('questions.actividades.options.cultura'), value: 'cultura' },
-            { label: t('questions.actividades.options.gastronomia'), value: 'gastronomia' },
-        ],
-    },
-];
 type Question = {
     key: string;
     text: string;
@@ -98,8 +36,66 @@ export default function WaykiQuestionnaire() {
     const [answers, setAnswers] = useState<Record<string, any>>({});
     const [showQR, setShowQR] = useState(false);
     const { t } = useI18n();
-
-
+    const questions = [
+        {
+            key: 'edad',
+            text: t('questions.edad.text'),
+            select: 'single',
+            options: [
+                { label: t('questions.edad.options.18-25'), value: '18-25' },
+                { label: t('questions.edad.options.26-35'), value: '26-35' },
+                { label: t('questions.edad.options.36-50'), value: '36-50' },
+                { label: t('questions.edad.options.51+'), value: '51+' },
+            ],
+        },
+        {
+            key: 'origen',
+            text: t('questions.origen.text'),
+            select: 'single',
+            options: [
+                { label: t('questions.origen.options.tucuman'), value: 'tucuman' },
+                { label: t('questions.origen.options.buenos_aires'), value: 'buenos_aires' },
+                { label: t('questions.origen.options.cordoba'), value: 'cordoba' },
+                { label: t('questions.origen.options.otra_provincia'), value: 'otra_provincia' },
+                { label: t('questions.origen.options.extranjero'), value: 'extranjero' },
+            ],
+        },
+        {
+            key: 'estadia',
+            text: t('questions.estadia.text'),
+            select: 'single',
+            options: [
+                { label: t('questions.estadia.options.1-2'), value: '1-2' },
+                { label: t('questions.estadia.options.3-5'), value: '3-5' },
+                { label: t('questions.estadia.options.7'), value: '7' },
+                { label: t('questions.estadia.options.mas'), value: 'mas' },
+            ],
+        },
+        {
+            key: 'cantidad',
+            text: t('questions.cantidad.text'),
+            select: 'single',
+            options: [
+                { label: t('questions.cantidad.options.1'), value: '1' },
+                { label: t('questions.cantidad.options.2'), value: '2' },
+                { label: t('questions.cantidad.options.3-5'), value: '3-5' },
+                { label: t('questions.cantidad.options.6+'), value: '6+' },
+            ],
+        },
+        {
+            key: 'actividades',
+            text: t('questions.actividades.text'),
+            select: 'single', // Nota: El texto en español sugiere 'multiple'
+            options: [
+                { label: t('questions.actividades.options.montanismo'), value: 'montanismo' },
+                { label: t('questions.actividades.options.historia'), value: 'historia' },
+                { label: t('questions.actividades.options.naturaleza'), value: 'naturaleza' },
+                { label: t('questions.actividades.options.compras'), value: 'compras' },
+                { label: t('questions.actividades.options.cultura'), value: 'cultura' },
+                { label: t('questions.actividades.options.gastronomia'), value: 'gastronomia' },
+            ],
+        },
+    ];
     const currentQuestion = questions[step] as Question;
 
     const nextStep = () => {
@@ -147,7 +143,6 @@ export default function WaykiQuestionnaire() {
         if (showQR) return null;
 
         const { key, select, options } = currentQuestion;
-
         return (
             <div className="grid grid-cols-2 gap-3 auto-rows-[80px]">
                 {options?.map((option) => {
@@ -158,7 +153,7 @@ export default function WaykiQuestionnaire() {
                         isSelected = answers[key] === option.value;
                     }
 
-                    return (
+                    return option.label !== "---------" && (
                         <motion.button
                             key={option.label}
                             onClick={() => handleOptionClick(option)}
