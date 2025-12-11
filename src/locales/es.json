@@ -15,6 +15,7 @@
     "edad": {
       "text": "¿Qué edad tienes?",
       "options": {
+        "5-17": "5-17",
         "18-25": "18-25",
         "26-35": "26-35",
         "36-50": "36-50",
@@ -28,7 +29,8 @@
         "buenos_aires": "Buenos Aires",
         "cordoba": "Córdoba",
         "otra_provincia": "Otra Pcia.",
-        "extranjero": "Extranjero"
+        "america": "Resto America",
+        "rest-world": "Resto del Mundo"
       }
     },
     "estadia": {
@@ -52,12 +54,13 @@
     "actividades": {
       "text": "¿Qué actividades te gustan más?",
       "options": {
+        "historia": "Historia y Cultura",
         "montanismo": "Montañismo",
-        "historia": "Historia",
         "naturaleza": "Naturaleza",
-        "compras": "Compras",
-        "cultura": "Cultura",
-        "gastronomia": "Gastronomía"
+        "religion": "Turismo Religioso",
+        "gastronomia": "Sabores Tucumanos",
+        "productivo": "Produccion Local",
+        "surprise": "Sorprendeme"
       }
     }
   },

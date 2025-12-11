@@ -10,7 +10,8 @@ import type {
     Localidad,
     DestinosQueryArgs,
     LocalidadesQueryArgs,
-    DestinoGaleryQueryArgs
+    DestinoGaleryQueryArgs,
+    ItinerarioTouchApiResponse
 } from '@/types/itinerario';
 
 export const itinerarioApi = createApi({
@@ -53,7 +54,14 @@ export const itinerarioApi = createApi({
                 };
             },
         }),
+        setItinerarioTouch: builder.mutation<ItinerarioTouchApiResponse, any>({
+            query: (body) => ({
+                url: 'itinerario_touch',
+                method: 'POST',
+                body,
+            }),
+        }),
     }),
 });
 
-export const { useGetDestinosQuery, useGetLocalidadesQuery, useGetGaleryDestinoQuery } = itinerarioApi;
+export const { useGetDestinosQuery, useGetLocalidadesQuery, useGetGaleryDestinoQuery, useSetItinerarioTouchMutation } = itinerarioApi;

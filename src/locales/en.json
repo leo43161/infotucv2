@@ -15,6 +15,7 @@
     "edad": {
       "text": "How old are you?",
       "options": {
+        "5-17": "5-17",
         "18-25": "18-25",
         "26-35": "26-35",
         "36-50": "36-50",
@@ -28,7 +29,10 @@
         "buenos_aires": "Buenos Aires",
         "cordoba": "Córdoba",
         "otra_provincia": "Other Province",
-        "extranjero": "Abroad"
+        "extranjero": "Abroad",
+        "america": "American",
+        "rest-world": "Rest of the World",
+        "surprise": "Surprise me!"
       }
     },
     "estadia": {

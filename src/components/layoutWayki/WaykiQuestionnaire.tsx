@@ -1,15 +1,20 @@
 // src/components/WaykiQuestionnaire.tsx
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, House } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { cn } from '@/utils'; // Importamos tu 'cn' de utils
 import { useI18n } from '@/hooks/useI18n';
+import { DynamicIcon, IconName } from 'lucide-react/dynamic';
 type Question = {
     key: string;
     text: string;
     select: 'single' | 'multiple';
-    options: { label: string; value: string }[];
+    options: { label: string; value: string, icon?: IconName, color?: string }[];
+    classOptionsContainer?: string;
+    classOptionsGrid?: string;
+    classContainer?: string;
+    classOptions?: string;
 };
 
 // --- Variantes de animación (sin cambios) ---
@@ -42,6 +47,7 @@ export default function WaykiQuestionnaire() {
             text: t('questions.edad.text'),
             select: 'single',
             options: [
+                { label: t('questions.edad.options.5-17'), value: '5-17' },
                 { label: t('questions.edad.options.18-25'), value: '18-25' },
                 { label: t('questions.edad.options.26-35'), value: '26-35' },
                 { label: t('questions.edad.options.36-50'), value: '36-50' },
@@ -52,12 +58,38 @@ export default function WaykiQuestionnaire() {
             key: 'origen',
             text: t('questions.origen.text'),
             select: 'single',
+            classOptionsContainer: 'h-[650px]',
+            classContainer: 'h-[800px] scroll-visible',
             options: [
-                { label: t('questions.origen.options.tucuman'), value: 'tucuman' },
-                { label: t('questions.origen.options.buenos_aires'), value: 'buenos_aires' },
-                { label: t('questions.origen.options.cordoba'), value: 'cordoba' },
-                { label: t('questions.origen.options.otra_provincia'), value: 'otra_provincia' },
-                { label: t('questions.origen.options.extranjero'), value: 'extranjero' },
+                { label: 'Tucumán', value: 'tucuman' },
+                { label: 'Buenos Aires', value: 'buenos_aires' },
+                { label: 'Catamarca', value: 'catamarca' },
+                { label: 'Chaco', value: 'chaco' },
+                { label: 'Chubut', value: 'chubut' },
+                { label: 'Córdoba', value: 'cordoba' },
+                { label: 'Corrientes', value: 'corrientes' },
+                { label: 'Entre Ríos', value: 'entre_rios' },
+                { label: 'Formosa', value: 'formosa' },
+                { label: 'Jujuy', value: 'jujuy' },
+                { label: 'La Pampa', value: 'la_pampa' },
+                { label: 'La Rioja', value: 'la_rioja' },
+                { label: 'Mendoza', value: 'mendoza' },
+                { label: 'Misiones', value: 'misiones' },
+                { label: 'Neuquén', value: 'neuquen' },
+                { label: 'Río Negro', value: 'rio_negro' },
+                { label: 'Salta', value: 'salta' },
+                { label: 'San Juan', value: 'san_juan' },
+                { label: 'San Luis', value: 'san_luis' },
+                { label: 'Santa Cruz', value: 'santa_cruz' },
+                { label: 'Santa Fe', value: 'santa_fe' },
+                { label: 'Santiago del Estero', value: 'santiago_del_estero' },
+                { label: 'Tierra del Fuego', value: 'tierra_del_fuego' },
+                { label: 'Uruguay', value: 'uruguay' },
+                { label: 'Chile', value: 'chile' },
+                { label: 'Europa', value: 'europa' },
+                { label: 'EEUU/Canadá', value: 'eeuu_canada' },
+                { label: t('questions.origen.options.america'), value: 'resto_america' },
+                { label: t('questions.origen.options.rest-world'), value: 'resto_mundo' },
             ],
         },
         {
@@ -86,13 +118,53 @@ export default function WaykiQuestionnaire() {
             key: 'actividades',
             text: t('questions.actividades.text'),
             select: 'single', // Nota: El texto en español sugiere 'multiple'
+            classOptionsContainer: 'h-[750px]',
+            classOptionsGrid: 'grid grid-cols-1 gap-4 auto-rows-[90px]',
+            classContainer: 'h-[930px] scroll-visible',
+            classOptions: 'text-5xl',
             options: [
-                { label: t('questions.actividades.options.montanismo'), value: 'montanismo' },
-                { label: t('questions.actividades.options.historia'), value: 'historia' },
-                { label: t('questions.actividades.options.naturaleza'), value: 'naturaleza' },
-                { label: t('questions.actividades.options.compras'), value: 'compras' },
-                { label: t('questions.actividades.options.cultura'), value: 'cultura' },
-                { label: t('questions.actividades.options.gastronomia'), value: 'gastronomia' },
+                {
+                    label: t('questions.actividades.options.historia'),
+                    value: 'historia',
+                    icon: "house",
+                    color: "aloj"
+                },
+                {
+                    label: t('questions.actividades.options.montanismo'),
+                    value: 'montanismo',
+                    icon: "mountain",
+                    color: "acti"
+                },
+                {
+                    label: t('questions.actividades.options.naturaleza'),
+                    value: 'naturaleza',
+                    icon: "flower",
+                    color: "secondary"
+                },
+                {
+                    label: t('questions.actividades.options.religion'),
+                    value: 'religion',
+                    icon: "church",
+                    color: "aloj"
+                },
+                {
+                    label: t('questions.actividades.options.gastronomia'),
+                    value: 'gastronomia',
+                    icon: "chef-hat", 
+                    color: "agen"
+                },
+                {
+                    label: t('questions.actividades.options.productivo'),
+                    value: 'productivo',
+                    icon: "tractor",
+                    color: "trans"
+                },
+                {
+                    label: t('questions.actividades.options.surprise'),
+                    value: 'surprise',
+                    icon: "",
+                    color: ""
+                },
             ],
         },
     ];
@@ -142,35 +214,41 @@ export default function WaykiQuestionnaire() {
     const renderInput = () => {
         if (showQR) return null;
 
-        const { key, select, options } = currentQuestion;
+        const { key, select, options, classOptionsContainer, classOptions, classOptionsGrid } = currentQuestion;
         return (
-            <div className="grid grid-cols-2 gap-3 auto-rows-[80px]">
-                {options?.map((option) => {
-                    let isSelected = false;
-                    if (select === 'multiple') {
-                        isSelected = (answers[key] || []).includes(option.value);
-                    } else {
-                        isSelected = answers[key] === option.value;
-                    }
+            <div className={cn("w-full h-76 overflow-auto p-2", classOptionsContainer || '')}>
+                <div className={cn("grid grid-cols-2 gap-4 auto-rows-[80px]", classOptionsGrid || "")}>
+                    {options?.map((option) => {
+                        let isSelected = false;
+                        if (select === 'multiple') {
+                            isSelected = (answers[key] || []).includes(option.value);
+                        } else {
+                            isSelected = answers[key] === option.value;
+                        }
 
-                    return option.label !== "---------" && (
-                        <motion.button
-                            key={option.label}
-                            onClick={() => handleOptionClick(option)}
-                            className={cn(
-                                'flex items-center justify-center gap-2 p-3 rounded-lg text-3xl font-semibold transition-all shadow-md active:scale-95',
-                                isSelected
-                                    ? 'bg-primary text-white scale-105' // Estilo seleccionado
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300' // Estilo normal
-                            )}
-                            // Animación al presionar
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            {select === 'multiple' && isSelected && <Check size={18} />}
-                            {option.label}
-                        </motion.button>
-                    );
-                })}
+                        return option.label !== "---------" && (
+                            <motion.button
+                                key={option.label}
+                                onClick={() => handleOptionClick(option)}
+                                className={cn(
+                                    'flex items-center justify-center gap-2 p-3 rounded-lg text-4xl font-semibold transition-all shadow-md active:scale-95',
+                                    isSelected
+                                        ? 'bg-primary text-white scale-105' // Estilo seleccionado
+                                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                                    classOptions || '',
+                                    option.color ? `text-white bg-${option.color}` : ''
+
+                                )}
+                                // Animación al presionar
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                {option.icon && <DynamicIcon name={option.icon as IconName} size={40} />}
+                                {select === 'multiple' && isSelected && <Check size={18} />}
+                                {option.label}
+                            </motion.button>
+                        );
+                    })}
+                </div>
             </div>
         );
     };
@@ -179,12 +257,15 @@ export default function WaykiQuestionnaire() {
 
     const getQRValue = () => {
         const params = new URLSearchParams();
-        console.log(answers);
         for (const key in answers) {
             if (Array.isArray(answers[key])) {
                 params.append(key, answers[key].join(','));
             } else {
-                params.append(key, answers[key]);
+                let valueAppend = answers[key];
+                if (answers[key] === 'surprise') {
+                    valueAppend = ["historia", "montanismo", "naturaleza", "religion", "gastronomia", "productivo"][Math.floor(Math.random() * 6) + 1];
+                }
+                params.append(key, valueAppend);
             }
         }
         return `http://10.20.20.5:3000/it-wayki?${params.toString()}`;
@@ -206,23 +287,23 @@ export default function WaykiQuestionnaire() {
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
-                            className="flex flex-col items-center p-8 bg-white rounded-lg shadow-xl"
+                            className="flex flex-col items-center p-8 bg-white rounded-lg shadow-xl max-w-lg w-full z-10"
                         >
-                            <h2 className="text-3xl font-bold text-center text-secondary mb-4">{t('wayki_layout.thanks')}</h2>
-                            <p className="text-lg text-gray-700 text-center mb-6">
+                            <h2 className="text-5xl font-bold text-center text-secondary mb-4">{t('wayki_layout.thanks')}</h2>
+                            <p className="text-4xl text-gray-700 text-center mb-6 font-bold">
                                 {t('wayki_layout.itinerary')}
                             </p>
                             <div className="p-4 bg-white border-4 border-primary rounded-lg">
-                                <QRCodeSVG value={getQRValue()} size={200} />
+                                <QRCodeSVG value={getQRValue()} size={250} />
                             </div>
-                            <p className='text-sm text-gray-500 mt-4 mb-3'>{t('wayki_layout.mail')}</p>
+                            <p className='text-3xl text-gray-500 mt-5 mb-3'>{t('wayki_layout.mail')}</p>
                             <button
                                 onClick={prevStep}
                                 // Deshabilitado solo en el paso 0
                                 disabled={step === 0 && !showQR}
-                                className="flex items-center gap-2 p-2 rounded-lg text-primary font-semibold transition-all hover:bg-primary/20 z-20 border"
+                                className="flex items-center gap-2 p-2 rounded-lg text-primary font-semibold transition-all hover:bg-primary/20 z-20 border text-2xl"
                             >
-                                <ArrowLeft size={20} /> {showQR ? t('wayki_layout.return') : t('wayki_layout.back')}
+                                <ArrowLeft size={27} /> {showQR ? t('wayki_layout.return') : t('wayki_layout.back')}
                             </button>
                         </motion.div>
                     ) : (
@@ -232,14 +313,14 @@ export default function WaykiQuestionnaire() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="w-full max-w-lg"
+                            className="w-full max-w-lg flex flex-col items-center"
                         >
-                            <h1 className="text-5xl font-bold text-center text-white mb-8">
+                            <h1 className="text-6xl font-bold text-center text-white mb-8 text-nowrap">
                                 {t('wayki_layout.help')}
                             </h1>
 
                             {/* Contenedor de la pregunta con altura MÍNIMA para adaptarse */}
-                            <div className="relative w-full h-[450px] bg-white p-6 rounded-lg shadow-xl">
+                            <div className={cn("relative w-full h-[480px] bg-white p-4 rounded-lg shadow-xl transition duration-300 ease-in-out", currentQuestion.classContainer || "")}>
                                 <AnimatePresence mode="wait" custom={direction}>
                                     <motion.div
                                         key={step}
@@ -254,14 +335,14 @@ export default function WaykiQuestionnaire() {
                                         }}
                                         className="w-full top-0 left-0 p-6"
                                     >
-                                        <h2 className="text-4xl font-semibold text-gray-800 mb-4">{currentQuestion.text}</h2>
+                                        <h2 className="text-5xl font-bold text-gray-800 mb-4">{currentQuestion.text}</h2>
                                         {renderInput()}
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
 
                             {/* --- 6. Controles de Navegación Modificados --- */}
-                            <div className="flex justify-between items-center mt-6 min-h-[52px]">
+                            <div className="flex justify-between items-center mt-6 min-h-[52px] w-full">
 
                                 {/* Botón Atras: Siempre visible */}
                                 <button
@@ -304,20 +385,20 @@ export default function WaykiQuestionnaire() {
             </div>
 
             {/* --- Animación de Wayki (sin cambios) --- */}
-            <div className="w-4/9 relative hidden md:block">
+            <div className="w-4/10 relative hidden md:block z-10">
                 <div className="w-full flex items-center">
                     <motion.div
-                        className="absolute flex justify-center items-center w-[90vw] pointer-events-none -left-15"
+                        className="absolute flex justify-center items-center w-[90vw] pointer-events-none -left-22"
                         initial={{
                             rotate: -20,
-                            scale: 1.1,
+                            scale: 1.5,
                             transition: {
                                 type: 'spring', stiffness: 300, damping: 30
                             }
                         }}
                         animate={{
                             scale: [1, 1.05, 1],
-                            rotate: [-25, -27, -25],
+                            rotate: [-27, -29, -27],
                         }}
                         transition={{ repeat: Infinity, repeatDelay: 5 }}
                     >

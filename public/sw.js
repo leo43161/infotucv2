@@ -45,16 +45,12 @@ async function precacheAssets() {
   const cache = await caches.open(STATIC_CACHE);
   console.log('[SW] Instalando y precargando assets...');
 
-  for (const asset of STATIC_ASSETS) {
-    try {
-      // Pide y guarda cada asset individualmente
-      await cache.add(asset);
-    } catch (error) {
-      // Si un asset falla, lo reporta en la consola pero continúa con los demás.
-      console.warn(`[SW] Fallo al cachear: ${asset}`, error);
-    }
-  }
-  console.log('[SW] Precarga completada.');
+  // Promesa robusta: si falla una imagen, no cancela la instalación del SW
+  const promises = STATIC_ASSETS.map(asset =>
+    cache.add(asset).catch(err => console.warn(`[SW] Fallo precarga: ${asset}`, err))
+  );
+
+  await Promise.all(promises);
 }
 
 // INSTALL: Precarga de archivos estáticos
@@ -83,77 +79,91 @@ self.addEventListener('activate', (event) => {
 // FETCH: Estrategias de caché
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  if (!request.url.startsWith('http')) {
-    return; // Deja que el navegador maneje estas peticiones por su cuenta
-  }
   const url = new URL(request.url);
 
-  // Estrategia para archivos estáticos: Cache First
-  if (
-    request.destination === 'document' ||
-    request.destination === 'script' ||
-    request.destination === 'style' ||
-    request.destination === 'image'
-  ) {
-    event.respondWith(cacheFirst(request, STATIC_CACHE));
+  // Ignorar cosas que no sean HTTP (ej: chrome-extension://)
+  if (!request.url.startsWith('http')) return;
+
+  // Ignorar llamadas de Hot Module Replacement (HMR) en desarrollo
+  // Esto evita errores en consola como el que mencionaste antes
+  if (url.pathname.includes('webpack-hmr') || request.url.includes('hot-update')) {
     return;
   }
 
-  // Estrategia para API: Network First con fallback
-  if (url.origin === 'https://www.tucumanturismo.gob.ar/') {
+  // 1. ESTRATEGIA PARA HTML (Navegación) -> Network First
+  // Queremos que el usuario vea siempre la última versión de la página.
+  if (request.mode === 'navigate' || request.destination === 'document') {
+    event.respondWith(networkFirst(request, STATIC_CACHE));
+    return;
+  }
+
+  // 2. ESTRATEGIA PARA ASSETS (CSS, JS, Fuentes, Imágenes) -> Stale While Revalidate
+  // Carga instantánea desde caché, pero actualiza en background para la próxima visita.
+  if (['script', 'style', 'image', 'font'].includes(request.destination)) {
+    event.respondWith(staleWhileRevalidate(request, STATIC_CACHE));
+    return;
+  }
+
+  // 3. ESTRATEGIA PARA API -> Network First
+  // Prioriza datos frescos de tu API.
+  if (url.origin === 'https://www.tucumanturismo.gob.ar' || url.pathname.startsWith('/api')) {
     event.respondWith(networkFirst(request, API_CACHE));
     return;
   }
+
+  // 4. Default -> Cache First (para cualquier otra cosa estática)
+  event.respondWith(cacheFirst(request, STATIC_CACHE));
 });
 
 // Estrategia Cache First
 async function cacheFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request);
-
-  if (cached) {
-    return cached;
-  }
-
-  try {
-    const response = await fetch(request);
-    if (response.ok) {
-      cache.put(request, response.clone());
-    }
+  return cached || fetch(request).then(response => {
+    if (response.ok) cache.put(request, response.clone());
     return response;
-  } catch (error) {
-    return new Response('Offline', { status: 503 });
-  }
+  });
 }
+
 // Nueva Estrategia Stale-While-Revalidate
 async function staleWhileRevalidate(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cachedResponse = await cache.match(request);
 
-  const fetchPromise = fetch(request).then(networkResponse => {
+  // Lanzamos la petición a red en paralelo para actualizar el caché futuro
+  const fetchPromise = fetch(request).then(async (networkResponse) => {
     if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone());
+      await cache.put(request, networkResponse.clone());
     }
     return networkResponse;
+  }).catch(() => {
+    // Si falla la actualización en background, no pasa nada, ya entregamos el caché
   });
 
-  // Retorna el caché de inmediato si existe, si no, espera a la red.
-  // La promesa de red se ejecuta en segundo plano de todas formas.
+  // Si hay caché, devuélvelo YA. Si no, espera al fetch.
   return cachedResponse || fetchPromise;
 }
 
 // Estrategia Network First
 async function networkFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
-
   try {
+    // Intentamos red
     const response = await fetch(request);
+    // Si la respuesta es válida (200), la guardamos
     if (response.ok) {
       cache.put(request, response.clone());
     }
     return response;
   } catch (error) {
+    // Si falla la red, vamos al caché
     const cached = await cache.match(request);
-    return cached || new Response('Offline', { status: 503 });
+
+    if (cached) return cached;
+
+    // Si no hay caché y es navegación, podríamos devolver una página offline.html
+    // if (request.mode === 'navigate') { return cache.match('/infotuc/offline.html'); }
+
+    return new Response('Sin conexión', { status: 503, statusText: 'Offline' });
   }
 }

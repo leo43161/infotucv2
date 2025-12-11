@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
-import { Loader2, MailCheck, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Loader2, MailCheck, AlertCircle, ArrowLeft, Download } from 'lucide-react';
 import Link from 'next/link';
+import { useSetItinerarioTouchMutation } from '@/store/services/itinerarioApi';
+import { actividadesData, estadiaData, edadData, origenData, cantidadData } from '@/data/itWayki';
 
 // Tipos de estado para la UI
 type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -10,32 +12,23 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 export default function ItinerarioEmail() {
     const router = useRouter();
     const [email, setEmail] = useState('');
+    const [pdfFile, setPdfFile] = useState<string>('');
     const [status, setStatus] = useState<Status>('idle');
     const [emailError, setEmailError] = useState<string | null>('');
+    const [createItTouch, { error: createError }] = useSetItinerarioTouchMutation()
+
 
     // Extraemos los datos de las respuestas del URL
-    const { estadia, actividades } = router.query;
-
-    // Estado para mostrar un resumen de lo que se enviará
+    const { estadia, actividades, edad, origen, cantidad } = router.query;
+    console.log("router.query", { estadia, actividades, edad, origen, cantidad });
+    
     const [summary, setSummary] = useState('');
 
     useEffect(() => {
         // Cuando los datos del router estén listos, crea un resumen
         if (estadia && actividades) {
-            const actividadesLabel = [
-                { label: 'Montañismo', value: 'montanismo' },
-                { label: 'Historia', value: 'historia' },
-                { label: 'Naturaleza', value: 'naturaleza' },
-                { label: 'Compras', value: 'compras' },
-                { label: 'Cultura', value: 'cultura' },
-                { label: 'Gastronomía', value: 'gastronomia' },
-            ].find((item) => item.value === actividades)?.label;
-            const estadiaLabel = [
-                { label: '1-2 días', value: '1-2' },
-                { label: '3-5 días', value: '3-5' },
-                { label: 'Una semana', value: '7' },
-                { label: 'Más...', value: 'mas' },
-            ].find((item) => item.value === estadia)?.label;
+            const actividadesLabel = estadiaData.find((item) => item.value === estadia)?.label;
+            const estadiaLabel = actividadesData.find((item) => item.value === actividades)?.label;
             setSummary(`Tu itinerario de ${actividadesLabel} para ${estadiaLabel}.`);
         }
     }, [estadia, actividades]);
@@ -53,24 +46,37 @@ export default function ItinerarioEmail() {
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
+        const getIdData = (value: string, data: any) => {
+            const item = data.find((item: any) => item.value === value);
+            return item?.id || item?.value;
+        };
         e.preventDefault();
 
-        // --- VALIDACIÓN AÑADIDA ---
-        // Validar el email antes de continuar
         const validationError = validateEmail(email);
         if (validationError) {
             setEmailError(validationError);
             return; // Detiene el envío si hay un error
         }
-        setEmailError(''); // Limpia cualquier error anterior si es válido
-        // --- FIN DE LA VALIDACIÓN ---
+        setEmailError('');
 
         if (status === 'loading') return;
 
         setStatus('loading');
-
+        //@ts-ignore
+        const findPdfFile = actividadesData.find((item: any) => item.value === actividades)?.pdf[estadia];
+        setPdfFile(process.env.URL_PDF + findPdfFile);
         try {
-            console.log(email, estadia, actividades);
+            const dataQuestionaries = {
+                estadia: getIdData(estadia as string, estadiaData),
+                circuito: getIdData(actividades as string, actividadesData) || 1,
+                edad: getIdData(edad as string, edadData),
+                origen: getIdData(origen as string, origenData),
+                cantidad: getIdData(cantidad as string, cantidadData),
+                email,
+            };
+            createItTouch(dataQuestionaries).unwrap();
+            const actividadesLabel = estadiaData.find((item) => item.value === estadia)?.label;
+            const estadiaLabel = actividadesData.find((item) => item.value === actividades)?.label;
             const response = await fetch('https://tucumanturismo.gob.ar/api/itinerario/', {
                 method: 'POST',
                 headers: {
@@ -78,18 +84,21 @@ export default function ItinerarioEmail() {
                 },
                 body: new URLSearchParams({
                     email: email,
-                    estadia: estadia as string,
-                    actividades: actividades as string,
+                    estadia: estadiaLabel || '1-2',
+                    actividades: actividadesLabel || 'Ciudad Historica',
+                    pdf: findPdfFile
                 }),
             });
             const data = await response.json();
             console.log(data);
             if (!response.ok) {
                 const errorData = await response.json();
+                console.error("createITError: ", createError);
                 throw new Error(errorData.error || 'Hubo un problema al enviar el correo.');
+            } else {
+                /* window.open('https://www.tucumanturismo.gob.ar/', '_blank'); */
+                setStatus('success');
             }
-            window.open('https://www.tucumanturismo.gob.ar/', '_blank');
-            setStatus('success');
         } catch (error: any) {
             console.error(error);
             setStatus('error');
@@ -112,8 +121,14 @@ export default function ItinerarioEmail() {
                         <p className="text-gray-600 mt-2">
                             Revisa tu bandeja de entrada (y spam) para descargar tu itinerario.
                         </p>
+                        <Link href={pdfFile} passHref>
+                            <button className="mt-3 flex items-center gap-2 mx-auto px-6 py-3 rounded-lg bg-primary text-white font-semibold shadow-lg hover:scale-105 transition-transform">
+                                <Download size={20} />
+                                Descarga el pdf
+                            </button>
+                        </Link>
                         <Link href="https://www.tucumanturismo.gob.ar/" passHref>
-                            <button className="mt-6 flex items-center gap-2 mx-auto px-6 py-3 rounded-lg bg-secondary text-white font-semibold shadow-lg hover:scale-105 transition-transform">
+                            <button className="mt-3 flex items-center gap-2 mx-auto px-6 py-3 rounded-lg bg-secondary text-white font-semibold shadow-lg hover:scale-105 transition-transform">
                                 <ArrowLeft size={20} />
                                 Conoce mas de Tucumán
                             </button>
@@ -207,19 +222,27 @@ export default function ItinerarioEmail() {
             <div
                 className='absolute left-1/2 transform -translate-x-1/2 w-full h-full overflow-hidden flex justify-center items-center'>
                 <motion.div
-                    initial={{ rotate: -30, opacity: 0, y: 0 }}
+                    initial={{ rotate: -30, opacity: 0, y: 0, }}
                     animate={{ rotate: 33, opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: 'easeInOut' }}
+                    transition={{ type: 'spring', stiffness: 160, damping: 13, delay: 0.7 }}
                     style={{
                         transformOrigin: 'bottom center'
                     }}
                     className='relative opacity-100 md:opacity-100 bottom-23 w-fit -left-100 max-w-none'
                 >
-                    <img
-                        src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ? process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki.png' : '/img/wayki.png'}
-                        alt="Wayki"
-                        className="w-[580px] max-w-none"
-                    />
+                    <motion.div
+                        animate={{
+                            scale: [1, 1.05, 1],
+                            rotate: [0, 3, 0],
+                        }}
+                        transition={{ repeat: Infinity, repeatDelay: 5 }}
+                    >
+                        <img
+                            src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ? process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki.png' : '/img/wayki.png'}
+                            alt="Wayki"
+                            className="w-[580px] max-w-none"
+                        />
+                    </motion.div>
                 </motion.div>
             </div>
             <motion.div

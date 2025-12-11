@@ -1,3 +1,6 @@
+/* export interface ItinerarioTouchQueryArgs {
+  id?: string;
+} */
 export interface DestinosQueryArgs {
   id?: string;
 }
@@ -91,6 +94,12 @@ export interface DestinoGaleyApiResponse {
 export interface LocalidadesApiResponse {
   status: number;
   result: Localidad[];
+  // El endpoint de hoteles no parece devolver 'total' en el nivel raíz,
+  // sino dentro de cada objeto. Lo dejamos así para ser fieles a la API.
+}
+export interface ItinerarioTouchApiResponse {
+  status: number;
+  result: any;
   // El endpoint de hoteles no parece devolver 'total' en el nivel raíz,
   // sino dentro de cada objeto. Lo dejamos así para ser fieles a la API.
 }

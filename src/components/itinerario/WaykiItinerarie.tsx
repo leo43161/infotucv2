@@ -99,6 +99,7 @@ export default function WaykiItinerarie() {
                     exit="exit"
                 >
                     <motion.div
+                        //@ts-ignore
                         variants={bubbleVariants}
                         className="relative md:w-105 w-[80vw] overflow-hidden rounded-md text-white shadow-xl right-2 -left-25 top-25"
                     >
@@ -124,6 +125,7 @@ export default function WaykiItinerarie() {
                     </motion.div>
                     <motion.div
                         className="wayki-imagen flex justify-end pointer-events-none"
+                        //@ts-ignore
                         variants={waykiVariants} // Usa las variantes de Wayki
                         style={{
                             transformOrigin: 'bottom center'
@@ -134,8 +136,9 @@ export default function WaykiItinerarie() {
                         </div>
                     </motion.div>
                 </motion.div>
-            ) : null}
+            ) : null
+            }
 
-        </AnimatePresence>
+        </AnimatePresence >
     )
 }
