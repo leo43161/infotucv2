@@ -121,13 +121,13 @@ export default function WaykiQuestionnaire() {
             classOptionsContainer: 'h-[750px]',
             classOptionsGrid: 'grid grid-cols-1 gap-4 auto-rows-[90px]',
             classContainer: 'h-[930px] scroll-visible',
-            classOptions: 'text-5xl',
+            classOptions: 'text-[2.83em] ',
             options: [
                 {
                     label: t('questions.actividades.options.historia'),
                     value: 'historia',
                     icon: "house",
-                    color: "aloj"
+                    color: "secondary"
                 },
                 {
                     label: t('questions.actividades.options.montanismo'),
@@ -139,7 +139,7 @@ export default function WaykiQuestionnaire() {
                     label: t('questions.actividades.options.naturaleza'),
                     value: 'naturaleza',
                     icon: "flower",
-                    color: "secondary"
+                    color: "tertiary"
                 },
                 {
                     label: t('questions.actividades.options.religion'),
@@ -253,7 +253,7 @@ export default function WaykiQuestionnaire() {
         );
     };
 
-    // --- 5. Lógica de QR (sin cambios) ---
+    // --- 5. Lógica de QR---
 
     const getQRValue = () => {
         const params = new URLSearchParams();
@@ -384,7 +384,7 @@ export default function WaykiQuestionnaire() {
                 </AnimatePresence>
             </div>
 
-            {/* --- Animación de Wayki (sin cambios) --- */}
+            {/* --- Animación de Wayki --- */}
             <div className="w-4/10 relative hidden md:block z-10">
                 <div className="w-full flex items-center">
                     <motion.div
