@@ -52,6 +52,7 @@ export const actividadesData = [
     {
         label: 'Historia y Cultura',
         value: 'historia',
+        wayki: "caballero-1.png",
         id: 1,
         pdf: {
             "1-2": 'it-historia-corto.pdf',
@@ -63,6 +64,7 @@ export const actividadesData = [
     {
         label: 'Montañismo',
         value: 'montanismo',
+        wayki: "trekking.png",
         id: 2,
         pdf: {
             "1-2": 'it-aventura-corto.pdf',
@@ -74,6 +76,7 @@ export const actividadesData = [
     {
         label: 'Naturaleza',
         value: 'naturaleza',
+        wayki: "limpiando.png",
         id: 3,
         pdf: {
             "1-2": 'it-aventura-corto.pdf',
@@ -85,6 +88,7 @@ export const actividadesData = [
     {
         label: 'Religion',
         value: 'religion',
+        wayki: "escolar-1.png",
         id: 4,
         pdf: {
             "1-2": 'it-fe-corto.pdf',
@@ -96,6 +100,7 @@ export const actividadesData = [
     {
         label: 'Gastronomía',
         value: 'gastronomia',
+        wayki: "cocinando.png",
         id: 5,
         pdf: {
             "1-2": 'it-gastronomia-corto.pdf',
@@ -107,6 +112,7 @@ export const actividadesData = [
     {
         label: 'Productivo',
         value: 'productivo',
+        wayki: "conferencista.png",
         id: 6,
         pdf: {
             "1-2": 'it-productivo-corto.pdf',

@@ -1,23 +1,37 @@
-// src/components/WaykiQuestionnaire.tsx
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, scale, Variants } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, House } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
-import { cn } from '@/utils'; // Importamos tu 'cn' de utils
+import { cn } from '@/utils';
 import { useI18n } from '@/hooks/useI18n';
 import { DynamicIcon, IconName } from 'lucide-react/dynamic';
+
+// ... (Tipos y variants de las preguntas se mantienen igual) ...
 type Question = {
     key: string;
     text: string;
     select: 'single' | 'multiple';
-    options: { label: string; value: string, icon?: IconName, color?: string }[];
+    wayki?: string; // Nombre del archivo de imagen
+    animateWayki?: {
+        zIndex?: number;
+        x?: number;
+        opacity?: number;
+        rotate?: number;
+        scale?: number;
+    }; // Nombre del archivo de imagen
+    options: {
+        label: string;
+        value: string;
+        icon?: IconName;
+        color?: string;
+        wayki?: string;
+    }[];
     classOptionsContainer?: string;
     classOptionsGrid?: string;
     classContainer?: string;
     classOptions?: string;
 };
 
-// --- Variantes de animación (sin cambios) ---
 const variants = {
     enter: (direction: number) => ({
         x: direction > 0 ? 300 : -300,
@@ -40,12 +54,21 @@ export default function WaykiQuestionnaire() {
     const [direction, setDirection] = useState(1);
     const [answers, setAnswers] = useState<Record<string, any>>({});
     const [showQR, setShowQR] = useState(false);
+    const [waykiActividad, setWaykiActividad] = useState<string | null>(null);
+
     const { t } = useI18n();
     const questions = [
         {
             key: 'edad',
             text: t('questions.edad.text'),
             select: 'single',
+            wayki: 'wayki.png',
+            animateWayki: {
+                rotate: -26,
+                x: 280,
+                y: -40,
+                scale: 1,
+            },
             options: [
                 { label: t('questions.edad.options.5-17'), value: '5-17' },
                 { label: t('questions.edad.options.18-25'), value: '18-25' },
@@ -58,6 +81,13 @@ export default function WaykiQuestionnaire() {
             key: 'origen',
             text: t('questions.origen.text'),
             select: 'single',
+            wayki: 'viajero.png',
+            animateWayki: {
+                rotate: 8,
+                x: -190,
+                y: 1,
+                scale: 1.05,
+            },
             classOptionsContainer: 'h-[650px]',
             classContainer: 'h-[800px] scroll-visible',
             options: [
@@ -96,6 +126,13 @@ export default function WaykiQuestionnaire() {
             key: 'estadia',
             text: t('questions.estadia.text'),
             select: 'single',
+            wayki: 'matero-2.png',
+            animateWayki: {
+                rotate: -30,
+                x: 280,
+                y: -80,
+                scale: 1,
+            },
             options: [
                 { label: t('questions.estadia.options.1-2'), value: '1-2' },
                 { label: t('questions.estadia.options.3-5'), value: '3-5' },
@@ -107,6 +144,13 @@ export default function WaykiQuestionnaire() {
             key: 'cantidad',
             text: t('questions.cantidad.text'),
             select: 'single',
+            animateWayki: {
+                rotate: -30,
+                x: 230,
+                y: -20,
+                scale: 1,
+            },
+            wayki: 'selfie-2.png',
             options: [
                 { label: t('questions.cantidad.options.1'), value: '1' },
                 { label: t('questions.cantidad.options.2'), value: '2' },
@@ -117,59 +161,75 @@ export default function WaykiQuestionnaire() {
         {
             key: 'actividades',
             text: t('questions.actividades.text'),
-            select: 'single', // Nota: El texto en español sugiere 'multiple'
-            classOptionsContainer: 'h-[750px]',
+            select: 'single', // Nota: El texto en español sugiere 'multiple'}
+            wayki: 'turista.png',
+            animateWayki: {
+                rotate: -30,
+                x: 260,
+                y: -10,
+                scale: 1,
+            },
+            classOptionsContainer: 'h-[760px]',
             classOptionsGrid: 'grid grid-cols-1 gap-4 auto-rows-[90px]',
-            classContainer: 'h-[930px] scroll-visible',
+            classContainer: 'h-[940px] scroll-visible w-[570px]',
             classOptions: 'text-[2.83em] ',
             options: [
                 {
                     label: t('questions.actividades.options.historia'),
                     value: 'historia',
                     icon: "house",
+                    wayki: "caballero-1.png",
                     color: "secondary"
                 },
                 {
                     label: t('questions.actividades.options.montanismo'),
                     value: 'montanismo',
                     icon: "mountain",
+                    wayki: "trekking.png",
                     color: "acti"
                 },
                 {
                     label: t('questions.actividades.options.naturaleza'),
                     value: 'naturaleza',
-                    icon: "flower",
+                    icon: "tent-tree",
+                    wayki: "limpiando.png",
                     color: "tertiary"
                 },
                 {
                     label: t('questions.actividades.options.religion'),
                     value: 'religion',
                     icon: "church",
+                    wayki: "escolar-1.png",
                     color: "aloj"
                 },
                 {
                     label: t('questions.actividades.options.gastronomia'),
                     value: 'gastronomia',
-                    icon: "chef-hat", 
+                    icon: "chef-hat",
+                    wayki: "cocinando.png",
                     color: "agen"
                 },
                 {
                     label: t('questions.actividades.options.productivo'),
                     value: 'productivo',
                     icon: "tractor",
+                    wayki: "conferencista.png",
                     color: "trans"
                 },
                 {
                     label: t('questions.actividades.options.surprise'),
                     value: 'surprise',
-                    icon: "",
-                    color: ""
+                    icon: "dices",
+                    wayki: "superheroe.png",
+                    color: "events"
                 },
             ],
         },
     ];
     const currentQuestion = questions[step] as Question;
-
+    const currentWaykiImage = showQR
+        ? waykiActividad || "wayki.png"
+        : (currentQuestion?.wayki || "wayki.png");
     const nextStep = () => {
         if (step < questions.length - 1) {
             setDirection(1);
@@ -190,7 +250,7 @@ export default function WaykiQuestionnaire() {
         }
     };
 
-    const handleOptionClick = (option: { label: string; value: string }) => {
+    const handleOptionClick = (option: { label: string; value: string, wayki?: string }) => {
         const { key, select } = currentQuestion;
 
         if (select === 'multiple') {
@@ -204,6 +264,7 @@ export default function WaykiQuestionnaire() {
             }
             setAnswers({ ...answers, [key]: newValues });
         } else {
+            if (key === 'actividades') setWaykiActividad(option.wayki || null);
             setAnswers({ ...answers, [key]: option.value });
             setTimeout(() => {
                 nextStep();
@@ -237,12 +298,15 @@ export default function WaykiQuestionnaire() {
                                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
                                     classOptions || '',
                                     option.color ? `text-white bg-${option.color}` : ''
-
                                 )}
+                                style={{
+                                    color: option.color ? `#ffffff` : '',
+                                    backgroundColor: option.color ? `var(--${option.color})` : '',
+                                }}
                                 // Animación al presionar
                                 whileTap={{ scale: 0.95 }}
                             >
-                                {option.icon && <DynamicIcon name={option.icon as IconName} size={40} />}
+                                {option.icon && <DynamicIcon name={option.icon as IconName} size={40} strokeWidth={3} />}
                                 {select === 'multiple' && isSelected && <Check size={18} />}
                                 {option.label}
                             </motion.button>
@@ -276,6 +340,43 @@ export default function WaykiQuestionnaire() {
         return (answers[currentQuestion.key] || []).length > 0;
     };
 
+    const variantsWayki: Variants = {
+        initial: {
+            x: 100,
+            rotate: 70,
+            opacity: 0,
+            scale: 1,
+        },
+        animate: (animateWayki?: {
+            zIndex: number;
+            x: number;
+            y: number;
+            opacity: number
+            rotate: number
+            scale: number;
+        }) => ({
+            x: animateWayki?.x || 0,
+            y: animateWayki?.y || 0,
+            rotate: animateWayki?.rotate || 0,
+            opacity: animateWayki?.opacity || 1,
+            scale: animateWayki?.scale || 1,
+            transition: {
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.6
+            },
+        }),
+        exit: {
+            x: 200,
+            rotate: 80,
+            opacity: 0,
+            transition: {
+                duration: 0.3,
+                ease: "easeInOut"
+            },
+        },
+    };
 
     return (
         <div className="size-full flex items-center justify-center p-4">
@@ -387,23 +488,28 @@ export default function WaykiQuestionnaire() {
             {/* --- Animación de Wayki --- */}
             <div className="w-4/10 relative hidden md:block z-10">
                 <div className="w-full flex items-center">
-                    <motion.div
-                        className="absolute flex justify-center items-center w-[90vw] pointer-events-none -left-22"
-                        initial={{
-                            rotate: -20,
-                            scale: 1.5,
-                            transition: {
-                                type: 'spring', stiffness: 300, damping: 30
-                            }
-                        }}
-                        animate={{
-                            scale: [1, 1.05, 1],
-                            rotate: [-27, -29, -27],
-                        }}
-                        transition={{ repeat: Infinity, repeatDelay: 5 }}
-                    >
-                        <img className="h-auto w-full inset-0" src={process.env.URL_IMG_TOUCH + '/img/wayki.png'} alt="" />
-                    </motion.div>
+                    {/* Usamos mode="wait" para que uno salga antes que el otro entre, 
+                        o "popLayout" si quieres que sea simultáneo. "wait" es más limpio aquí. */}
+                    <AnimatePresence mode="wait" custom={currentQuestion.animateWayki}>
+                        <motion.div
+                            key={currentWaykiImage}
+                            className="absolute flex justify-center items-center w-[90vw] pointer-events-none -left-22"
+                            variants={variantsWayki}
+                            custom={currentQuestion.animateWayki}
+                            initial="initial"   // Nombre actualizado
+                            animate="animate"   // Nombre actualizado
+                            exit="exit"
+                            style={{
+                                transformOrigin: 'bottom center'
+                            }}
+                        >
+                            <img
+                                className="h-auto w-full inset-0 drop-shadow-2xl"
+                                src={process.env.URL_IMG_TOUCH + '/img/wayki/' + currentWaykiImage}
+                                alt="Wayki character"
+                            />
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
         </div>

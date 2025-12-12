@@ -15,20 +15,23 @@ export default function ItinerarioEmail() {
     const [pdfFile, setPdfFile] = useState<string>('');
     const [status, setStatus] = useState<Status>('idle');
     const [emailError, setEmailError] = useState<string | null>('');
+    const [waykiActividad, setWaykiActividad] = useState<string | null>(null);
     const [createItTouch, { error: createError }] = useSetItinerarioTouchMutation()
 
 
     // Extraemos los datos de las respuestas del URL
     const { estadia, actividades, edad, origen, cantidad } = router.query;
     console.log("router.query", { estadia, actividades, edad, origen, cantidad });
-    
+
     const [summary, setSummary] = useState('');
 
     useEffect(() => {
         // Cuando los datos del router estén listos, crea un resumen
         if (estadia && actividades) {
             const actividadesLabel = estadiaData.find((item) => item.value === estadia)?.label;
+            const activiadesWayki = actividadesData.find((item) => item.value === actividades)?.wayki;
             const estadiaLabel = actividadesData.find((item) => item.value === actividades)?.label;
+            setWaykiActividad(activiadesWayki || null);
             setSummary(`Tu itinerario de ${actividadesLabel} para ${estadiaLabel}.`);
         }
     }, [estadia, actividades]);
@@ -221,7 +224,7 @@ export default function ItinerarioEmail() {
             {/* Usamos el logo de Wayki en la esquina */}
             <div
                 className='absolute left-1/2 transform -translate-x-1/2 w-full h-full overflow-hidden flex justify-center items-center'>
-                <motion.div
+                {waykiActividad && <motion.div
                     initial={{ rotate: -30, opacity: 0, y: 0, }}
                     animate={{ rotate: 33, opacity: 1, y: 0 }}
                     transition={{ type: 'spring', stiffness: 160, damping: 13, delay: 0.7 }}
@@ -238,12 +241,15 @@ export default function ItinerarioEmail() {
                         transition={{ repeat: Infinity, repeatDelay: 5 }}
                     >
                         <img
-                            src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ? process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki.png' : '/img/wayki.png'}
+                            src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ?
+                                process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki/' + waykiActividad
+                                : '/img/wayki/' + waykiActividad}
                             alt="Wayki"
                             className="w-[580px] max-w-none"
                         />
                     </motion.div>
                 </motion.div>
+                }
             </div>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
