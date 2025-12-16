@@ -44,7 +44,7 @@ const maps = [
     id: 6,
     nombre: 'Circuito Sur',
     img: ['sur-2025.jpg'],
-    url: 'choromoro-2025.pdf',
+    url: 'sur-2025.pdf',
     color: '#A92183'
   },
   {
