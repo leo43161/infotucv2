@@ -11,7 +11,7 @@ export default function LayoutWayki({ onSkip }: { onSkip: () => void }) {
     const showWayki = useSelector((state: any) => state.ui.isWaykiOpenLayout);
     const variants = {
         enter: {
-            x: 1100,
+            x: 1900,
         },
         center: {
             zIndex: 100,
@@ -19,7 +19,7 @@ export default function LayoutWayki({ onSkip }: { onSkip: () => void }) {
             opacity: 1,
         },
         exit: {
-            x: -1100,
+            x: -1900,
         },
     };
 
@@ -48,7 +48,7 @@ export default function LayoutWayki({ onSkip }: { onSkip: () => void }) {
                         </div>
                         {/* --- 2. CAMBIA EL onClick para usar onSkip --- */}
                         <div onClick={onSkip}>
-                            <h4 className='text-2xl font-bold text-white underline cursor-pointer'>{t('wayki_layout.skip')}</h4>
+                            <h4 className='text-2xl font-bold text-white underline cursor-pointer bg-primary py-2 px-4 rounded-lg'>{t('wayki_layout.skip')}</h4>
                         </div>
                     </div>
                 </motion.div>

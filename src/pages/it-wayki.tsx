@@ -28,9 +28,9 @@ export default function ItinerarioEmail() {
     useEffect(() => {
         // Cuando los datos del router estén listos, crea un resumen
         if (estadia && actividades) {
-            const actividadesLabel = estadiaData.find((item) => item.value === estadia)?.label;
+            const estadiaLabel = estadiaData.find((item) => item.value === estadia)?.label;
             const activiadesWayki = actividadesData.find((item) => item.value === actividades)?.wayki;
-            const estadiaLabel = actividadesData.find((item) => item.value === actividades)?.label;
+            const actividadesLabel = actividadesData.find((item) => item.value === actividades)?.label;
             setWaykiActividad(activiadesWayki || null);
             setSummary(`Tu itinerario de ${actividadesLabel} para ${estadiaLabel}.`);
         }
@@ -78,8 +78,8 @@ export default function ItinerarioEmail() {
                 email,
             };
             createItTouch(dataQuestionaries).unwrap();
-            const actividadesLabel = estadiaData.find((item) => item.value === estadia)?.label;
-            const estadiaLabel = actividadesData.find((item) => item.value === actividades)?.label;
+            const estadiaLabel = estadiaData.find((item) => item.value === estadia)?.label;
+            const actividadesLabel = actividadesData.find((item) => item.value === actividades)?.label;
             const response = await fetch('https://tucumanturismo.gob.ar/api/itinerario/', {
                 method: 'POST',
                 headers: {

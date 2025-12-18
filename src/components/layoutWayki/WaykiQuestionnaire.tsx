@@ -169,7 +169,7 @@ export default function WaykiQuestionnaire() {
                 y: -10,
                 scale: 1,
             },
-            classOptionsContainer: 'h-[760px]',
+            classOptionsContainer: 'h-[760px] overflow-hidden',
             classOptionsGrid: 'grid grid-cols-1 gap-4 auto-rows-[90px]',
             classContainer: 'h-[940px] scroll-visible w-[570px]',
             classOptions: 'text-[2.83em] ',
@@ -332,6 +332,7 @@ export default function WaykiQuestionnaire() {
                 params.append(key, valueAppend);
             }
         }
+        console.log(`http://10.20.20.5:3000/it-wayki?${params.toString()}`);
         return `http://10.20.20.5:3000/it-wayki?${params.toString()}`;
     };
 

@@ -1,7 +1,7 @@
 {
   "wayki_layout": {
     "thanks": "¡Gracias!",
-    "welcome": "!Bienvenido a TUCUMAN!",
+    "welcome": "Bienvenido a TUCUMAN",
     "help": "¡Ayúdame a planear tu viaje!",
     "skip": "Omitir Encuesta",
     "itinerary": "Escanea este código QR para ver tu itinerario.",
@@ -10,6 +10,11 @@
     "return": "Volver",
     "next": "Siguiente",
     "finish": "Finalizar"
+  },
+  "wayki_itinerary": {
+    "message": "Hola! Soy Wayki y estoy aqui para ayudarte a planear tu viaje por Tucumán. Contesta las siguientes preguntas para generar tu itinerario personalizado.",
+    "okey": "Adelante!",
+    "close": "Cerrar"
   },
   "questions": {
     "edad": {

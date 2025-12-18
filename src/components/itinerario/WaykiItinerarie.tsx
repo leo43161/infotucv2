@@ -5,8 +5,10 @@ import { RootState } from '@/store/store';
 import { deleteData, getData, saveData } from '@/utils/indexedDB';
 import { closeWaykiItinerario, openWaykiItinerario, openWaykiLayout } from '@/store/features/uiSlice';
 import { useRouter } from 'next/router';
+import { useI18n } from '@/hooks/useI18n';
 
 export default function WaykiItinerarie() {
+    const { t } = useI18n();
     const IT_WAYKI_DISMISSED_KEY = 'waykiItDismissed';
     const LAYOUT_WAYKI_DISMISSED_KEY = 'waykiDismissed';
     const showWaykiItinerario = useSelector((state: RootState) => state.ui.isWaykiOpenItinerario);
@@ -105,7 +107,7 @@ export default function WaykiItinerarie() {
                     >
                         <div>
                             <div className="px-4 py-3.5 bg-secondary">
-                                <p className="mb-3 text-3xl font-bold px-1">Contesta estas preguntas y obtené tu itinerario</p>
+                                <p className="mb-3 text-3xl font-bold px-1">{t('wayki_itinerary.message')}</p>
                                 <div className='flex items-center gap-4'>
                                     <a
                                         className="inline-block rounded-md bg-primary px-3 py-1 font-bold text-white transition-transform hover:scale-105 cursor-pointer"
@@ -132,7 +134,7 @@ export default function WaykiItinerarie() {
                         }}
                     >
                         <div className='w-5/11'>
-                            <img className="inset-0 ms-auto" src={process.env.URL_IMG_TOUCH + '/img/wayki.png'} alt="" />
+                            <img className="inset-0 ms-auto" src={process.env.URL_IMG_TOUCH + '/img/wayki/wayki.png'} alt="" />
                         </div>
                     </motion.div>
                 </motion.div>

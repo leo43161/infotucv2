@@ -11,6 +11,11 @@
     "finish": "Finish",
     "mail": "We will ask for your email in the next step."
   },
+  "wayki_itinerary": {
+    "message": "Hola! Soy Wayki y estoy aqui para ayudarte a planear tu viaje por San Miguel de Tucumán. Contesta las siguientes preguntas para generar tu itinerario personalizado.",
+    "okey": "Adelante!",
+    "close": "Cerrar"
+  },
   "questions": {
     "edad": {
       "text": "How old are you?",
