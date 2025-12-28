@@ -34,7 +34,7 @@ export default function LayoutWayki({ onSkip }: { onSkip: () => void }) {
                     animate="center"
                     exit="exit"
                     transition={{
-                        x: { type: 'spring', stiffness: 400, damping: 30, delay: 0.9},
+                        x: { type: 'spring', stiffness: 400, damping: 30, delay: 0.9 },
                     }}
                 >
                     <img className='absolute w-full h-full object-cover z-[0] opacity-10 object-center top-0 left-0' src={process.env.URL_IMG_TOUCH + "/img/header/textura-tucuman.png"} alt="" />
@@ -44,11 +44,11 @@ export default function LayoutWayki({ onSkip }: { onSkip: () => void }) {
                     <WaykiQuestionnaire />
                     <div className='flex justify-around items-center absolute bottom-15 left-1/2 -translate-x-1/2 w-full'>
                         <div>
-                            <LanguageSwitcher classNameLabel='text-2xl font-bold' buttonClassName='bg-primary text-zinc-50 h-full text-2xl' className='h-full w-42' direction='up' />
+                            <LanguageSwitcher classNameLabel='text-3xl font-bold' buttonClassName='bg-primary text-zinc-50 h-full text-2xl' className='h-full w-42' direction='up' />
                         </div>
                         {/* --- 2. CAMBIA EL onClick para usar onSkip --- */}
                         <div onClick={onSkip}>
-                            <h4 className='text-2xl font-bold text-white underline cursor-pointer bg-primary py-2 px-4 rounded-lg'>{t('wayki_layout.skip')}</h4>
+                            <h4 className='text-3xl font-bold text-white underline cursor-pointer bg-primary py-2 px-4 rounded-lg'>{t('wayki_layout.skip')}</h4>
                         </div>
                     </div>
                 </motion.div>

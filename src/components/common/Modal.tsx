@@ -27,7 +27,7 @@ const Modal = ({
     children: React.ReactNode,
     title?: string,
     fullScreen?: boolean,
-    size?: string,
+    size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full',
     showCloseButton?: boolean,
     overlayColor?: string,
     backgroundColor?: string,

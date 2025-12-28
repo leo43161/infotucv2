@@ -24,7 +24,7 @@ const Layout = ({ children, className }: Props) => {
     const checkWaykiDismissed = async () => {
       const dismissed = await getData(LAYOUT_WAYKI_DISMISSED_KEY);
       if (!dismissed && router.pathname === '/') {
-        dispatch(openWaykiLayout());
+       /*  dispatch(openWaykiLayout()); */
       } else {
         dispatch(closeWaykiLayout());
       }

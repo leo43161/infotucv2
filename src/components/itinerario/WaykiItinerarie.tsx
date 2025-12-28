@@ -103,23 +103,23 @@ export default function WaykiItinerarie() {
                     <motion.div
                         //@ts-ignore
                         variants={bubbleVariants}
-                        className="relative md:w-105 w-[80vw] overflow-hidden rounded-md text-white shadow-xl right-2 -left-25 top-25"
+                        className="relative md:w-120 w-[80vw] overflow-hidden rounded-md text-white shadow-xl right-2 -left-25 top-25"
                     >
                         <div>
-                            <div className="px-4 py-3.5 bg-secondary">
-                                <p className="mb-3 text-3xl font-bold px-1">{t('wayki_itinerary.message')}</p>
+                            <div className="px-4 py-3.5 bg-primary">
+                                <p className="mb-3 text-4xl font-extrabold px-1 underline">{t('wayki_itinerary.message')}</p>
                                 <div className='flex items-center gap-4'>
                                     <a
-                                        className="inline-block rounded-md bg-primary px-3 py-1 font-bold text-white transition-transform hover:scale-105 cursor-pointer"
+                                        className="inline-block rounded-md bg-white px-3 py-1 font-bold text-secondary transition-transform hover:scale-105 cursor-pointer text-xl"
                                         onClick={handleWaykiLayoutShow}
                                     >
-                                        Adelante!
+                                        {t('wayki_itinerary.okey')}
                                     </a>
                                     <button
-                                        className="inline-block rounded-md bg-transparent py-1 font-bold text-white transition-transform hover:scale-105 underline cursor-pointer"
+                                        className="inline-block rounded-md bg-transparent py-1 font-bold text-white transition-transform hover:scale-105 underline cursor-pointer text-xl"
                                         onClick={() => handleWaykiItDismiss()}
                                     >
-                                        Cerrar
+                                        {t('wayki_itinerary.close')}
                                     </button>
                                 </div>
                             </div>

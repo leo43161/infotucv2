@@ -5,6 +5,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { cn } from '@/utils';
 import { useI18n } from '@/hooks/useI18n';
 import { DynamicIcon, IconName } from 'lucide-react/dynamic';
+import TwitchPlayer from '../stream/TwitchPlayer';
 
 // ... (Tipos y variants de las preguntas se mantienen igual) ...
 type Question = {
@@ -382,6 +383,7 @@ export default function WaykiQuestionnaire() {
     return (
         <div className="size-full flex items-center justify-center p-4">
             <div className="flex-1 flex flex-col justify-center items-center">
+                
                 <AnimatePresence mode="wait">
                     {showQR ? (
                         <motion.div
