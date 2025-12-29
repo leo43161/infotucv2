@@ -33,9 +33,9 @@ export default function HomePage() {
       <div className="p-4">
         <EventCarousel />
       </div>
-      <div className="py-2 px-3  border-1 rounded-2xl absolute bottom-5 right-5 flex items-center bg-secondary shadow" onClick={handleOpenModal}>
-        <Circle fill="oklch(57.7% 0.245 27.325)" stroke="#00000000" className="mr-2 animate-ping duration-150 opacity-75" />
-        <Circle fill="oklch(57.7% 0.245 27.325)" stroke="#00000000" className="mr-2 absolute" />
+      <div className="py-2 px-3 border-1 absolute bottom-5 right-5 flex items-center bg-red-600 shadow" onClick={handleOpenModal}>
+        <Circle fill="#fff" stroke="#00000000" className="mr-2 animate-ping duration-150 opacity-75" />
+        <Circle fill="#fff" stroke="#00000000" className="mr-2 absolute" />
         <span className="font-bold text-xl text-white">Mira el Cadillal en VIVO</span>
       </div>
       {isOpen && (

@@ -58,16 +58,16 @@ export default function ModalVivo({
                 </div>
 
                 {/* OVERLAY DE INFORMACIÓN (Clima y Localidad) */}
-                <div className="absolute top-6 left-6 z-20 flex flex-col gap-4 pointer-events-none">
-                    <div className="bg-black/50 backdrop-blur-md p-6 rounded-2xl border border-white/10 text-white shadow-2xl">
-                        <h2 className="text-sm font-medium uppercase tracking-widest text-red-400 mb-1">En Vivo</h2>
+                <div className="md:absolute top-6 left-6 z-20 flex flex-col gap-4 pointer-events-none w-full md:w-auto">
+                    <div className="bg-secondary/50 backdrop-blur-md p-4 md:rounded-xl border border-white/10 text-white shadow-2xl">
+                        <h2 className="text-sm font-medium uppercase tracking-widest text-primary mb-1">En Vivo</h2>
                         <h1 className="text-3xl font-bold">El Cadillal</h1>
                         <p className="text-white/70">San Miguel de Tucumán</p>
                         
                         {weather && (
-                            <div className="mt-6 flex items-center gap-6">
-                                <div className="flex items-center gap-2">
-                                    <Thermometer className="text-orange-400" size={32} />
+                            <div className="mt-4 flex items-center gap-5">
+                                <div className="flex items-center gap-1">
+                                    <Thermometer className="text-primary" size={32} />
                                     <span className="text-4xl font-light">{weather.temp_c}°C</span>
                                 </div>
                                 <div className="h-10 w-px bg-white/20" />
