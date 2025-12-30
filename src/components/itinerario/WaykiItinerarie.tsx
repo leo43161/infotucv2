@@ -29,7 +29,8 @@ export default function WaykiItinerarie() {
         const checkWaykiDismissed = async () => {
 
             const dismissed = await getData(LAYOUT_WAYKI_DISMISSED_KEY);
-            if (dismissed && router.pathname === '/') {
+            console.log('Wayki Layout pathname:', router.pathname);
+            if (dismissed && router.pathname === '/infotuc') {
                 dispatch(openWaykiItinerario());
             } else {
                 dispatch(closeWaykiItinerario());
