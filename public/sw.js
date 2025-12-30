@@ -39,6 +39,17 @@ const STATIC_ASSETS = [
   '/infotuc/img/mapas/choromoro-2025.jpg',
   '/infotuc/img/mapas/rural2.jpg',
   '/infotuc/img/mapas/rural1.jpg',
+  '/infotuc/img/wayki/caballero-2-derecha.png',
+  '/infotuc/img/wayki/limpiando.png',
+  '/infotuc/img/wayki/matero-2.png',
+  '/infotuc/img/wayki/selfie-2.png',
+  '/infotuc/img/wayki/turista.png',
+  '/infotuc/img/wayki/viajero.png',
+  '/infotuc/img/wayki/wayki.png',
+  '/infotuc/img/wayki/cocinando.png',
+  '/infotuc/img/wayki/conferencia-derecha.png',
+  '/infotuc/img/wayki/deportista.png',
+  '/infotuc/img/wayki/superheroe.png',
 ];
 
 async function precacheAssets() {
