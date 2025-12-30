@@ -333,8 +333,8 @@ export default function WaykiQuestionnaire() {
                 params.append(key, valueAppend);
             }
         }
-        console.log(`http://10.20.20.5:3000/it-wayki?${params.toString()}`);
-        return `http://10.20.20.5:3000/it-wayki?${params.toString()}`;
+        console.log(`${process.env.URL_TOUCH}it-wayki?${params.toString()}`);
+        return process.env.URL_TOUCH + `it-wayki?${params.toString()}`;
     };
 
     const isMultiselectValid = () => {
