@@ -1,3 +1,4 @@
+import TwitchPlayer from "@/components/stream/TwitchPlayer";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -10,6 +11,9 @@ export default function Document() {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </Head>
       <body className="antialiased">
+        {/* <div>
+        <TwitchPlayer channel="tucumanturismo02" />
+        </div> */}
         <Main />
         <NextScript />
       </body>

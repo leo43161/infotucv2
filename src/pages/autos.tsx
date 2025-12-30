@@ -1,4 +1,4 @@
-import CardAutos from '@/components/Autos/CardAutos';
+import CardAutos from '@/components/autos/CardAutos';
 import Paginado from '@/components/common/Paginado';
 import { useI18n } from '@/hooks/useI18n';
 import { useOfflineQuery } from '@/hooks/useOfflineQuery';
