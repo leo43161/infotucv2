@@ -241,8 +241,8 @@ export default function ItinerarioEmail() {
                         transition={{ repeat: Infinity, repeatDelay: 5 }}
                     >
                         <img
-                            src={process.env.NEXT_PUBLIC_URL_IMG_TOUCH ?
-                                process.env.NEXT_PUBLIC_URL_IMG_TOUCH + '/img/wayki/' + waykiActividad
+                            src={process.env.URL_IMG_TOUCH ?
+                                process.env.URL_IMG_TOUCH + '/img/wayki/' + waykiActividad
                                 : '/img/wayki/' + waykiActividad}
                             alt="Wayki"
                             className="w-[580px] max-w-none"
