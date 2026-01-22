@@ -31,6 +31,8 @@ export default function WaykiItinerarie() {
 
             const dismissed = await getData(LAYOUT_WAYKI_DISMISSED_KEY);
             console.log('Wayki Layout pathname:', router.pathname);
+            console.log('Wayki Layout dismissed:', dismissed);
+            console.log('Abre wayki layout', dismissed && router.pathname === '/');
             if (dismissed && router.pathname === '/') {
                 console.log('Wayki Layout has been dismissed previously.');
                 dispatch(openWaykiItinerario());
