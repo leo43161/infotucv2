@@ -14,6 +14,7 @@ export default function WaykiItinerarie() {
     const showWaykiItinerario = useSelector((state: RootState) => state.ui.isWaykiOpenItinerario);
     const router = useRouter();
     const dispatch = useDispatch();
+
     const handleWaykiItDismiss = async () => {
         await saveData(IT_WAYKI_DISMISSED_KEY, 'true', 30 * 60 * 60);
         dispatch(closeWaykiItinerario());
@@ -30,7 +31,7 @@ export default function WaykiItinerarie() {
 
             const dismissed = await getData(LAYOUT_WAYKI_DISMISSED_KEY);
             console.log('Wayki Layout pathname:', router.pathname);
-            if (dismissed && router.pathname === '/infotuc') {
+            if (dismissed && router.pathname === '/') {
                 dispatch(openWaykiItinerario());
             } else {
                 dispatch(closeWaykiItinerario());
