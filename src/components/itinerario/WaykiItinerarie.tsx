@@ -45,7 +45,7 @@ export default function WaykiItinerarie() {
     useEffect(() => {
         const showInterval = setInterval(async () => {
             dispatch(openWaykiItinerario());
-        }, 60000);
+        }, 30000);
 
         return () => clearInterval(showInterval);
     }, []);
